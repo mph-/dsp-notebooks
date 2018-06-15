@@ -1,0 +1,18 @@
+from __future__ import print_function
+import numpy as np
+from ipywidgets import interact, interactive, fixed, interact_manual
+from signal_plot import signal_plot
+
+def sinewave_plot(A=1, f=2, N=50, fs=50):
+    t = np.arange(N) / fs
+    x = A * np.sin(2 * np.pi * f * t)
+
+    signal_plot(t, x, both=True)    
+
+def sinewave_demo1():
+    interact_manual(sinewave_plot, A=(1, 10), f=(1, 10), N=(10, 100, 10), fs=(5, 100, 10), manual_name='Update')
+    
+    
+
+    
+
