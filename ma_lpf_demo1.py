@@ -16,7 +16,8 @@ def ma_lpf_plot(M=10, N=100, sigma=0.2):
     s = A
     x = s + n
 
-    y = signal.lfilter(b=np.ones(M) / M, a=1, x=x)
+    h = np.ones(M) / M
+    y = signal.lfilter(b=h, a=1, x=x)
 
     signal_plot(t, y, both=True)    
 
