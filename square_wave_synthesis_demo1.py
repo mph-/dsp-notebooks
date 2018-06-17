@@ -1,6 +1,6 @@
 from __future__ import print_function
 import numpy as np
-from ipywidgets import interact, interactive, fixed, interact_manual
+from ipywidgets import interact, interactive, fixed, interact
 from signal_plot import signal_plot
 
 def square_wave_synthesis_plot(M=10, f0=2, fs=100, N=100):
@@ -16,9 +16,9 @@ def square_wave_synthesis_plot(M=10, f0=2, fs=100, N=100):
     signal_plot(t, x, both=True)
 
 def square_wave_synthesis_demo1():
-    interact_manual(square_wave_synthesis_plot,  M=(1, 100), f0=(1, 10),
+    interact(square_wave_synthesis_plot,  M=(1, 100), f0=(1, 10),
                     fs=(100, 1000, 100), N=(100, 1000, 100),
-                    manual_name='Update')
+                    continuous_update=False)
     
     
 
