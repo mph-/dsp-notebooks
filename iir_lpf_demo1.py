@@ -23,7 +23,7 @@ def iir_lpf_plot(f=4, alpha=0.5):
     signal_plot(t, y, both=True)    
 
 def iir_lpf_demo1():
-    interact(iir_lpf_plot, alpha=(0.0, 1.0, 0.01), continuous_update=False)
+    interact(iir_lpf_plot, alpha=(0.0, 0.999, 0.01), continuous_update=False)
     
     
 
