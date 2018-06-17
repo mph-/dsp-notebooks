@@ -52,11 +52,11 @@ def signal_plot(t, x, **kwargs):
         signal_plot_continuous(t, x, axes=axes[1], **kwargs)
         return
     
-    discrete = kwargs.pop('discrete', False)
+    lollipop = kwargs.pop('lollipop', False)
 
     axes, kwargs = one_axes(**kwargs)
 
-    if discrete:
+    if lollipop:
         signal_plot_discrete(t, x, axes=axes, **kwargs)
     else:
         signal_plot_continuous(t, x, axes=axes, **kwargs)    

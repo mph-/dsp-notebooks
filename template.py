@@ -24,7 +24,7 @@ def template_plot(f=4, alpha=0.5, beta=fixed(1)):
 
     y = signal.lfilter(b=(1 - alpha, ), a=(1, -alpha), x=x)
 
-    signal_plot(t, y, both=True)    
+    signal_plot(t, y, lollipop=lollipop)    
 
 def template_demo1():
     interact(template_plot, alpha=(0.0, 1.0, 0.01), continuous_update=False)

@@ -24,7 +24,7 @@ def iir_lpf_plot(f=4, alpha=0.5):
     filter_plot(b, a, fs)
     y = signal.lfilter(b=b, a=a, x=x)
 
-    signal_plot(t, y, both=True)    
+    signal_plot(t, y, lollipop=lollipop)    
 
 def iir_lpf_demo3():
     interact_manual(iir_lpf_plot, alpha=(0.0, 1.0, 0.01), manual_name='Update')

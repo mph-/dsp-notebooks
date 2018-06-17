@@ -4,7 +4,7 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from signal_plot import signal_plot
 
-def ma_lpf_plot(f=4, M=10, N=100, sigma=0.2):
+def ma_lpf_plot(f=4, M=10, N=100, sigma=0.2, lollipop=True):
 
     A = 1
     fs = 100
@@ -19,7 +19,7 @@ def ma_lpf_plot(f=4, M=10, N=100, sigma=0.2):
     h = np.ones(M) / M
     y = signal.lfilter(b=H, a=1, x=x)
 
-    signal_plot(t, y, both=True)    
+    signal_plot(t, y, lollipop=lollipop)    
 
 def ma_lpf_demo2():
     interact(ma_lpf_plot, M=(1, 100, 1),

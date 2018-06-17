@@ -6,7 +6,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio
 from filter_plot import filter_plot
 
-def iir_lpf_play(alpha=0.5, name='dalek-exterminate'):
+def iir_lpf_play(alpha=0.5, name='dalek-exterminate', bode=True):
 
     fs, x = scipy.io.wavfile.read('data/%s.wav' % name)
     try:
@@ -17,7 +17,7 @@ def iir_lpf_play(alpha=0.5, name='dalek-exterminate'):
     b = (1 - alpha, )
     a = (1, -alpha)
     
-    filter_plot(b, a, fs)
+    filter_plot(b, a, fs, bode=bode)
     
     y = signal.lfilter(b=(1 - alpha, ), a=(1, -alpha), x=x)
 
