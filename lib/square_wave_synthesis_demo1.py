@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy as np
 from ipywidgets import interact, interactive, fixed, interact
-from signal_plot import signal_plot
+from .signal_plot import signal_plot
 
 def square_wave_synthesis_plot(M=10, f0=2, fs=100, N=100, lollipop=False):
 

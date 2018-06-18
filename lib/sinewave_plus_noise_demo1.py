@@ -2,7 +2,7 @@ from __future__ import print_function
 import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from signal_plot import signal_plot
+from .signal_plot import signal_plot
 
 def sinewave_plus_noise_plot(A=1, sigma=0.2, f=4, N=100, fs=100, lollipop=True):
 

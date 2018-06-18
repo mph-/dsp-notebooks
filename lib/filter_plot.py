@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.signal as signal
-from signal_plot import one_axes
+from .signal_plot import one_axes
 
 def filter_plot(b, a, fs, f=None, bode=True, N=400, **kwargs):
 

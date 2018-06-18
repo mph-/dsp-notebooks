@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy as np
 from ipywidgets import interact, interactive, fixed, interact
-from signal_plot import signal_plot
+from .signal_plot import signal_plot
 
 def sinewave_plot(A=1, f=2, N=50, fs=50, lollipop=True):
     t = np.arange(N) / fs

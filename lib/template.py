@@ -2,7 +2,7 @@ from __future__ import print_function
 import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact_manual
-from signal_plot import signal_plot
+from .signal_plot import signal_plot
 
 # x = widgets.IntSlider(min=-10, max=30, step=1, value=10));
 

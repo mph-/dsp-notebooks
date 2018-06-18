@@ -4,7 +4,7 @@ import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio
-from filter_plot import filter_plot
+from .filter_plot import filter_plot
 
 def convolution_play(signal_name='dalek-exterminate',
                      impulse_name='york-minster'):

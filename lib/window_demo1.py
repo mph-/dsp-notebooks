@@ -2,7 +2,7 @@ from __future__ import print_function
 import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from signal_plot import signal_plot
+from .signal_plot import signal_plot
 
 
 # fixed does not generate a widget

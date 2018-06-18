@@ -4,8 +4,8 @@ import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio
-from filter_plot import filter_plot
-from signal_plot import signal_plot
+from .filter_plot import filter_plot
+from .signal_plot import signal_plot
 
 def iir_notch_play(fnotch=50, alpha=0.5, bode=True):
 

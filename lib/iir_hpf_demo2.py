@@ -4,7 +4,7 @@ import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio
-from filter_plot import filter_plot
+from .filter_plot import filter_plot
 
 def iir_hpf_play(alpha=0.5, signal_name='dalek-exterminate', bode=True):
 
