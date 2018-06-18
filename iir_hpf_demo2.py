@@ -6,9 +6,9 @@ from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio
 from filter_plot import filter_plot
 
-def iir_hpf_play(alpha=0.5, signal='dalek-exterminate', bode=True):
+def iir_hpf_play(alpha=0.5, signal_name='dalek-exterminate', bode=True):
 
-    fs, x = scipy.io.wavfile.read('data/%s.wav' % signal)
+    fs, x = scipy.io.wavfile.read('data/%s.wav' % signal_name)
     try:
         x = x[:, 0]
     except:
@@ -21,14 +21,11 @@ def iir_hpf_play(alpha=0.5, signal='dalek-exterminate', bode=True):
     
     y = signal.lfilter(b=b, a=a, x=x)
 
-    # y = y / y.max()
-    
     return Audio(y, rate=fs)
-    #return Audio(filesignal='data/dalek-exterminate.wav')
 
 def iir_hpf_demo2():
     interact(iir_hpf_play, alpha=(0.001, 1.0, 0.01),
-             signal=['dalek-exterminate', 'dalek-gun', 'dalek-groan'],
+             signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan'],
              continuous_update=False)
     
     

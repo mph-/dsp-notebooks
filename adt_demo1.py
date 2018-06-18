@@ -6,9 +6,9 @@ from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio
 from filter_plot import filter_plot
 
-def adt_play(M=5000, alpha=0.5, signal='dalek-exterminate', bode=True):
+def adt_play(M=5000, alpha=0.5, signal_name='dalek-exterminate', bode=True):
 
-    fs, x = scipy.io.wavfile.read('data/%s.wav' % signal)
+    fs, x = scipy.io.wavfile.read('data/%s.wav' % signal_name)
     try:
         x = x[:, 0]
     except:
@@ -28,7 +28,7 @@ def adt_play(M=5000, alpha=0.5, signal='dalek-exterminate', bode=True):
 def adt_demo1():
     interact(adt_play, alpha=(0.0, 0.999, 0.01),
              M=(0, 10000, 100),
-             signal=['dalek-exterminate', 'dalek-gun', 'dalek-groan'],
+             signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan'],
              continuous_update=False)
     
     
