@@ -25,5 +25,5 @@ def filter_plot(b, a, fs, f=None, bode=True, N=400, **kwargs):
         axes.plot(f, abs(X))
         axes.set_xlabel('Frequency (Hz)')
         axes.set_ylabel('Magnitude')
-        axes.set_ylim(0, 1)        
+        axes.set_ylim(0, 1.1)        
     
