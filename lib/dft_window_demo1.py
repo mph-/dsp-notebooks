@@ -2,10 +2,10 @@
 import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from .signal_plot import signal_plot_with_dft
+from .signal_plot import signal_plot_with_dft, spectrum_modes
 
-def dft_window_demo1_plot(N=100, P=2, window='hamming', cycles=2,
-                           phase=0, lollipop=True):
+def dft_window_demo1_plot(N=100, P=2, window='hamming', cycles=5,
+                           phase=0, mode='real-imag', lollipop=True):
 
     fs = 100
     T = N / fs
@@ -24,20 +24,13 @@ def dft_window_demo1_plot(N=100, P=2, window='hamming', cycles=2,
 
     f = np.arange(len(Xz)) / N * fs
 
-    signal_plot_with_dft(tz, xz, f, Xz, lollipop=lollipop)
+    signal_plot_with_dft(tz, xz, f, Xz, lollipop=lollipop, mode=mode)
 
 def dft_window_demo1():
     interact(dft_window_demo1_plot, P=(1, 8),
              window=['rect', 'hamming', 'blackman'],
-             N=(64, 512), cycles=(1, 3, 0.1),
-             phase=(-180, 180, 15), continuous_update=False)
-    
-    
-
-    
-
-
-
-
-    
+             N=(64, 512), cycles=(1, 10, 0.1),
+             phase=(-180, 180, 15),
+             mode=spectrum_modes,
+             continuous_update=False)
 

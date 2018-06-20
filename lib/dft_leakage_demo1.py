@@ -1,9 +1,9 @@
 # M. P. Hayes UCECE
 import numpy as np
 from ipywidgets import interact, interactive, fixed, interact
-from .signal_plot import signal_plot_with_dft
+from .signal_plot import signal_plot_with_dft, spectrum_modes
 
-def dft_leakage_demo1_plot(N=100, cycles=2.5, phase=0, lollipop=True):
+def dft_leakage_demo1_plot(N=100, cycles=2.5, phase=0, mode='real-imag', lollipop=True):
 
     fs = 100
     T = N / fs
@@ -16,11 +16,13 @@ def dft_leakage_demo1_plot(N=100, cycles=2.5, phase=0, lollipop=True):
 
     f = np.arange(len(X)) / N * fs
     
-    signal_plot_with_dft(t, x, f, X, lollipop=lollipop)
+    signal_plot_with_dft(t, x, f, X, lollipop=lollipop, mode=mode)
 
 def dft_leakage_demo1():
     interact(dft_leakage_demo1_plot, N=(64, 512), cycles=(1, 3, 0.1),
-             phase=(-180, 180, 15), continuous_update=False)
+             phase=(-180, 180, 15),
+             mode=spectrum_modes,
+             continuous_update=False)
     
     
 

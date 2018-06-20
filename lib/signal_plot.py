@@ -4,13 +4,15 @@ import numpy as np
 
 spectrum_modes = ['real-imag', 'magnitude', 'magnitude dB', 'phase', 'magnitude-phase', 'magnitude dB-phase']
 
-def lollipop_plot(n, x, axes=None, markersize=6, **kwargs):
+def lollipop_plot(x, y, axes=None, markersize=4, **kwargs):
     """Produce a lollipop (stem) plot."""
 
     # TODO, use color cycler
     color = kwargs.pop('color', 'blue')
+
+    x = np.arange(len(x))
     
-    markerline, stemlines, baseline = axes.stem(n, x, **kwargs)
+    markerline, stemlines, baseline = axes.stem(x, y, **kwargs)
     setp(baseline, 'linewidth', 0, 'color', color)
     setp(markerline, 'markersize', markersize, 'color', color)
     setp(stemlines, 'color', color)    
@@ -117,17 +119,6 @@ def two_axes(**kwargs):
         fig.subplots_adjust(hspace=0.4)
     return axes, kwargs
 
-def signal_plot_discrete(t, x, axes, **kwargs):
-
-    n = np.arange(len(t))
-    lollipop_plot(n, x, axes=axes, **kwargs)
-    axes.set_xlabel('Sample number')
-
-def signal_plot_continuous(t, x, axes, **kwargs):
-
-    axes.plot(t, x, **kwargs)
-    axes.set_xlabel('Time (s)')
-
 def signal_plot2(t1, x1, t2, x2, **kwargs):    
 
     axes, kwargs = two_axes(**kwargs)
@@ -139,8 +130,8 @@ def signal_plot(t, x, **kwargs):
 
     if kwargs.pop('both', False):
         axes, kwargs = two_axes(**kwargs)
-        signal_plot_discrete(t, x, axes=axes[0], **kwargs)
-        signal_plot_continuous(t, x, axes=axes[1], **kwargs)
+        Plotter(axes[0], 'time', lollipop=True).plot(t, x)
+        Plotter(axes[1], 'time', lollipop=False).plot(t, x)                
         return axes[0].figure
     
     lollipop = kwargs.pop('lollipop', False)
@@ -148,9 +139,9 @@ def signal_plot(t, x, **kwargs):
     axes, kwargs = one_axes(**kwargs)
 
     if lollipop:
-        signal_plot_discrete(t, x, axes=axes, **kwargs)
+        Plotter(axes, 'time', lollipop=True).plot(t, x)
     else:
-        signal_plot_continuous(t, x, axes=axes, **kwargs)
+        Plotter(axes, 'time', lollipop=False).plot(t, x)        
 
     return axes.figure        
 
