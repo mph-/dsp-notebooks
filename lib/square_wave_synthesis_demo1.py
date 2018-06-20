@@ -1,4 +1,4 @@
-from __future__ import print_function
+# M. P. Hayes UCECE
 import numpy as np
 from ipywidgets import interact, interactive, fixed, interact
 from .signal_plot import signal_plot

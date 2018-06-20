@@ -1,12 +1,17 @@
+# M. P. Hayes UCECE
 from matplotlib.pyplot import subplots, setp
 import numpy as np
 
-def lollipop(n, x, axes=None, markersize=6, **kwargs):
+def lollipop_plot(n, x, axes=None, markersize=6, **kwargs):
     """Produce a lollipop (stem) plot."""
 
+    # TODO, use color cycler
+    color = kwargs.pop('color', 'blue')
+    
     markerline, stemlines, baseline = axes.stem(n, x, **kwargs)
-    setp(baseline, 'linewidth', 0)
-    setp(markerline, 'markersize', markersize)        
+    setp(baseline, 'linewidth', 0, 'color', color)
+    setp(markerline, 'markersize', markersize, 'color', color)
+    setp(stemlines, 'color', color)    
 
 def one_axes(**kwargs):
 
@@ -29,7 +34,7 @@ def two_axes(**kwargs):
 def signal_plot_discrete(t, x, axes, **kwargs):
 
     n = np.arange(len(t))
-    lollipop(n, x, axes=axes, **kwargs)
+    lollipop_plot(n, x, axes=axes, **kwargs)
     axes.set_xlabel('Sample number')
 
 def signal_plot_continuous(t, x, axes, **kwargs):
@@ -50,7 +55,7 @@ def signal_plot(t, x, **kwargs):
         axes, kwargs = two_axes(**kwargs)
         signal_plot_discrete(t, x, axes=axes[0], **kwargs)
         signal_plot_continuous(t, x, axes=axes[1], **kwargs)
-        return
+        return axes[0].figure
     
     lollipop = kwargs.pop('lollipop', False)
 
@@ -59,7 +64,9 @@ def signal_plot(t, x, **kwargs):
     if lollipop:
         signal_plot_discrete(t, x, axes=axes, **kwargs)
     else:
-        signal_plot_continuous(t, x, axes=axes, **kwargs)    
+        signal_plot_continuous(t, x, axes=axes, **kwargs)
+
+    return axes.figure        
 
 def hist_plot(t, x, **kwargs):
 
@@ -81,12 +88,15 @@ def signal_plot_with_hist(t, x, **kwargs):
     signal_plot(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
     hist_plot(t, x, axes=axes[1], range=range, **kwargs)
 
+    return axes[0].figure    
+
 def dtft_plot(f, X, **kwargs):
 
     axes, kwargs = one_axes(**kwargs)
-    axes.plot(f, X.real, **kwargs)
-    axes.plot(f, X.imag, **kwargs)    
+    axes.plot(f, X.real, label='real', **kwargs)
+    axes.plot(f, X.imag, label='imag', **kwargs)    
     axes.set_xlabel('Frequency (Hz)')
+    axes.legend()    
     
 def signal_plot_with_dtft(t, x, f, X, **kwargs):
 
@@ -97,3 +107,28 @@ def signal_plot_with_dtft(t, x, f, X, **kwargs):
     signal_plot(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
     dtft_plot(f, X, axes=axes[1], **kwargs)    
         
+    return axes[0].figure
+
+def dft_plot(f, X, lollipop=False, **kwargs):
+    axes, kwargs = one_axes(**kwargs)
+
+    if lollipop:
+        lollipop_plot(f, X.real, label='real', axes=axes, **kwargs)
+        lollipop_plot(f, X.imag, label='imag', axes=axes, **kwargs, color='orange')
+        axes.set_xlabel('Sample')
+    else:
+        axes.plot(f, X.real, label='real', **kwargs)
+        axes.plot(f, X.imag, label='imag', **kwargs)    
+        axes.set_xlabel('Frequency (Hz)')
+    axes.legend()
+
+def signal_plot_with_dft(t, x, f, X, **kwargs):
+
+    axes, kwargs = two_axes(**kwargs)
+
+    lollipop = kwargs.pop('lollipop', False)
+    
+    signal_plot(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
+    dft_plot(f, X, axes=axes[1], lollipop=lollipop, **kwargs)    
+        
+    return axes[0].figure

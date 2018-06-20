@@ -1,9 +1,9 @@
-from __future__ import print_function
+# M. P. Hayes UCECE
 import numpy as np
 import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from IPython.display import Audio
+from IPython.display import Audio, display
 from .filter_plot import filter_plot
 
 def iir_lpf_play(alpha=0.5, signal_name='dalek-exterminate', bode=True):
@@ -21,7 +21,7 @@ def iir_lpf_play(alpha=0.5, signal_name='dalek-exterminate', bode=True):
     
     y = signal.lfilter(b=b, a=a, x=x)
 
-    return Audio(y, rate=fs)
+    display(Audio(y, rate=fs))
 
 def iir_lpf_demo2():
     interact(iir_lpf_play, alpha=(0.0, 0.999, 0.01),

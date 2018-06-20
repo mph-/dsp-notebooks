@@ -1,9 +1,9 @@
-from __future__ import print_function
+# M. P. Hayes UCECE
 import numpy as np
 import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from IPython.display import Audio
+from IPython.display import Audio, display
 from .filter_plot import filter_plot
 from .signal_plot import signal_plot
 
@@ -33,7 +33,7 @@ def iir_notch_play(fnotch=50, alpha=0.5, bode=True):
 
     signal_plot(t[0:2000:10], y[0:2000:10])
     
-    return Audio(y, rate=fs)
+    display(Audio(y, rate=fs))
 
 def iir_notch_demo1():
     interact(iir_notch_play, fnotch=(30, 70, 1), alpha=(0.0, 0.999, 0.01),

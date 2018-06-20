@@ -1,4 +1,4 @@
-from __future__ import print_function
+# M. P. Hayes UCECE
 import numpy as np
 import scipy.io.wavfile
 import scipy.signal as signal
