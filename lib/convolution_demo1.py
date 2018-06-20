@@ -3,7 +3,7 @@ import numpy as np
 import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from IPython.display import Audio
+from IPython.display import Audio, display, display
 from .filter_plot import filter_plot
 
 def convolution_play(signal_name='dalek-exterminate',
@@ -34,7 +34,7 @@ def convolution_play(signal_name='dalek-exterminate',
         # Too slow
         y = signal.lfilter(b=b, a=a, x=x)
     else:
-        h = h / h[0]
+        h = h / h.max()
         N = len(x) + len(h) - 1
         # Round to power of 2 for FFT efficiency
         Nz = 2 << (N - 1).bit_length()        
@@ -43,12 +43,12 @@ def convolution_play(signal_name='dalek-exterminate',
         Y = X * H
         y = np.fft.irfft(Y)[0:N]
 
-    return Audio(y, rate=fs)
+    display(Audio(y, rate=fs))
 
 def convolution_demo1():
     interact(convolution_play,
              signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan', 'york-minster'],
-             impulse_name=[None, 'york-minster'],             
+             impulse_name=[None, 'york-minster', 'living-room', 'stairwell'],             
              continuous_update=False)
     
     
