@@ -3,52 +3,48 @@ import numpy as np
 import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from IPython.display import Audio, display, display
-from .filter_plot import filter_plot
+from .signal_plot import signal_plot3
 
-def convolution_play(signal_name='dalek-exterminate',
-                     impulse_name='york-minster'):
+seq1 = '{_1, 0, 0, 0, 0, 0}'
+seq2 = '{_1, 2, 3, 0, 0, 0}'
+seq3 = '{_1, 1, 1, 0, 0, 0}'
+seq4 = '{_0, 1, 0, 0, 0, 0}'
+seq5 = '{_0, 0, 1, 0, 0, 0}'
+seq6 = '{_0, 0, 0, 1, 0, 0}'
+seq7 = '{_1, 1, 1, 1, 1, 1}'
 
-    if impulse_name is None:
-        h = np.ones(1)
-    else:
-        fs, h = scipy.io.wavfile.read('data/%s.wav' % impulse_name)
-        try:
-            h = h[:, 0]
-        except:
-            pass
-        h = np.asarray(h, float)
+sequences = [seq1, seq2, seq3, seq4, seq5, seq6, seq7]
+
+def convert(seq):
+
+    seq = seq[1:-1]
+    seq = seq.replace('_', '')
+    parts = seq.split(',')
+    x = np.array(parts, dtype=float)
+    nx = np.arange(len(x))
+    return x, nx
+
+def zeropad(x, N):
+
+    return np.concatenate((x, np.zeros(N - len(x))))
+
+
+def convolution_demo1_plot(x, h):
+
+    x, nx = convert(x)
+    h, nh = convert(h)
+
+    y = signal.convolve(x, h)
+    ny = np.arange(len(y))
+
+    x = zeropad(x, len(y))
+    h = zeropad(h, len(y))    
     
-    fs, x = scipy.io.wavfile.read('data/%s.wav' % signal_name)
-    try:
-        x = x[:, 0]
-    except:
-        pass
-
-    b = h
-    a = (1, )
-    
-    #filter_plot(b, a, fs, bode=bode)
-
-    if False:
-        # Too slow
-        y = signal.lfilter(b=b, a=a, x=x)
-    else:
-        h = h / h.max()
-        N = len(x) + len(h) - 1
-        # Round to power of 2 for FFT efficiency
-        Nz = 2 << (N - 1).bit_length()        
-        X = np.fft.rfft(x, Nz)
-        H = np.fft.rfft(h, Nz)
-        Y = X * H
-        y = np.fft.irfft(Y)[0:N]
-
-    display(Audio(y, rate=fs))
+    signal_plot3(ny, x, ny, h, ny, y, lollipop=True, markersize=8)
 
 def convolution_demo1():
-    interact(convolution_play,
-             signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan', 'york-minster'],
-             impulse_name=[None, 'york-minster', 'living-room', 'stairwell'],             
+    interact(convolution_demo1_plot,
+             x=sequences, h=sequences,             
              continuous_update=False)
     
     

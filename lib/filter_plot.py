@@ -1,7 +1,7 @@
 # M. P. Hayes UCECE
 import numpy as np
 import scipy.signal as signal
-from .signal_plot import one_axes
+from .signal_plot import create_axes
 
 def filter_plot(b, a, fs, f=None, bode=True, N=400, **kwargs):
 
@@ -10,7 +10,7 @@ def filter_plot(b, a, fs, f=None, bode=True, N=400, **kwargs):
         
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
 
-    axes, kwargs = one_axes(**kwargs)
+    axes, kwargs = create_axes(1, **kwargs)
 
     if bode:
         P = abs(X)**2

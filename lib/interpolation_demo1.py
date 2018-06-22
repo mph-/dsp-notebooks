@@ -20,7 +20,7 @@ def interpolation_demo1_plot(N=100, cycles=25, Q=10, lollipop=False):
     signal_plot2(t, x, tz, xz, lollipop=lollipop)
 
 def interpolation_demo1():
-    interact(interpolation_demo1_plot, N=(64, 512), cycles=(0, 50, 1),
+    interact(interpolation_demo1_plot, N=(64, 512), cycles=(0, 64, 1),
              Q=(1, 20),
              continuous_update=False)
     

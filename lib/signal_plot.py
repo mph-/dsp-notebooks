@@ -49,8 +49,8 @@ class Plotter(object):
                 xlabel += ' (Hz)'
         self.xlabel = xlabel
                 
-
     def plot(self, x, y, **kwargs):
+
         if self.mode == 'time':
             self.plot_method(x, y, **kwargs)
             xlabel = 'Time (s)'
@@ -100,50 +100,50 @@ class Plotter(object):
         else:
             raise ValueError('Unknown mode %s' % mode)
         
-def one_axes(**kwargs):
-
-    axes = kwargs.pop('axes', None)
-    figsize = kwargs.pop('figsize', (8, 4))
-
-    if axes is None:
-        fig, axes = subplots(1, figsize=figsize)
-    return axes, kwargs
-
-def two_axes(**kwargs):
+def create_axes(num_axes, **kwargs):
 
     axes = kwargs.pop('axes', None)
     figsize = kwargs.pop('figsize', (8, 4))    
 
     if axes is None:    
-        fig, axes = subplots(2, 1, figsize=figsize)
-        fig.subplots_adjust(hspace=0.4)
+        fig, axes = subplots(num_axes, 1, figsize=figsize)
+        if num_axes > 1:
+            fig.subplots_adjust(hspace=0.4)
     return axes, kwargs
-
-def signal_plot2(t1, x1, t2, x2, **kwargs):    
-
-    axes, kwargs = two_axes(**kwargs)
-    
-    signal_plot(t1, x1, axes=axes[0], **kwargs)
-    signal_plot(t2, x2, axes=axes[1], **kwargs)    
 
 def signal_plot(t, x, **kwargs):    
 
     if kwargs.pop('both', False):
-        axes, kwargs = two_axes(**kwargs)
+        axes, kwargs = create_axes(2, **kwargs)
         Plotter(axes[0], 'time', lollipop=True).plot(t, x)
         Plotter(axes[1], 'time', lollipop=False).plot(t, x)                
         return axes[0].figure
     
     lollipop = kwargs.pop('lollipop', False)
 
-    axes, kwargs = one_axes(**kwargs)
+    axes, kwargs = create_axes(1, **kwargs)
 
     if lollipop:
-        Plotter(axes, 'time', lollipop=True).plot(t, x)
+        Plotter(axes, 'time', lollipop=True).plot(t, x, **kwargs)
     else:
-        Plotter(axes, 'time', lollipop=False).plot(t, x)        
+        Plotter(axes, 'time', lollipop=False).plot(t, x, **kwargs)        
 
     return axes.figure        
+
+def signal_plot2(t1, x1, t2, x2, **kwargs):    
+
+    axes, kwargs = create_axes(2, **kwargs)
+    
+    signal_plot(t1, x1, axes=axes[0], **kwargs)
+    signal_plot(t2, x2, axes=axes[1], **kwargs)
+
+def signal_plot3(t1, x1, t2, x2, t3, x3, **kwargs):    
+
+    axes, kwargs = create_axes(3, **kwargs)
+
+    signal_plot(t1, x1, axes=axes[0], **kwargs)
+    signal_plot(t2, x2, axes=axes[1], **kwargs)
+    signal_plot(t3, x3, axes=axes[2], **kwargs)        
 
 def hist_plot(t, x, **kwargs):
 
@@ -151,7 +151,7 @@ def hist_plot(t, x, **kwargs):
     range = kwargs.pop('range', None)
     density = kwargs.pop('density', None)    
     
-    axes, kwargs = one_axes(**kwargs)    
+    axes, kwargs = create_axes(1, **kwargs)    
             
     axes.hist(x, density=density, bins=bins, range=range)
         
@@ -160,7 +160,7 @@ def signal_plot_with_hist(t, x, **kwargs):
     range = kwargs.pop('range', None)
     lollipop = kwargs.pop('lollipop', False)    
     
-    axes, kwargs = two_axes(**kwargs)
+    axes, kwargs = create_axes(2, **kwargs)
 
     signal_plot(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
     hist_plot(t, x, axes=axes[1], range=range, **kwargs)
@@ -169,13 +169,13 @@ def signal_plot_with_hist(t, x, **kwargs):
 
 def dtft_plot(f, X, mode='real-imag', **kwargs):
 
-    axes, kwargs = one_axes(**kwargs)
+    axes, kwargs = create_axes(1, **kwargs)
 
     Plotter(axes, mode, lollipop=False).plot(f, X)
     
 def signal_plot_with_dtft(t, x, f, X, **kwargs):
 
-    axes, kwargs = two_axes(**kwargs)
+    axes, kwargs = create_axes(2, **kwargs)
 
     lollipop = kwargs.pop('lollipop', False)
     
@@ -185,13 +185,13 @@ def signal_plot_with_dtft(t, x, f, X, **kwargs):
     return axes[0].figure
 
 def dft_plot(f, X, lollipop=False, mode='real-imag', **kwargs):
-    axes, kwargs = one_axes(**kwargs)
+    axes, kwargs = create_axes(1, **kwargs)
 
     Plotter(axes, mode, lollipop).plot(f, X)
 
 def signal_plot_with_dft(t, x, f, X, **kwargs):
 
-    axes, kwargs = two_axes(**kwargs)
+    axes, kwargs = create_axes(2, **kwargs)
 
     lollipop = kwargs.pop('lollipop', False)
     mode = kwargs.pop('mode', 'real-imag')    
