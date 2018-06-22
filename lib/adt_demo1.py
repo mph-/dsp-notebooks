@@ -24,16 +24,10 @@ def adt_play(M=5000, alpha=0.5, signal_name='dalek-exterminate', bode=True):
     y = signal.lfilter(b=b, a=a, x=x)
 
     audio = Audio(y, rate=fs, embed=True)
-    import pdb; pdb.set_trace()
-    return fig, audio
+    return audio
 
 def adt_demo1():
     interact(adt_play, alpha=(0.0, 0.999, 0.01),
              M=(0, 10000, 100),
              signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan'],
              continuous_update=False)
-    
-    
-
-    
-
