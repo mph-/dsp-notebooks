@@ -14,12 +14,7 @@ def interpolation_demo1_plot(N=100, cycles=25, Q=10, lollipop=False):
     x = np.cos(2 * np.pi * f0 * t)
 
     xz = signal.resample(x, N * Q)
-    
-    #X = np.fft.rfft(x) / N
-    # Need to fix next line
-    #Xz = np.concatenate((X, np.zeros(len(X) * (Q - 1))))
-    #xz = np.fft.irfft(Xz) * (Q * N)
-    #tz = np.arange(len(xz)) / (Q * fs)
+    tz = np.arange(len(xz)) / (Q * fs)
 
     signal_plot2(t, x, tz, xz, lollipop=lollipop)
 
