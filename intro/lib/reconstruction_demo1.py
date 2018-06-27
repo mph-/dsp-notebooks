@@ -4,7 +4,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from .signal_plot import signal_plot, signal_plot_with_interpolated
 import scipy.signal as signal
 
-def sampling_demo1_plot(M=5, lollipop=True):
+def reconstruction_demo1_plot(M=5, lollipop=True):
 
     f0 = 1
     cycles = 5
@@ -18,8 +18,7 @@ def sampling_demo1_plot(M=5, lollipop=True):
 
     Q = 20
 
-    tz = np.arange(N * Q) / (fs * Q)
-    xz = np.sin(2 * np.pi * f0 * tz)
+    xz = signal.resample(x, N * Q)
     
     #X = np.fft.rfft(x) / N
     # Need to fix next line
@@ -29,8 +28,8 @@ def sampling_demo1_plot(M=5, lollipop=True):
     
     signal_plot_with_interpolated(t, x, tz, xz, lollipop=lollipop, ylim=(-1.1, 1.1))
 
-def sampling_demo1():
-    interact(sampling_demo1_plot, M=(0.2, 10, 0.2),
+def reconstruction_demo1():
+    interact(reconstruction_demo1_plot, M=(0.2, 10, 0.2),
              continuous_update=False)
     
     

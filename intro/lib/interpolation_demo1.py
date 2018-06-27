@@ -2,6 +2,7 @@
 import numpy as np
 from ipywidgets import interact, interactive, fixed, interact
 from .signal_plot import signal_plot2
+import scipy.signal as signal
 
 def interpolation_demo1_plot(N=100, cycles=25, Q=10, lollipop=False):
 
@@ -12,10 +13,13 @@ def interpolation_demo1_plot(N=100, cycles=25, Q=10, lollipop=False):
     t = np.arange(N) / fs
     x = np.cos(2 * np.pi * f0 * t)
 
-    X = np.fft.rfft(x) / N
-    Xz = np.concatenate((X, np.zeros(len(X) * (Q - 1))))
-    xz = np.fft.irfft(Xz) * (Q * N)
-    tz = np.arange(len(xz)) / (Q * fs)
+    xz = signal.resample(x, N * Q)
+    
+    #X = np.fft.rfft(x) / N
+    # Need to fix next line
+    #Xz = np.concatenate((X, np.zeros(len(X) * (Q - 1))))
+    #xz = np.fft.irfft(Xz) * (Q * N)
+    #tz = np.arange(len(xz)) / (Q * fs)
 
     signal_plot2(t, x, tz, xz, lollipop=lollipop)
 
