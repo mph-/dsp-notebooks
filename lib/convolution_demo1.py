@@ -12,8 +12,10 @@ seq4 = '{_0, 1, 0, 0, 0, 0}'
 seq5 = '{_0, 0, 1, 0, 0, 0}'
 seq6 = '{_0, 0, 0, 1, 0, 0}'
 seq7 = '{_1, 1, 1, 1, 1, 1}'
+seq8 = '{_1, 2, 3, 2, 1, 0}'
+seq9 = '{_1, -1, 0, 0, 0, 0}'
 
-sequences = [seq1, seq2, seq3, seq4, seq5, seq6, seq7]
+sequences = [seq1, seq2, seq3, seq4, seq5, seq6, seq7, seq8, seq9]
 
 def convert(seq):
 
