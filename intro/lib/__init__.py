@@ -13,6 +13,7 @@ from .dft_window_demo1 import *
 from .noise_demo1 import *
 from .discrete_time_demo1 import *
 from .interpolation_demo1 import *
+from .sampling_demo1 import *
 from .signal_plot import *
 from .filter_plot import *
 from .sinewave_demo1 import *

@@ -15,7 +15,7 @@ def lollipop_plot(x, y, axes=None, markersize=4, **kwargs):
     markerline, stemlines, baseline = axes.stem(x, y, **kwargs)
     setp(baseline, 'linewidth', 0, 'color', color)
     setp(markerline, 'markersize', markersize, 'color', color)
-    setp(stemlines, 'color', color)    
+    setp(stemlines, 'color', color)
 
 
 class Plotter(object):
@@ -51,6 +51,8 @@ class Plotter(object):
                 
     def plot(self, x, y, **kwargs):
 
+        ylim = kwargs.pop('ylim', None)
+        
         if self.mode == 'time':
             self.plot_method(x, y, **kwargs)
             xlabel = 'Time (s)'
@@ -99,7 +101,11 @@ class Plotter(object):
             
         else:
             raise ValueError('Unknown mode %s' % mode)
-        
+
+        if ylim is not None:
+           self.axes.set_ylim(ylim)
+
+            
 def create_axes(num_axes, **kwargs):
 
     axes = kwargs.pop('axes', None)
@@ -118,15 +124,10 @@ def signal_plot(t, x, **kwargs):
         Plotter(axes[0], 'time', lollipop=True).plot(t, x)
         Plotter(axes[1], 'time', lollipop=False).plot(t, x)                
         return axes[0].figure
-    
+
+    axes, kwargs = create_axes(1, **kwargs)    
     lollipop = kwargs.pop('lollipop', False)
-
-    axes, kwargs = create_axes(1, **kwargs)
-
-    if lollipop:
-        Plotter(axes, 'time', lollipop=True).plot(t, x, **kwargs)
-    else:
-        Plotter(axes, 'time', lollipop=False).plot(t, x, **kwargs)        
+    Plotter(axes, 'time', lollipop=lollipop).plot(t, x, **kwargs)
 
     return axes.figure        
 
@@ -135,8 +136,22 @@ def signal_plot2(t1, x1, t2, x2, **kwargs):
     axes, kwargs = create_axes(2, **kwargs)
     
     signal_plot(t1, x1, axes=axes[0], **kwargs)
+    if 'color' not in kwargs:
+        kwargs['color'] = 'orange'
     signal_plot(t2, x2, axes=axes[1], **kwargs)
 
+def signal_plot_with_interpolated(t1, x1, t2, x2, **kwargs):
+
+    axes, kwargs = create_axes(1, **kwargs)    
+    lollipop = kwargs.pop('lollipop', False)
+    p1 = Plotter(axes, 'time', lollipop=lollipop)
+    p1.plot(t1, x1, **kwargs)
+
+    if lollipop:
+        t2 = np.arange(len(t2)) / len(t2) * len(t1)
+    kwargs.pop('ylim')
+    p1.axes.plot(t2, x2, color='orange', **kwargs)
+    
 def signal_plot3(t1, x1, t2, x2, t3, x3, **kwargs):    
 
     axes, kwargs = create_axes(3, **kwargs)
