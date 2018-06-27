@@ -4,13 +4,12 @@ from ipywidgets import interact, interactive, fixed, interact
 from .signal_plot import signal_plot, signal_plot_with_interpolated
 import scipy.signal as signal
 
-def sampling_demo1_plot(M=5, lollipop=True):
+def sampling_demo1_plot(fs=5, lollipop=True):
 
     f0 = 1
     cycles = 5
     T = cycles / f0
 
-    fs = f0 * M
     N = int(fs * T)
     
     t = np.arange(N) / fs
@@ -30,7 +29,7 @@ def sampling_demo1_plot(M=5, lollipop=True):
     signal_plot_with_interpolated(t, x, tz, xz, lollipop=lollipop, ylim=(-1.1, 1.1))
 
 def sampling_demo1():
-    interact(sampling_demo1_plot, M=(0.2, 10, 0.2),
+    interact(sampling_demo1_plot, fs=(0.2, 10, 0.2),
              continuous_update=False)
     
     
