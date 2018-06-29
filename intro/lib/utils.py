@@ -1,4 +1,4 @@
-from numpy import round
+import numpy as np
 
 def rect(t):
     """Rectangle function"""
@@ -14,7 +14,10 @@ def triangle_wave(t, period=1.0):
     """Triangle wave with symmetry of cosine"""
 
     t /= period
-    cycles = round(t)
+    cycles = np.round(t)
     y = t - cycles
     return 2 * (tri(2 * y) - 0.5)
 
+def sinc(t):
+    """Normalised cardinal sine function sin(pi t) / (pi t)"""
+    return np.sinc(t)
