@@ -40,6 +40,7 @@ def sinc_demo1():
     interact(sinc_demo1_plot, T=(0.1, 5, 0.1), mode=spectrum_modes,
              continuous_update=False)
     
+
 def gated_cw_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
 
     tmax = 5
@@ -61,3 +62,25 @@ def gated_cw_demo1():
              phase=(-180, 180, 15),
              mode=spectrum_modes,
              continuous_update=False)
+
+def dirac_delta_demo1_plot(alpha=0.05, mode='real-imag'):
+
+    tmax = 100
+    fmax = 0.2
+    N = 1000
+
+    t = np.linspace(-tmax, tmax, N)
+    f = np.linspace(-fmax, fmax, N)    
+
+    x = np.exp(-alpha * abs(t))
+    X = 2 * alpha / (alpha**2 + (2 * np.pi *f)**2)
+    
+    axes = signal_plot_with_dft(t, x, f, X, mode=mode)
+    ylim = axes[0].get_ylim()
+    axes[0].set_ylim(0, ylim[1])
+
+def dirac_delta_demo1():
+    interact(dirac_delta_demo1_plot, alpha=(0.00001, 0.1, 0.001),
+             mode=spectrum_modes,
+             continuous_update=False)
+    
