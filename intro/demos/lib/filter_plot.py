@@ -1,6 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
-from matplotlib.pyplot import subplots, setp, show
+from matplotlib.pyplot import subplots, setp
 import scipy.signal as signal
 from .signal_plot import create_axes
 
@@ -29,6 +29,5 @@ def filter_plot(b, a, fs, f=None, bode=True, N=400, **kwargs):
         axes.set_ylabel('Magnitude')
         axes.set_ylim(0, 1.1)        
 
-    show()
     return axes.figure
 

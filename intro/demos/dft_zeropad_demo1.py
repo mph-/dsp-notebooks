@@ -1,6 +1,7 @@
 # M. P. Hayes UCECE
 import numpy as np
-from ipywidgets import interact, interactive, fixed, interact
+from matplotlib.pyplot import show
+from ipywidgets import interact, interactive, fixed
 from .lib.signal_plot import signal_plot_with_dft, spectrum_modes
 
 def dft_zeropad_demo1_plot(N=100, P=2, cycles=2, phase=0, mode='real-imag', lollipop=True):
@@ -21,6 +22,7 @@ def dft_zeropad_demo1_plot(N=100, P=2, cycles=2, phase=0, mode='real-imag', loll
     f = np.arange(len(Xz)) / N * fs
 
     signal_plot_with_dft(tz, xz, f, Xz, lollipop=lollipop, mode=mode)
+    show()
 
 def dft_zeropad_demo1():
     interact(dft_zeropad_demo1_plot, P=(1, 8), N=(64, 512), cycles=(1, 3, 0.1),

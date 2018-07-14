@@ -1,5 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
+from matplotlib.pyplot import show
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_dft, spectrum_modes
 from .lib.utils import rect, sinc
@@ -17,6 +18,7 @@ def rect_demo1_plot(T=1, mode='real-imag'):
     X = T * sinc(f * T)
     
     signal_plot_with_dft(t, x, f, X, mode=mode)
+    show()
 
 def rect_demo1():
     interact(rect_demo1_plot, T=(0.1, 5, 0.1), mode=spectrum_modes,
@@ -75,7 +77,8 @@ def dirac_delta_demo1_plot(alpha=0.05, mode='real-imag'):
     x = np.exp(-alpha * abs(t))
     X = 2 * alpha / (alpha**2 + (2 * np.pi *f)**2)
     
-    axes = signal_plot_with_dft(t, x, f, X, mode=mode)
+    fig = signal_plot_with_dft(t, x, f, X, mode=mode)
+    axes = fig.axes
     ylim = axes[0].get_ylim()
     axes[0].set_ylim(0, ylim[1])
 

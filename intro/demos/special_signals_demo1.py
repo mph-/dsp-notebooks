@@ -11,7 +11,7 @@ def dc_demo1_plot(A=1, lollipop=True):
     t = np.arange(N) / fs
 
     x = np.ones(N) * A
-    signal_plot(t, x, lollipop=lollipop, ylim=(0, 1.1))
+    signal_plot(t, x, lollipop=lollipop, ylim=(-5.1, 5.1))
 
 def dc_demo1():
     interact(dc_demo1_plot, A=(-5, 5), continuous_update=False)

@@ -1,5 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
+from matplotlib.pyplot import show
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot, signal_plot_with_dtft
@@ -20,6 +21,7 @@ def iir_lpf_dtft_plot(alpha=0.5, fs=100, fmax=50, lollipop=True):
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
     
     signal_plot_with_dtft(t, x, f, X, lollipop=lollipop)
+    show()
 
 def iir_lpf_dtft_demo1():
     interact(iir_lpf_dtft_plot, alpha=(0.0, 1.0, 0.01),

@@ -1,5 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
+from matplotlib.pyplot import show
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_dft, spectrum_modes
@@ -25,6 +26,7 @@ def dft_window_demo1_plot(N=100, P=2, window='hamming', cycles=5,
     f = np.arange(len(Xz)) / N * fs
 
     signal_plot_with_dft(tz, xz, f, Xz, lollipop=lollipop, mode=mode)
+    show()
 
 def dft_window_demo1():
     interact(dft_window_demo1_plot, P=(1, 8),

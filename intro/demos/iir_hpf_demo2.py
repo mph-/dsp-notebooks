@@ -1,5 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
+from matplotlib.pyplot import show
 import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
@@ -18,6 +19,7 @@ def iir_hpf_play(alpha=0.5, signal_name='dalek-exterminate', bode=True):
     a = (1, -alpha)
     
     filter_plot(b, a, fs, bode=bode)
+    show()
     
     y = signal.lfilter(b=b, a=a, x=x)
 

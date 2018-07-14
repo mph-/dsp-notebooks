@@ -1,5 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
+from matplotlib.pyplot import show
 import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
@@ -32,6 +33,7 @@ def iir_notch_play(fnotch=50, alpha=0.5, bode=True):
     y = signal.lfilter(b=b, a=a, x=x)
 
     signal_plot(t[0:2000:10], y[0:2000:10])
+    show()
     
     display(Audio(y, rate=fs))
 
