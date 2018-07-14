@@ -21,3 +21,9 @@ def triangle_wave(t, period=1.0):
 def sinc(t):
     """Normalised cardinal sine function sin(pi t) / (pi t)"""
     return np.sinc(t)
+
+def gauss(t, mu=0, sigma=1):
+    """Gaussian function"""
+
+    return np.exp(-0.5 * ((t - mu) / sigma)**2) / (np.sqrt(2 * np.pi) * sigma)
+
