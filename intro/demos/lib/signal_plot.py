@@ -143,6 +143,13 @@ def dtft_plot_func(f, X, mode='real-imag', **kwargs):
     Plotter(axes, mode, lollipop=False).plot(f, X)
     return axes
 
+def fourier_series_plot_func(n, X, mode='real-imag', **kwargs):
+
+    axes, kwargs = create_axes(1, **kwargs)
+
+    Plotter(axes, mode, lollipop=True).plot(n, X)
+    return axes
+
 def hist_plot_func(t, x, **kwargs):
 
     bins = kwargs.pop('bins', 100)
@@ -236,4 +243,14 @@ def signal_plot_with_dft(t, x, f, X, **kwargs):
     
     signal_plot_func(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
     dft_plot_func(f, X, axes=axes[1], lollipop=lollipop, mode=mode, **kwargs)
+    return axes[0].figure
+
+def signal_plot_with_fourier_series(t, x, n, X, **kwargs):
+
+    axes, kwargs = create_axes(2, **kwargs)
+
+    lollipop = kwargs.pop('lollipop', False)
+    
+    signal_plot_func(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
+    fourier_series_plot_func(n, X, axes=axes[1], **kwargs)
     return axes[0].figure
