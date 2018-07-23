@@ -148,6 +148,7 @@ def fourier_series_plot_func(n, X, mode='real-imag', **kwargs):
     axes, kwargs = create_axes(1, **kwargs)
 
     Plotter(axes, mode, lollipop=True).plot(n, X)
+    axes.set_xlabel('Frequency (harmonic number)')
     return axes
 
 def hist_plot_func(t, x, **kwargs):
