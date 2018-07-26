@@ -43,7 +43,7 @@ def sinc_demo1():
              continuous_update=False)
     
 
-def modulated_pulse_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
+def toneburst_fourier_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
 
     tmax = 5
     fmax = 20
@@ -58,8 +58,8 @@ def modulated_pulse_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
     
     signal_plot_with_dft(t, x, f, X, mode=mode)
 
-def modulated_pulse_demo1():
-    interact(modulated_pulse_demo1_plot, T=(0.1, 8, 0.1),
+def toneburst_fourier_demo1():
+    interact(toneburst_fourier_demo1_plot, T=(0.1, 8, 0.1),
              f0=(0, 10),
              phase=(-180, 180, 15),
              mode=spectrum_modes,
