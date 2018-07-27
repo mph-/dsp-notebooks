@@ -5,13 +5,16 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
 from .lib.utils import rect, sinc, gauss
 
-signals = ['rect(t)', 'rect(t/2)', 'gauss(t)', 'fang(t)']
+signals = ['rect(t)', 'rect(t/2)', 'gauss(t)', 'fang(t)', 'gauss(t/0.01)']
 
 
 def make_signal(t, name):
 
     if name == 'gauss(t)':
         return gauss(t, 0, 1)
+    elif name == 'gauss(t/0.01)':
+        x = gauss(t / 0.01)    
+        return x / max(x)
     elif name == 'rect(t)':
         return rect(t)
     elif name == 'rect(t/2)':
