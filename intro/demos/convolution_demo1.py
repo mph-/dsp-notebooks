@@ -1,57 +1,54 @@
 # M. P. Hayes UCECE
 import numpy as np
 from matplotlib.pyplot import show
-import scipy.io.wavfile
-import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
+from .lib.utils import rect, sinc, gauss
 
-seq1 = '{_1, 0, 0, 0, 0, 0}'
-seq2 = '{_1, 2, 3, 0, 0, 0}'
-seq3 = '{_1, 1, 1, 0, 0, 0}'
-seq4 = '{_0, 1, 0, 0, 0, 0}'
-seq5 = '{_0, 0, 1, 0, 0, 0}'
-seq6 = '{_0, 0, 0, 1, 0, 0}'
-seq7 = '{_1, 1, 1, 1, 1, 1}'
-seq8 = '{_1, 2, 3, 2, 1, 0}'
-seq9 = '{_1, -1, 0, 0, 0, 0}'
-
-sequences = [seq1, seq2, seq3, seq4, seq5, seq6, seq7, seq8, seq9]
-
-def convert(seq):
-
-    seq = seq[1:-1]
-    seq = seq.replace('_', '')
-    parts = seq.split(',')
-    x = np.array(parts, dtype=float)
-    nx = np.arange(len(x))
-    return x, nx
-
-def zeropad(x, N):
-
-    return np.concatenate((x, np.zeros(N - len(x))))
+signals = ['rect(t)', 'rect(t/2)', 'gauss(t)']
 
 
-def convolution_demo1_plot(x, h):
+def make_signal(t, name):
 
-    x, nx = convert(x)
-    h, nh = convert(h)
-
-    y = signal.convolve(x, h)
-    ny = np.arange(len(y))
-
-    x = zeropad(x, len(y))
-    h = zeropad(h, len(y))    
+    if name == 'gauss(t)':
+        return gauss(t, 0, 1)
+    elif name == 'rect(t)':
+        return rect(t)
+    elif name == 'rect(t/2)':
+        return rect(t / 2)        
+    raise ValueError('Unknown signal ' + name)
     
-    signal_plot3(ny, x, ny, h, ny, y, lollipop=True, markersize=8)
-    show()
+
+def convolution_demo1_plot(x=signals[0], h=signals[0], t=0.5):
+
+    N = 200
+    tmax = 5
+    fmax = 5    
+    t1 = np.linspace(-tmax, tmax, N)    
+
+    dt = t1[1] - t1[0]    
+    offset = int(-t1[0] / dt)
+    
+    x1 = make_signal(t1, x)
+    x2 = make_signal(t1, h)
+
+    y2 = make_signal(t - t1, h)
+    z1 = x1 * y2
+    z = np.convolve(x1, x2)[offset:offset + len(t1)] * dt
+
+    foo = np.trapz(z1, t1)
+    
+    fig = signal_plot3(t1, y2, t1, z1, t1, z)
+    axes = fig.axes
+    axes[0].plot(t1, x1)
+    axes[0].legend((r'$x(t-\tau)$', r'$h(\tau)$'))
+    axes[1].fill_between(t1, 0, z1)
+    axes[1].legend((r'$x(t-\tau) h(\tau)$', ))    
+    axes[1].set_ylim(0, max(z))
+    axes[2].plot((t, t), (0, foo), 'r')
+    axes[2].legend((r'$y(t)$', ))        
 
 def convolution_demo1():
-    interact(convolution_demo1_plot,
-             x=sequences, h=sequences,             
-             continuous_update=False)
+    interact(convolution_demo1_plot, x=signals, h=signals,
+             t=(-5, 5, 0.1),  continuous_update=False)
     
-    
-
-    
-
