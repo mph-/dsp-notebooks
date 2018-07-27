@@ -31,23 +31,26 @@ def convolution_demo1_plot(x=signals[0], h=signals[0], t=0.5):
     dt = t1[1] - t1[0]    
     offset = int(-t1[0] / dt)
     
-    x1 = make_signal(t1, x)
+    x1 = make_signal(t - t1, x)
     x2 = make_signal(t1, h)
+    y1 = make_signal(t1, x)    
 
-    y2 = make_signal(t - t1, h)
-    z1 = x1 * y2
-    z = np.convolve(x1, x2)[offset:offset + len(t1)] * dt
+    bar = [max(x2 * make_signal(tau - t1, x)) for tau in t1]
+    
+    z1 = x1 * x2
+    z = np.convolve(y1, x2)[offset:offset + len(t1)] * dt
 
     foo = np.trapz(z1, t1)
     
-    fig = signal_plot3(t1, y2, t1, z1, t1, z)
+    fig = signal_plot3(t1, x2, t1, z1, t1, z)
     axes = fig.axes
     axes[0].plot(t1, x1)
     axes[0].legend((r'$x(t-\tau)$', r'$h(\tau)$'))
     axes[1].fill_between(t1, 0, z1, facecolor='none', edgecolor='b', hatch='///')
     axes[1].legend((r'$x(t-\tau) h(\tau)$', ))    
-    axes[1].set_ylim(0, max(z))
+    axes[1].set_ylim(0, max(bar))
     axes[2].plot((t, t), (0, foo), 'r')
+    axes[2].plot(t, foo, 'ro')    
     axes[2].legend((r'$y(t)$', ))        
 
 def convolution_demo1():
