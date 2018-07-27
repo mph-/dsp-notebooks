@@ -5,7 +5,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
 from .lib.utils import rect, sinc, gauss
 
-signals = ['rect(t)', 'rect(t/2)', 'gauss(t)']
+signals = ['rect(t)', 'rect(t/2)', 'gauss(t)', 'fang(t)']
 
 
 def make_signal(t, name):
@@ -15,13 +15,15 @@ def make_signal(t, name):
     elif name == 'rect(t)':
         return rect(t)
     elif name == 'rect(t/2)':
-        return rect(t / 2)        
+        return rect(t / 2)
+    elif name == 'fang(t)':
+        return t * rect(t - 0.5)
     raise ValueError('Unknown signal ' + name)
     
 
 def convolution_demo1_plot(x=signals[0], h=signals[0], t=0.5):
 
-    N = 200
+    N = 500
     tmax = 5
     fmax = 5    
     t1 = np.linspace(-tmax, tmax, N)    
