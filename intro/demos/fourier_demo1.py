@@ -42,7 +42,6 @@ def sinc_demo1():
     interact(sinc_demo1_plot, T=(0.1, 5, 0.1), mode=spectrum_modes,
              continuous_update=False)
     
-
 def toneburst_fourier_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
 
     tmax = 5
@@ -112,4 +111,26 @@ def time_shift_demo1():
     interact(time_shift_demo1_plot, delay=(-2, 2, 0.1),
              mode=spectrum_modes,
              continuous_update=False)
+
+def delayed_toneburst_fourier_demo1_plot(T=1, f0=5, tau=0, mode='real-imag'):
+
+    tmax = 5
+    fmax = 20
+    N = 1000
+
+    t = np.linspace(-tmax, tmax, N)
+    f = np.linspace(-fmax, fmax, N)    
+
+    t1 = t - tau
+    x = rect(t1 / T) * np.cos(2 * np.pi * f0 * t1)
+
+    X = (0.5 * T * sinc((f - f0) * T) + 0.5 * T * sinc((f + f0) * T)) * np.exp(-2j * np.pi * f * tau)
     
+    signal_plot_with_dft(t, x, f, X, mode=mode)
+
+def delayed_toneburst_fourier_demo1():
+    interact(delayed_toneburst_fourier_demo1_plot, T=(0.1, 8, 0.1),
+             f0=(0, 10),
+             tau=(0, 5, 0.1),
+             mode=spectrum_modes,
+             continuous_update=False)    
