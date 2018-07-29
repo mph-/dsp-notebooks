@@ -22,7 +22,11 @@ class Plotter(object):
 
     def plot_lines(self, x, y, **kwargs):
         axes = kwargs.pop('axes', self.axes)
-        axes.plot(x, y, **kwargs)
+        log_frequency = kwargs.pop('log_frequency', False)
+        if log_frequency:
+            axes.semilogx(x, y, **kwargs)
+        else:
+            axes.plot(x, y, **kwargs)
         axes.set_xlabel(self.xlabel)
 
     def plot_lollipop(self, x, y, **kwargs):
@@ -30,7 +34,7 @@ class Plotter(object):
         lollipop_plot(x, y, axes=axes, **kwargs)
         axes.set_xlabel(self.xlabel)        
 
-    def __init__(self, axes, mode='time', lollipop=True):
+    def __init__(self, axes, mode='time', lollipop=True, log_frequency=False):
         self.axes = axes
         self.mode = mode
         self.lollipop = lollipop
@@ -70,7 +74,7 @@ class Plotter(object):
             self.axes.set_ylabel('Magnitude')
 
         elif self.mode == 'magnitude dB':
-            dB = 20 * np.log10(abs(y))
+            dB = 20 * np.log10(abs(y) + 1e-15)
             dB[dB < -100] = -100
             self.plot_method(x, dB, label='magnitude', **kwargs)
             self.axes.set_ylabel('Magnitude (dB)')
@@ -90,7 +94,7 @@ class Plotter(object):
             
         elif self.mode == 'magnitude dB-phase':
             axes2 = self.axes.twinx()
-            dB = 20 * np.log10(abs(y))
+            dB = 20 * np.log10(abs(y) + 1e-15)
             dB[dB < -100] = -100            
             self.plot_method(x, dB, label='magnitude', **kwargs)
             self.axes.set_ylabel('Magnitude (dB)')
@@ -130,6 +134,12 @@ def signal_plot_func(t, x, **kwargs):
     Plotter(axes, 'time', lollipop=lollipop).plot(t, x, **kwargs)
     return axes
 
+def spectrum_plot_func(f, X, mode='real-imag', log_frequency=False, **kwargs):
+    axes, kwargs = create_axes(1, **kwargs)
+
+    Plotter(axes, mode, lollipop=False, log_frequency=False).plot(f, X, log_frequency=log_frequency)
+    return axes
+
 def dft_plot_func(f, X, lollipop=False, mode='real-imag', **kwargs):
     axes, kwargs = create_axes(1, **kwargs)
 
@@ -161,6 +171,13 @@ def hist_plot_func(t, x, **kwargs):
             
     axes.hist(x, density=density, bins=bins, range=range)
     return axes
+
+def spectrum_plot(f, X, mode='real-imag', log_frequency=False, **kwargs):
+
+    axes, kwargs = create_axes(1, **kwargs)
+    spectrum_plot_func(f, X, axes=axes, mode=mode, log_frequency=log_frequency,
+                       **kwargs)
+    return axes.figure
 
 def signal_plot(t, x, **kwargs):
 

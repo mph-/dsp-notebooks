@@ -36,3 +36,5 @@ from .window_demo1 import *
 from .fourier_demo1 import *
 from .signal_types_demo1 import *
 from .toneburst_demo1 import *
+from .lpf_demo1 import *
+from .hpf_demo1 import *
