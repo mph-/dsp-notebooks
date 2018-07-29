@@ -2,10 +2,9 @@
 import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from .lib.signal_plot import spectrum_plot, spectrum_modes, signal_plot
+from .lib.signal_plot import spectrum_plot, spectrum_modes
 
-def lpf_demo1_plot(fb=100, mode='magnitude dB', log_frequency=True,
-                   impulse_response=False):
+def hpf_demo2_plot(fb=100, zeta=1, mode='magnitude dB', log_frequency=True):
 
     N = 501
     fmax = 1e3
@@ -17,18 +16,15 @@ def lpf_demo1_plot(fb=100, mode='magnitude dB', log_frequency=True,
     s = f * 2j * np.pi
 
     alpha = 2 * np.pi * fb
+    omega0 = 2 * np.pi * fb
 
-    H = alpha / (s + alpha)
+    H = s**2 / (s**2 + 2 * zeta * omega0 * s + omega0**2)
 
     spectrum_plot(f, H, mode=mode, log_frequency=log_frequency)
 
-    if impulse_response:
-        t = np.linspace(-0.01, 0.1, N)
-        h = np.exp(-alpha * t) * (t >= 0)
-        signal_plot(t, h, color='orange')
 
-def lpf_demo1():
-    interact(lpf_demo1_plot, fb=(10, 400, 10),
+def hpf_demo2():
+    interact(hpf_demo2_plot, fb=(10, 400, 10), zeta=(0, 10, 0.1),
              mode=spectrum_modes, continuous_update=False)
     
     

@@ -38,3 +38,7 @@ from .signal_types_demo1 import *
 from .toneburst_demo1 import *
 from .lpf_demo1 import *
 from .hpf_demo1 import *
+from .lpf_demo2 import *
+from .hpf_demo2 import *
+from .bpf_demo1 import *
+from .bsf_demo1 import *
