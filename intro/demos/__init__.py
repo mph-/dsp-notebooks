@@ -42,3 +42,4 @@ from .lpf_demo2 import *
 from .hpf_demo2 import *
 from .bpf_demo1 import *
 from .bsf_demo1 import *
+from .butterworth_demo1 import *
