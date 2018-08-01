@@ -34,6 +34,7 @@ from .iir_notch_demo1 import *
 from .triangle_wave_synthesis_demo1 import *
 from .window_demo1 import *
 from .fourier_demo1 import *
+from .fourier_linearity_demo1 import *
 from .signal_types_demo1 import *
 from .toneburst_demo1 import *
 from .lpf_demo1 import *
