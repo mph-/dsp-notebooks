@@ -8,15 +8,13 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_dft, spectrum_modes
 from .lib.utils import rect, sinc
 
-def beam_pattern_demo1_plot(fkHz=100.0, Dmm=50.0, c=1500):
+def beam_pattern_demo2_plot(lambdamm=5.0, Dmm=50.0):
 
-    f = fkHz * 1e3
+    lam = lambdamm / 1e3
     D = Dmm / 1e3
 
     Dmax = 0.2
     
-    lam = c / f
-
     dx = min(D / 64, lam / 2)
     
     N = max(4000, int(2 * D / dx))
@@ -62,9 +60,8 @@ def beam_pattern_demo1_plot(fkHz=100.0, Dmm=50.0, c=1500):
 
 
 
-def beam_pattern_demo1():
-    interact(beam_pattern_demo1_plot, continuous_update=False,
-             fkHz=(10, 200, 10),
-             Dmm=(10, 100, 5),
-             c=(300, 1500, 50))
+def beam_pattern_demo2():
+    interact(beam_pattern_demo2_plot, continuous_update=False,
+             lambdamm=(1, 50, 1),
+             Dmm=(10, 100, 5))
     
