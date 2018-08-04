@@ -243,9 +243,10 @@ def signal_plot_with_dtft(t, x, f, X, **kwargs):
     axes, kwargs = create_axes(2, **kwargs)
 
     lollipop = kwargs.pop('lollipop', False)
+    mode = kwargs.pop('mode', 'real-imag')        
     
     signal_plot_func(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
-    dtft_plot_func(f, X, axes=axes[1], **kwargs)
+    dtft_plot_func(f, X, axes=axes[1], mode=mode, **kwargs)
     return axes[0].figure
 
 def dft_plot(f, X, **kwargs):

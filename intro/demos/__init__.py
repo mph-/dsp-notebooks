@@ -46,3 +46,4 @@ from .bsf_demo1 import *
 from .butterworth_demo1 import *
 from .beam_pattern_demo1 import *
 from .beam_pattern_demo2 import *
+from .notch_filter_demo1 import *
