@@ -58,7 +58,9 @@ def beam_pattern_demo1_plot(fkHz=100.0, Dmm=50.0, c=1500):
     ax.set_xticks([])
     ax.xaxis.set_ticks_position('none')
     ax.set_yticks([])
-    ax.yaxis.set_ticks_position('none')    
+    ax.yaxis.set_ticks_position('none')
+    ax.set_title('$D/\lambda$ = %.2f' % (D / lam))
+    
 
 
 
