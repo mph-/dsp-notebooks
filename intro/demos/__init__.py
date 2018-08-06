@@ -38,6 +38,11 @@ from .fourier_linearity_demo1 import *
 from .signal_types_demo1 import *
 from .toneburst_demo1 import *
 from .lpf_demo1 import *
+from .lpf_response_demo1 import *
+from .hpf_response_demo1 import *
+from .bpf_response_demo1 import *
+from .bsf_response_demo1 import *
+from .butterworth_response_demo1 import *
 from .hpf_demo1 import *
 from .lpf_demo2 import *
 from .hpf_demo2 import *

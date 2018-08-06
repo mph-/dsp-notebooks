@@ -4,7 +4,7 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import spectrum_plot, spectrum_modes
 
-def bsf_demo1_plot(fb=100, zeta=1, mode='magnitude dB', log_frequency=True):
+def bsf_demo1_plot(f0=100, zeta=1, mode='magnitude dB', log_frequency=True):
 
     N = 501
     fmax = 1e3
@@ -15,8 +15,8 @@ def bsf_demo1_plot(fb=100, zeta=1, mode='magnitude dB', log_frequency=True):
         f = np.linspace(0, fmax, N)
     s = f * 2j * np.pi
 
-    alpha = 2 * np.pi * fb
-    omega0 = 2 * np.pi * fb
+    alpha = 2 * np.pi * f0
+    omega0 = 2 * np.pi * f0
 
     H = (s**2 + omega0**2) / (s**2 + 2 * zeta * omega0 * s + omega0**2)
 
@@ -24,7 +24,7 @@ def bsf_demo1_plot(fb=100, zeta=1, mode='magnitude dB', log_frequency=True):
 
 
 def bsf_demo1():
-    interact(bsf_demo1_plot, fb=(10, 400, 10), zeta=(0, 10, 0.1),
+    interact(bsf_demo1_plot, f0=(10, 400, 10), zeta=(0.05, 10, 0.05),
              mode=spectrum_modes, continuous_update=False)
     
     
