@@ -48,9 +48,9 @@ def convolution_demo1_plot(x=signals[0], h=signals[0], t=0.5):
     fig = signal_plot3(t1, x1, t1, z1, t1, z)
     axes = fig.axes
     axes[0].plot(t1, x2)
-    axes[0].legend((r'$x(t-\tau)$', r'$h(\tau)$'))
+    axes[0].legend((r'$x(%s-\tau)$' % t, r'$h(\tau)$'))
     axes[1].fill_between(t1, 0, z1, facecolor='none', edgecolor='b', hatch='///')
-    axes[1].legend((r'$x(t-\tau) h(\tau)$', ))    
+    axes[1].legend((r'$x(%s-\tau) h(\tau)$' % t, ))    
     axes[1].set_ylim(0, max(bar))
     axes[2].plot((t, t), (0, foo), 'r')
     axes[2].plot(t, foo, 'ro')    
