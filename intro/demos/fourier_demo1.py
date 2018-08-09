@@ -53,7 +53,7 @@ def toneburst_fourier_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
 
     x = rect(t / T) * np.cos(2 * np.pi * f0 * t + np.radians(phase))
 
-    X = 0.5 * T * sinc((f - f0) * T) * np.exp(-1j * np.radians(phase)) + 0.5 * T * sinc((f + f0) * T) * np.exp(1j * np.radians(phase))
+    X = 0.5 * T * sinc((f - f0) * T) * np.exp(1j * np.radians(phase)) + 0.5 * T * sinc((f + f0) * T) * np.exp(-1j * np.radians(phase))
     
     signal_plot_with_dft(t, x, f, X, mode=mode)
 
@@ -103,7 +103,7 @@ def time_shift_demo1_plot(delay=0, mode='real-imag'):
     t1 = t - delay
     x = rect(t1 / T) * np.cos(2 * np.pi * f0 * t1 + np.radians(phase))
 
-    X = (0.5 * T * sinc((f - f0) * T) * np.exp(-1j * np.radians(phase)) + 0.5 * T * sinc((f + f0) * T) * np.exp(1j * np.radians(phase))) * np.exp(-1j * 2 * np.pi * f * delay)
+    X = (0.5 * T * sinc((f - f0) * T) * np.exp(1j * np.radians(phase)) + 0.5 * T * sinc((f + f0) * T) * np.exp(-1j * np.radians(phase))) * np.exp(-1j * 2 * np.pi * f * delay)
     
     signal_plot_with_dft(t, x, f, X, mode=mode)
 
