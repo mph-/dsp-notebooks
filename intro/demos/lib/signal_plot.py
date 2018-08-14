@@ -143,7 +143,7 @@ def spectrum_plot_func(f, X, mode='real-imag', log_frequency=False, **kwargs):
 def dft_plot_func(f, X, lollipop=False, mode='real-imag', **kwargs):
     axes, kwargs = create_axes(1, **kwargs)
 
-    Plotter(axes, mode, lollipop).plot(f, X)
+    Plotter(axes, mode, lollipop).plot(f, X, **kwargs)
     return axes
 
 def dtft_plot_func(f, X, mode='real-imag', **kwargs):
@@ -258,10 +258,12 @@ def signal_plot_with_dft(t, x, f, X, **kwargs):
     axes, kwargs = create_axes(2, **kwargs)
 
     lollipop = kwargs.pop('lollipop', False)
-    mode = kwargs.pop('mode', 'real-imag')    
+    mode = kwargs.pop('mode', 'real-imag')
+    ylim2 = kwargs.pop('ylim2', None)        
     
     signal_plot_func(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
-    dft_plot_func(f, X, axes=axes[1], lollipop=lollipop, mode=mode, **kwargs)
+    dft_plot_func(f, X, axes=axes[1], lollipop=lollipop, mode=mode, ylim=ylim2,
+                  **kwargs)
     return axes[0].figure
 
 def signal_plot_with_fourier_series(t, x, n, X, **kwargs):

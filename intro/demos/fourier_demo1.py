@@ -16,8 +16,12 @@ def rect_demo1_plot(T=1, mode='real-imag'):
 
     x = rect(t / T)
     X = T * sinc(f * T)
+
+    ylim2 = None
+    if mode in ('real-imag', 'magnitude'):    
+        ylim2 = (-1, 5)
     
-    signal_plot_with_dft(t, x, f, X, mode=mode)
+    signal_plot_with_dft(t, x, f, X, mode=mode, ylim2=ylim2)
     show()
 
 def rect_demo1():
@@ -35,8 +39,12 @@ def sinc_demo1_plot(T=1, mode='real-imag'):
 
     x = sinc(t / T)
     X = T * rect(f * T)
+
+    ylim2 = None
+    if mode in ('real-imag', 'magnitude'):
+        ylim2 = (-1, 5)
     
-    signal_plot_with_dft(t, x, f, X, mode=mode)
+    signal_plot_with_dft(t, x, f, X, mode=mode, ylim2=ylim2)
 
 def sinc_demo1():
     interact(sinc_demo1_plot, T=(0.1, 5, 0.1), mode=spectrum_modes,
