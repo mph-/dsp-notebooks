@@ -215,7 +215,17 @@ def signal_plot3(t1, x1, t2, x2, t3, x3, **kwargs):
     signal_plot_func(t1, x1, axes=axes[0], **kwargs)
     signal_plot_func(t2, x2, axes=axes[1], **kwargs)
     signal_plot_func(t3, x3, axes=axes[2], **kwargs)
-    return axes[0].figure    
+    return axes[0].figure
+
+def signal_overplot3(t1, x1, t2, x2, t3, x3, labels, **kwargs):    
+
+    axes, kwargs = create_axes(1, **kwargs)
+
+    signal_plot_func(t1, x1, axes=axes, label=labels[0], **kwargs)
+    signal_plot_func(t2, x2, axes=axes, label=labels[1], **kwargs)
+    signal_plot_func(t3, x3, axes=axes, label=labels[2], **kwargs)
+    axes.legend()
+    return axes.figure    
 
 def hist_plot(t, x, **kwargs):
 
