@@ -14,6 +14,7 @@ from .dft_leakage_demo1 import *
 from .dft_zeropad_demo1 import *
 from .dft_window_demo1 import *
 from .noise_demo1 import *
+from .noise_demo2 import *
 from .discrete_time_demo1 import *
 from .interpolation_demo1 import *
 from .sampling_demo1 import *

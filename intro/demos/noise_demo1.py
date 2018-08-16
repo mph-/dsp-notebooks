@@ -4,7 +4,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_hist
 from .lib.utils import gauss
 
-def noise_plot(sigma=1, mu=0, N=100, seed=1, lollipop=True):
+def noise_demo1_plot(sigma=1, mu=0, N=100, seed=1, lollipop=True):
 
     fs = 10
     np.random.seed(seed)
@@ -21,7 +21,7 @@ def noise_plot(sigma=1, mu=0, N=100, seed=1, lollipop=True):
     fig.axes[1].plot(z, fX)
 
 def noise_demo1():
-    interact(noise_plot, sigma=(1, 10), mu=(-10, 10), N=(50, 1000, 10), fs=(5, 100, 10), seed=(1, 100), continuous_update=False)
+    interact(noise_demo1_plot, sigma=(1, 10), mu=(-10, 10), N=(50, 1000, 10), fs=(5, 100, 10), seed=(1, 100), continuous_update=False)
     
     
 
