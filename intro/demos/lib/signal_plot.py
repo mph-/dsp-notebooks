@@ -165,11 +165,13 @@ def hist_plot_func(t, x, **kwargs):
 
     bins = kwargs.pop('bins', 100)
     range = kwargs.pop('range', None)
-    density = kwargs.pop('density', None)    
+    density = kwargs.pop('density', None)
+    ylim = kwargs.pop('ylim', None)        
     
     axes, kwargs = create_axes(1, **kwargs)    
             
     axes.hist(x, density=density, bins=bins, range=range)
+    axes.set_ylim(ylim)
     return axes
 
 def spectrum_plot(f, X, mode='real-imag', log_frequency=False, **kwargs):
@@ -235,12 +237,15 @@ def hist_plot(t, x, **kwargs):
 def signal_plot_with_hist(t, x, **kwargs):
 
     range = kwargs.pop('range', None)
-    lollipop = kwargs.pop('lollipop', False)    
+    lollipop = kwargs.pop('lollipop', False)
+    ylim2 = kwargs.pop('ylim2', None)
+    density = kwargs.pop('density', False)            
     
     axes, kwargs = create_axes(2, **kwargs)
 
     signal_plot_func(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
-    hist_plot_func(t, x, axes=axes[1], range=range, **kwargs)
+    hist_plot_func(t, x, axes=axes[1], range=range, ylim=ylim2, density=density,
+                   **kwargs)
     return axes[0].figure
 
 def dtft_plot(f, X, **kwargs):
