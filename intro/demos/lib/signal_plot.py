@@ -1,5 +1,6 @@
 # M. P. Hayes UCECE
-from matplotlib.pyplot import subplots, setp
+from matplotlib.pyplot import subplots, figure, setp
+from matplotlib.ticker import NullFormatter
 import numpy as np
 
 spectrum_modes = ['real-imag', 'magnitude', 'magnitude dB', 'phase', 'magnitude-phase', 'magnitude dB-phase']
@@ -234,7 +235,7 @@ def hist_plot(t, x, **kwargs):
     axes = hist_plot_func(t, x, **kwargs)
     return axes.figure
         
-def signal_plot_with_hist(t, x, **kwargs):
+def signal_plot_with_hist_old(t, x, **kwargs):
 
     range = kwargs.pop('range', None)
     lollipop = kwargs.pop('lollipop', False)
@@ -247,6 +248,43 @@ def signal_plot_with_hist(t, x, **kwargs):
     hist_plot_func(t, x, axes=axes[1], range=range, ylim=ylim2, density=density,
                    **kwargs)
     return axes[0].figure
+
+def signal_plot_with_hist(t, x, **kwargs):
+
+    range = kwargs.pop('range', None)
+    lollipop = kwargs.pop('lollipop', False)
+    ylim2 = kwargs.pop('ylim2', None)
+    density = kwargs.pop('density', False)
+    bins = kwargs.pop('bins', 100)
+    figsize = kwargs.pop('figsize', (8, 4))    
+
+    # Define axes
+    left, bottom, right = 0.1, 0.15, 0.01
+    plot_width = 0.7
+    height = 0.8
+    hist_offset = 0.025
+    hist_width = 1.0 - plot_width - left - right - hist_offset
+    
+    rect_plot = [left, bottom, plot_width, height]
+    rect_hist = [left + plot_width + hist_offset, bottom, hist_width, height]
+
+    fig = figure(figsize=figsize)    
+    plot_ax = fig.add_axes(rect_plot)
+    hist_ax = fig.add_axes(rect_hist)
+
+    signal_plot_func(t, x, axes=plot_ax, lollipop=lollipop, **kwargs)
+
+    # No labels on xaxis and yaxis of histogram.
+    hist_ax.xaxis.set_major_formatter(NullFormatter())
+    hist_ax.yaxis.set_major_formatter(NullFormatter())
+
+    # Plot histogram.
+    #bins = np.arange(-bins // 2, bins // 2) - 0.5
+    hist_ax.hist(x, bins=bins, density=density, orientation='horizontal')
+    hist_ax.set_ylim(plot_ax.get_ylim())
+    #hist_ax.set_xlim(0, histmax)
+
+    return fig
 
 def dtft_plot(f, X, **kwargs):
 
