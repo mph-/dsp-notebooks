@@ -1,9 +1,8 @@
 # M. P. Hayes UCECE
 import numpy as np
-from matplotlib.pyplot import show
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from .lib.signal_plot import signal_plot
+from .lib.signal_plot import signal_plot_with_hist
 
 def ma_lpf_plot(M=10, N=100, sigma=0.2, lollipop=True):
 
@@ -20,9 +19,8 @@ def ma_lpf_plot(M=10, N=100, sigma=0.2, lollipop=True):
     h = np.ones(M) / M
     y = signal.lfilter(b=h, a=1, x=x)
 
-    axes = signal_plot(t, y, lollipop=lollipop)
-    show()
-    return axes
+    signal_plot_with_hist(t, y, lollipop=lollipop)
+
 
 def ma_lpf_demo1():
     interact(ma_lpf_plot, M=(1, 100, 1), N=(100, 1000, 100),
