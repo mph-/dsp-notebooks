@@ -5,8 +5,11 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_hist
 from .lib.utils import gauss
 
-def ma_lpf_demo1_plot(M=10, N=100, sigma=0.2, lollipop=True):
+def ma_lpf_demo0_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=True):
 
+    np.random.seed(seed)
+    
+    M = 2
     A = 1
     fs = 100
     mu = 0
@@ -19,6 +22,8 @@ def ma_lpf_demo1_plot(M=10, N=100, sigma=0.2, lollipop=True):
 
     h = np.ones(M) / M
     y = signal.lfilter(b=h, a=1, x=x)
+    if not filter:
+        y = x
 
     fig = signal_plot_with_hist(t, y, lollipop=lollipop)
 
@@ -28,10 +33,10 @@ def ma_lpf_demo1_plot(M=10, N=100, sigma=0.2, lollipop=True):
     fig.axes[1].plot(fX, z)    
 
 
-def ma_lpf_demo1():
-    interact(ma_lpf_demo1_plot, M=(1, 100, 1), N=(100, 1000, 100),
+def ma_lpf_demo0():
+    interact(ma_lpf_demo0_plot, M=(1, 100, 1), 
              sigma=(0.0, 2.0, 0.1),
-             continuous_update=False)
+             seed=(1, 100), continuous_update=False)             
     
     
 

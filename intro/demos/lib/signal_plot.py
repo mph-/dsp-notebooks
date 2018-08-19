@@ -254,7 +254,7 @@ def signal_plot_with_hist(t, x, **kwargs):
     range = kwargs.pop('range', None)
     lollipop = kwargs.pop('lollipop', False)
     ylim2 = kwargs.pop('ylim2', None)
-    density = kwargs.pop('density', False)
+    density = kwargs.pop('density', True)
     bins = kwargs.pop('bins', 100)
     figsize = kwargs.pop('figsize', (8, 4))    
 

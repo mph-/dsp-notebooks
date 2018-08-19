@@ -1,5 +1,7 @@
 from .adt_demo1 import *
+from .ma_lpf_demo0 import *
 from .ma_lpf_demo1 import *
+from .ma_lpf_demo2 import *
 from .dc_demo1 import *
 from .ac_demo1 import *
 from .exp_demo1 import *
