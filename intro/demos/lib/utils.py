@@ -27,3 +27,6 @@ def gauss(t, mu=0, sigma=1):
 
     return np.exp(-0.5 * ((t - mu) / sigma)**2) / (np.sqrt(2 * np.pi) * sigma)
 
+def butterworth_lowpass(f, fb, order=2):
+    """Butterworth lowpass filter response"""
+    return 1 / np.sqrt((f / fb)**(2 * order) + 1)

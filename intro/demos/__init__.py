@@ -18,6 +18,7 @@ from .noise_demo2 import *
 from .discrete_time_demo1 import *
 from .interpolation_demo1 import *
 from .sampling_demo1 import *
+from .sampling_freq_demo1 import *
 from .reconstruction_demo1 import *
 from .reconstruction_demo2 import *
 from .reconstruction_demo3 import *
