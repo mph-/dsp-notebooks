@@ -4,10 +4,9 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_hist
 
-def iir_lpf_demo1_plot(f=4, alpha=0.5, lollipop=True):
+def iir_lpf_demo1_plot(f=4, N=100, alpha=0.5, lollipop=True):
 
     A = 1
-    N = 100
     fs = 100
     sigma = 0.2
     mu = 0
@@ -20,11 +19,12 @@ def iir_lpf_demo1_plot(f=4, alpha=0.5, lollipop=True):
 
     y = signal.lfilter(b=(1 - alpha, ), a=(1, -alpha), x=x)
 
-    signal_plot_with_hist(t, y, lollipop=lollipop)
+    signal_plot_with_hist(t, y, lollipop=lollipop, ylim=(-1.1, 1.1))
 
 def iir_lpf_demo1():
     interact(iir_lpf_demo1_plot,
              f=(0, 10, 1),
+             N=(100, 1000, 100),             
              alpha=(0.0, 0.999, 0.01),
              continuous_update=False)
     

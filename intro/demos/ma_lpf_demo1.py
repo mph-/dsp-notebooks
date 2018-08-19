@@ -3,10 +3,7 @@ import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_hist
-<<<<<<< HEAD
 from .lib.utils import gauss
-=======
->>>>>>> 44faea3b1cdc4c7886d108594a5bec63d72d3753
 
 def ma_lpf_demo1_plot(M=10, N=100, sigma=0.2, lollipop=True):
 
@@ -29,7 +26,7 @@ def ma_lpf_demo1_plot(M=10, N=100, sigma=0.2, lollipop=True):
     fX = gauss(z, A + mu, sigma / np.sqrt(M))
     
     fig.axes[1].plot(fX, z)    
-    signal_plot_with_hist(t, y, lollipop=lollipop)
+    signal_plot_with_hist(t, y, lollipop=lollipop, ylim=(-1.1, 1.1))
 
 
 def ma_lpf_demo1():
