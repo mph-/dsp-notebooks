@@ -104,7 +104,7 @@ class Plotter(object):
             axes2.legend()            
             
         else:
-            raise ValueError('Unknown mode %s' % mode)
+            raise ValueError('Unknown mode %s' % self.mode)
 
         if ylim is not None:
            self.axes.set_ylim(ylim)
