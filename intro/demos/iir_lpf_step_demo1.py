@@ -15,10 +15,13 @@ def iir_lpf_step_demo1_plot(alpha=0.9, lollipop=True, filter=True):
     x = A * (n >= 0) * (n <= 50)
 
     y = signal.lfilter(b=(1 - alpha, ), a=(1, -alpha), x=x)
+    
+    colour = 'orange'
     if not filter:
         y = x
+        colour = 'blue'        
 
-    signal_plot(t, y, lollipop=lollipop, ylim=(-1.1, 1.1))
+    signal_plot(t, y, lollipop=lollipop, ylim=(-1.1, 1.1), color=colour)
 
 def iir_lpf_step_demo1():
     interact(iir_lpf_step_demo1_plot,

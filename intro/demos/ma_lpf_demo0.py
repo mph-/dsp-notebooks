@@ -22,10 +22,13 @@ def ma_lpf_demo0_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=True):
 
     h = np.ones(M) / M
     y = signal.lfilter(b=h, a=1, x=x)
+
+    colour = 'orange'
     if not filter:
         y = x
+        colour = 'blue'            
 
-    fig = signal_plot_with_hist(t, y, lollipop=lollipop)
+    fig = signal_plot_with_hist(t, y, lollipop=lollipop, color=colour)
 
     z = np.linspace(-5, 5, 401)
     fX = gauss(z, A + mu, sigma / np.sqrt(M))

@@ -240,7 +240,7 @@ def signal_plot_with_hist_old(t, x, **kwargs):
     range = kwargs.pop('range', None)
     lollipop = kwargs.pop('lollipop', False)
     ylim2 = kwargs.pop('ylim2', None)
-    density = kwargs.pop('density', False)            
+    density = kwargs.pop('density', False)
     
     axes, kwargs = create_axes(2, **kwargs)
 
@@ -255,7 +255,8 @@ def signal_plot_with_hist(t, x, **kwargs):
     lollipop = kwargs.pop('lollipop', False)
     density = kwargs.pop('density', True)
     bins = kwargs.pop('bins', 100)
-    figsize = kwargs.pop('figsize', (8, 4))    
+    figsize = kwargs.pop('figsize', (8, 4))
+    color = kwargs.pop('color', False)                
 
     # Define axes
     left, bottom, right = 0.1, 0.15, 0.01
@@ -271,7 +272,8 @@ def signal_plot_with_hist(t, x, **kwargs):
     plot_ax = fig.add_axes(rect_plot)
     hist_ax = fig.add_axes(rect_hist)
 
-    signal_plot_func(t, x, axes=plot_ax, lollipop=lollipop, **kwargs)
+    signal_plot_func(t, x, axes=plot_ax, lollipop=lollipop, color=color,
+                     **kwargs)
 
     # No labels on xaxis and yaxis of histogram.
     hist_ax.xaxis.set_major_formatter(NullFormatter())
@@ -279,7 +281,8 @@ def signal_plot_with_hist(t, x, **kwargs):
 
     # Plot histogram.
     #bins = np.arange(-bins // 2, bins // 2) - 0.5
-    hist_ax.hist(x, bins=bins, density=density, orientation='horizontal')
+    hist_ax.hist(x, bins=bins, density=density, orientation='horizontal',
+                 color=color)
     hist_ax.set_ylim(plot_ax.get_ylim())
     #hist_ax.set_xlim(0, histmax)
 

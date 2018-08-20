@@ -16,10 +16,13 @@ def ma_lpf_step_demo1_plot(M=4, lollipop=True, filter=True):
 
     h = np.ones(M) / M
     y = signal.lfilter(b=h, a=1, x=x)
+
+    colour = 'orange'
     if not filter:
         y = x
+        colour = 'blue'            
 
-    signal_plot(t, y, lollipop=lollipop)
+    signal_plot(t, y, lollipop=lollipop, color=colour)
 
 
 def ma_lpf_step_demo1():

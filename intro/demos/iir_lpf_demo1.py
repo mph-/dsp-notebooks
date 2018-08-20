@@ -18,10 +18,14 @@ def iir_lpf_demo1_plot(f=0, N=100, alpha=0.9, lollipop=True, filter=True):
     x = s + w
 
     y = signal.lfilter(b=(1 - alpha, ), a=(1, -alpha), x=x)
+
+    colour = 'orange'
     if not filter:
         y = x
+        colour = 'blue'        
 
-    signal_plot_with_hist(t, y, lollipop=lollipop, ylim=(-1.1, 1.1))
+    signal_plot_with_hist(t, y, lollipop=lollipop, ylim=(-1.1, 1.1),
+                          color=colour)
 
 def iir_lpf_demo1():
     interact(iir_lpf_demo1_plot,
