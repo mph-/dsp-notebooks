@@ -29,6 +29,7 @@ from .sinewave_demo1 import *
 from .iir_hpf_demo2 import *
 from .sinewave_plus_noise_demo1 import *
 from .iir_lpf_demo1 import *
+from .iir_lpf_step_demo1 import *
 #from .special_signals_demo1 import *
 from .iir_lpf_demo2 import *
 from .square_wave_synthesis_demo1 import *
