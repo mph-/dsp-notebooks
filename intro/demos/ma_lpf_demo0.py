@@ -34,11 +34,6 @@ def ma_lpf_demo0_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=True):
 
 
 def ma_lpf_demo0():
-    interact(ma_lpf_demo0_plot, M=(1, 100, 1), 
+    interact(ma_lpf_demo0_plot, M=(1, 100, 1), N=(100, 1000, 100),
              sigma=(0.0, 2.0, 0.1),
              seed=(1, 100), continuous_update=False)             
-    
-    
-
-    
-
