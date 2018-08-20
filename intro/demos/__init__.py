@@ -2,6 +2,7 @@ from .adt_demo1 import *
 from .ma_lpf_demo1 import *
 from .ma_lpf_demo2 import *
 from .ma_lpf_step_demo1 import *
+from .ma_lpf_freq_demo1 import *
 from .ma2_lpf_demo1 import *
 from .ma4_lpf_demo1 import *
 from .dc_demo1 import *
