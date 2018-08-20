@@ -4,7 +4,7 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot
 
-def iir_lpf_step_demo1_plot(alpha=0.9, lollipop=True, filter=True):
+def iir_lpf_step_demo1_plot(alpha=0.9, lollipop=True, filter=False):
 
     A = 1
     fs = 100

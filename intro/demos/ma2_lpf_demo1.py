@@ -5,7 +5,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot_with_hist
 from .lib.utils import gauss
 
-def ma2_lpf_demo1_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=True):
+def ma2_lpf_demo1_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=False):
 
     np.random.seed(seed)
     
