@@ -237,7 +237,7 @@ def hist_plot(t, x, **kwargs):
         
 def signal_plot_with_hist_old(t, x, **kwargs):
 
-    range = kwargs.pop('range', None)
+    range_ = kwargs.pop('range', None)
     lollipop = kwargs.pop('lollipop', False)
     ylim2 = kwargs.pop('ylim2', None)
     density = kwargs.pop('density', False)
@@ -245,18 +245,17 @@ def signal_plot_with_hist_old(t, x, **kwargs):
     axes, kwargs = create_axes(2, **kwargs)
 
     signal_plot_func(t, x, axes=axes[0], lollipop=lollipop, **kwargs)
-    hist_plot_func(t, x, axes=axes[1], range=range, ylim=ylim2, density=density,
-                   **kwargs)
+    hist_plot_func(t, x, axes=axes[1], range=range_, ylim=ylim2,
+                   density=density, **kwargs)
     return axes[0].figure
 
 def signal_plot_with_hist(t, x, **kwargs):
 
-    range = kwargs.pop('range', None)
     lollipop = kwargs.pop('lollipop', False)
     density = kwargs.pop('density', True)
     bins = kwargs.pop('bins', 100)
     figsize = kwargs.pop('figsize', (8, 4))
-    color = kwargs.pop('color', False)                
+    color = kwargs.pop('color', 'blue')                
 
     # Define axes
     left, bottom, right = 0.1, 0.15, 0.01

@@ -28,7 +28,8 @@ def ma4_lpf_demo1_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=False):
         y = x
         colour = 'blue'            
 
-    fig = signal_plot_with_hist(t, y, lollipop=lollipop, color=colour)
+    fig = signal_plot_with_hist(t, y, lollipop=lollipop, color=colour,
+                                ylim=(0, 1.3))
 
     z = np.linspace(-5, 5, 401)
     fX = gauss(z, A + mu, sigma / np.sqrt(M))
@@ -38,5 +39,5 @@ def ma4_lpf_demo1_plot(N=100, sigma=0.2, seed=1, lollipop=True, filter=False):
 
 def ma4_lpf_demo1():
     interact(ma4_lpf_demo1_plot, M=(1, 100, 1), N=(100, 1000, 100),
-             sigma=(0.0, 2.0, 0.1),
+             sigma=(0.0, 0.5, 0.1),
              seed=(1, 100), continuous_update=False)             
