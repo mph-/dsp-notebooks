@@ -4,7 +4,7 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot
 
-def ma_lpf_freq_demo1_plot(f=0, M=4, lollipop=True, filter=False):
+def ma_lpf_freq_demo1_plot(f=0, M=4, lollipop=True, noise=True, filter=False):
 
     N = 100
     A = 1
@@ -16,7 +16,10 @@ def ma_lpf_freq_demo1_plot(f=0, M=4, lollipop=True, filter=False):
     t = np.arange(N) / fs
 
     s = A * np.sin(2 * np.pi * f * t)
-    x = s + w    
+    if noise:
+        x = s + w
+    else:
+        x = s
 
     h = np.ones(M) / M
     y = signal.lfilter(b=h, a=1, x=x)
@@ -26,7 +29,7 @@ def ma_lpf_freq_demo1_plot(f=0, M=4, lollipop=True, filter=False):
         y = x
         colour = 'blue'            
 
-    signal_plot(t, y, lollipop=lollipop, color=colour)
+    signal_plot(t, y, lollipop=lollipop, color=colour, ylim=(-1.3, 1.3))
 
 
 def ma_lpf_freq_demo1():
