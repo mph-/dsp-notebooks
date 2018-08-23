@@ -5,7 +5,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_overplot2
 from .lib.utils import rect
 
-def ma_lpf_delay_demo1_plot(f0=2, M=10):
+def iir_lpf_delay_demo1_plot(f0=2, alpha=0.5):
 
     A = 1
     T = 4
@@ -17,14 +17,14 @@ def ma_lpf_delay_demo1_plot(f0=2, M=10):
     t1 = t - T / 2
     x = A * np.cos(2 * np.pi * f0 * t) * rect(t1 / T)
 
-    h = np.ones(M) / M
-    y = signal.lfilter(b=h, a=1, x=x)
+    y = signal.lfilter(b=(1 - alpha, ), a=(1, -alpha), x=x)
 
     fig = signal_overplot2(t, x, t, y, ylim=(-1.3, 1.3), labels=('x', 'y'))
 
 
-def ma_lpf_delay_demo1():
-    interact(ma_lpf_delay_demo1_plot, M=(1, 100, 1), f0=(0.5, 8, 0.25), 
+def iir_lpf_delay_demo1():
+    interact(iir_lpf_delay_demo1_plot, f0=(0.5, 8, 0.25), 
+             alpha=(0.0, 0.999, 0.01),             
              continuous_update=False)
     
     
