@@ -7,6 +7,9 @@ from .lib.signal_plot import signal_plot
 
 def foo(join, val, index):
 
+    if val == 0:
+        return ''
+    
     num = ''
     sign = '+'
     if val < 0:
@@ -68,11 +71,11 @@ def plotseq_demo1_plot(sequence='{1, _2, 3, 4, 5}'):
             
     seq = np.array(vals)
     t = np.arange(len(seq))
-        
+
+    display(Math(sumimpulses(seq, underscore)))    
+    
     fig = signal_plot(t - underscore, seq, lollipop=True)
     fig.axes[0].grid(True)
-
-    display(Math(sumimpulses(seq, underscore)))
     
 def plotseq_demo1():
     interact(plotseq_demo1_plot, continuous_update=False)             
