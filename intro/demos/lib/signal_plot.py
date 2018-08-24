@@ -1,6 +1,6 @@
 # M. P. Hayes UCECE
 from matplotlib.pyplot import subplots, figure, setp
-from matplotlib.ticker import NullFormatter
+from matplotlib.ticker import NullFormatter, MaxNLocator
 import numpy as np
 
 spectrum_modes = ['real-imag', 'magnitude', 'magnitude dB', 'phase', 'magnitude-phase', 'magnitude dB-phase']
@@ -17,8 +17,9 @@ def lollipop_plot(x, y, axes=None, markersize=4, **kwargs):
     setp(baseline, 'linewidth', 0, 'color', color)
     setp(markerline, 'markersize', markersize, 'color', color)
     setp(stemlines, 'color', color)
+    axes.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-
+    
 class Plotter(object):
 
     def plot_lines(self, x, y, **kwargs):

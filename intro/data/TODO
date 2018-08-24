@@ -1,0 +1,1 @@
+sox infile.wav -b 16 -c 1 outfile.wav
