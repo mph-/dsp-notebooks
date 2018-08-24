@@ -28,7 +28,10 @@ def foo(join, val, index):
         term = r'%s \delta[n - %d]' % (num, index)        
 
     if not join:
-        return term
+        if sign == '+':
+            return term
+        else:
+            return '-' + term            
     return sign + ' ' + term
 
 def sumimpulses(seq, offset=0):

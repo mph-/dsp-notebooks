@@ -11,7 +11,8 @@ def lollipop_plot(x, y, axes=None, markersize=4, **kwargs):
     # TODO, use color cycler
     color = kwargs.pop('color', 'blue')
 
-    x = np.round(x / (x[1] - x[0]))
+    if len(x) > 1:
+        x = np.round(x / (x[1] - x[0]))
     
     markerline, stemlines, baseline = axes.stem(x, y, **kwargs)
     setp(baseline, 'linewidth', 0, 'color', color)
