@@ -3,9 +3,10 @@ import numpy as np
 from matplotlib.pyplot import show
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
-from .lib.utils import rect, sinc, gauss
+from .lib.utils import rect, sinc, gauss, tri
 
-signals = ['rect(t)', 'rect(t/2)', 'gauss(t)', 'fang(t)', 'gauss(t/0.01)']
+signals = ['rect(t)', 'rect(t/2)', 'tri(t)', 'tri(t/2)',
+           'gauss(t)', 'fang(t)', 'gauss(t/0.01)']
 
 
 def make_signal(t, name):
@@ -17,6 +18,10 @@ def make_signal(t, name):
         return x / max(x)
     elif name == 'rect(t)':
         return rect(t)
+    elif name == 'tri(t)':
+        return tri(t)
+    elif name == 'tri(t/2)':
+        return tri(t / 2)        
     elif name == 'rect(t/2)':
         return rect(t / 2)
     elif name == 'fang(t)':
