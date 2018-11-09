@@ -14,7 +14,7 @@ def polezero_demo3_plot(alpha1=5, omega1=10, alpha2=20, step_response=True):
     p1b = -alpha1 + 1j * omega1
     p2 = -alpha2
 
-    H = 1 / ((s - p1a) * (s - p1b) * (s - p2))
+    H = -p2 * -p1a * -p1b / ((s - p1a) * (s - p1b) * (s - p2))
     if step_response:
         H = H / (s + 1e-12)
 
@@ -29,19 +29,21 @@ def polezero_demo3_plot(alpha1=5, omega1=10, alpha2=20, step_response=True):
     
     fig, axes = subplots(1, 2, figsize=(12, 6))
 
-    hmax = max(abs(h)) * 1.1
+    hmin = -0.5
+    hmax = 2    
+    #hmax = max(abs(h)) * 1.1
     
     axes[0].grid(True)
     axes[0].set_xlim(-20, 20)
     axes[0].set_ylim(-20, 20)
     axes[0].set_xlabel('Real')
-    axes[0].set_ylabel('Imag')    
+    axes[0].set_ylabel('Imaginary')    
 
     #axes[0].plot(z.real, z.imag, 'bo', ms=20)
     axes[0].plot(p.real, p.imag, 'bx', ms=20)
 
     axes[1].plot(t, h)
-    axes[1].set_ylim(-hmax, hmax)
+    axes[1].set_ylim(hmin, hmax)
     axes[1].grid(True)
     axes[1].set_xlabel('Time (s)')
     #axes[1].set_ylabel('Amplitude')
