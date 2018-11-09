@@ -2,6 +2,7 @@
 import numpy as np
 from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
+from .lib.polezero_plot import polezero_plot_with_time
 
 
 def polezero_demo1_plot(alpha=5, step_response=True):
@@ -22,26 +23,9 @@ def polezero_demo1_plot(alpha=5, step_response=True):
         #h = np.cumsum(h) * (t[1] - t[0])
         h = 1 - np.exp(p1 * t)
 
-    p = np.array((p1, ))
-    
-    fig, axes = subplots(1, 2, figsize=(12, 6))
+    poles = np.array((p1, ))
 
-    hmax = max(abs(h)) * 1.1
-    
-    axes[0].grid(True)
-    axes[0].set_xlim(-20, 20)
-    axes[0].set_ylim(-20, 20)
-    axes[0].set_xlabel('Real')
-    axes[0].set_ylabel('Imaginary')    
-
-    #axes[0].plot(z.real, z.imag, 'bo', ms=20)
-    axes[0].plot(p.real, p.imag, 'bx', ms=20)
-
-    axes[1].plot(t, h)
-    axes[1].set_ylim(-hmax, hmax)
-    axes[1].grid(True)
-    axes[1].set_xlabel('Time (s)')
-    #axes[1].set_ylabel('Amplitude')
+    polezero_plot_with_time(t, h, poles, ylim=(-0.5, 2.1))
 
 
 def polezero_demo1():

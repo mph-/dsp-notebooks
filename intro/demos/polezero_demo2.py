@@ -2,6 +2,7 @@
 import numpy as np
 from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
+from .lib.polezero_plot import polezero_plot_with_time
 
 
 def polezero_demo2_plot(alpha1=5, omega1=10, step_response=True):
@@ -31,30 +32,11 @@ def polezero_demo2_plot(alpha1=5, omega1=10, step_response=True):
             h = -(alpha1 * np.sin(omega1 * t) - omega1 * np.exp(alpha1 * t) + omega1 * np.cos(omega1 * t)) * np.exp(-alpha1 * t) / omega1        
 
 
-    p = np.array((p1a, p1b))
-    
-    fig, axes = subplots(1, 2, figsize=(12, 6))
+    poles = np.array((p1a, p1b))
 
-    hmin = -0.5
-    hmax = 2
-    #hmax = max(abs(h)) * 1.1
-    
-    axes[0].grid(True)
-    axes[0].set_xlim(-20, 20)
-    axes[0].set_ylim(-20, 20)
-    axes[0].set_xlabel('Real')
-    axes[0].set_ylabel('Imaginary')    
+    axes = polezero_plot_with_time(t, h, poles, ylim=(-0.5, 2.1))
 
-    #axes[0].plot(z.real, z.imag, 'bo', ms=20)
-    axes[0].plot(p.real, p.imag, 'bx', ms=20)
-
-    axes[1].plot(t, h)
-    axes[1].set_ylim(hmin, hmax)
-    axes[1].grid(True)
-    axes[1].set_xlabel('Time (s)')
-    #axes[1].set_ylabel('Amplitude')
-
-    omega0 = np.sqrt(alpha1**2 + omega1**2)
+    omega0 = np.sqrt(alpha1**2 + omega1**2)    
     if omega0 != 0:
         zeta = alpha1 / omega0
         eps = 1e-2

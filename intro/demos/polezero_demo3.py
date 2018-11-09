@@ -2,6 +2,7 @@
 import numpy as np
 from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
+from .lib.polezero_plot import polezero_plot_with_time
 
 
 def polezero_demo3_plot(alpha1=5, omega1=10, alpha2=20, step_response=True):
@@ -25,29 +26,10 @@ def polezero_demo3_plot(alpha1=5, omega1=10, alpha2=20, step_response=True):
     if step_response:
         h = (alpha1**2 * alpha2 * np.exp(alpha2 * t) * np.sin(omega1 * t) - alpha1**2 * omega1 * np.exp(alpha1 * t) + alpha1**2 * omega1 * np.exp(t * (alpha1 + alpha2)) - alpha1 * alpha2**2 * np.exp(alpha2 * t) * np.sin(omega1 * t) + 2 * alpha1 * alpha2 * omega1 * np.exp(alpha2 * t) * np.cos(omega1 * t) - 2 * alpha1 * alpha2 * omega1 * np.exp(t * (alpha1 + alpha2)) - alpha2**2 * omega1 * np.exp(alpha2 * t) * np.cos(omega1 * t) + alpha2**2 * omega1 * np.exp(t * (alpha1 + alpha2)) - alpha2 * omega1**2 * np.exp(alpha2 * t) * np.sin(omega1 * t) - omega1 ** 3 * np.exp(alpha1 * t) + omega1 ** 3 * np.exp(t * (alpha1 + alpha2))) * np.exp(-t * (alpha1 + alpha2)) / (omega1 * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2))        
 
-    p = np.array((p1a, p1b, p2))
+    poles = np.array((p1a, p1b, p2))
+
+    axes = polezero_plot_with_time(t, h, poles, ylim=(-0.5, 2.1))
     
-    fig, axes = subplots(1, 2, figsize=(12, 6))
-
-    hmin = -0.5
-    hmax = 2    
-    #hmax = max(abs(h)) * 1.1
-    
-    axes[0].grid(True)
-    axes[0].set_xlim(-20, 20)
-    axes[0].set_ylim(-20, 20)
-    axes[0].set_xlabel('Real')
-    axes[0].set_ylabel('Imaginary')    
-
-    #axes[0].plot(z.real, z.imag, 'bo', ms=20)
-    axes[0].plot(p.real, p.imag, 'bx', ms=20)
-
-    axes[1].plot(t, h)
-    axes[1].set_ylim(hmin, hmax)
-    axes[1].grid(True)
-    axes[1].set_xlabel('Time (s)')
-    #axes[1].set_ylabel('Amplitude')
-
 
 def polezero_demo3():
     interact(polezero_demo3_plot,
