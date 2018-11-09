@@ -4,22 +4,23 @@ from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
 
 
-def polezero_demo1_plot(alpha1=-5, step_response=True):
+def polezero_demo1_plot(alpha1=5, step_response=True):
 
     t = np.linspace(0, 3, 201)
     f = np.linspace(-100, 100, 201)
     s = 2j * np.pi * f
 
-    p1 = alpha1
+    p1 = -alpha1
 
-    H = 1 / (s - p1)
+    H = -p1 / (s - p1)
     if step_response:
         H = H / (s + 1e-12)
 
-    h = np.exp(p1 * t)
+    h = -p1 * np.exp(p1 * t)
 
     if step_response:
-        h = np.cumsum(h) * (t[1] - t[0])
+        #h = np.cumsum(h) * (t[1] - t[0])
+        h = 1 - np.exp(p1 * t)
 
     p = np.array((p1, ))
     
@@ -45,5 +46,5 @@ def polezero_demo1_plot(alpha1=-5, step_response=True):
 
 def polezero_demo1():
     interact(polezero_demo1_plot,
-             alpha1=(-20, 2), 
+             alpha1=(-2, 20), 
              continuous_update=False)
