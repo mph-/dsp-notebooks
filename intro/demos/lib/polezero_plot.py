@@ -15,7 +15,7 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None, **kwargs):
     if poles is not None:
         axes[0].plot(poles.real, poles.imag, 'bx', ms=20)
     if zeros is not None:        
-        axes[0].plot(zeros.real, zeros.imag, 'bo', ms=20)
+        axes[0].plot(zeros.real, zeros.imag, 'bo', ms=20, fillstyle='none')
 
     axes[1].plot(t, h)
     if ylim is not None:

@@ -66,3 +66,4 @@ from .plotseq_demo1 import *
 from .polezero_demo1 import *
 from .polezero_demo2 import *
 from .polezero_demo3 import *
+from .polezero_demo4 import *
