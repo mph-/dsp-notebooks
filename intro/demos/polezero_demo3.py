@@ -27,7 +27,7 @@ def polezero_demo3_plot(alpha1=5, omega1=10, alpha2=20,
         H = -p2 * -p1a * -p1b / ((s - p1a) * (s - p1b) * (s - p2))
         h = H
         t = f
-        ylim = (-40, 10)        
+        ylim = (-40, 20)        
 
     poles = np.array((p1a, p1b, p2))
  

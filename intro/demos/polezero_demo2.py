@@ -31,7 +31,7 @@ def polezero_demo2_plot(alpha1=5, omega1=10, mode=response_modes[0]):
         H = p1a * p1b / ((s - p1a) * (s - p1b))
         h = H
         t = f
-        ylim = (-40, 10)                    
+        ylim = (-40, 20)                    
 
     poles = np.array((p1a, p1b))
 

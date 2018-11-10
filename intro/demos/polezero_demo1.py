@@ -24,7 +24,7 @@ def polezero_demo1_plot(alpha=5, mode=response_modes[0]):
         H = -p1 / (s - p1)
         h = H
         t = f
-        ylim = (-40, 10)
+        ylim = (-40, 20)
         
     poles = np.array((p1, ))
 
