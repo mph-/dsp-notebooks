@@ -12,21 +12,19 @@ def polezero_demo1_plot(alpha=5, mode=response_modes[0]):
     f = np.logspace(-1, 3, 201)        
     s = 2j * np.pi * f
 
-    p1 = -alpha
-
     if mode == 'Step response':
-        h = 1 - exp(p1 * t)
+        h = 1 - exp(-alpha * t)
         ylim = (-0.5, 2.1)
     elif mode == 'Impulse response':
-        h = -p1 * exp(p1 * t)
+        h = alpha * exp(-alpha * t)
         ylim = (-5, 10)
     else:
-        H = -p1 / (s - p1)
+        H = alpha / (s + alpha)
         h = H
         t = f
         ylim = (-40, 20)
         
-    poles = np.array((p1, ))
+    poles = np.array((-alpha, ))
 
     axes = polezero_plot_with_time(t, h, poles, ylim=ylim, mode=mode)           
 
