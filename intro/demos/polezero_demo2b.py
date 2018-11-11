@@ -8,7 +8,7 @@ from .lib.polezero_plot import polezero_plot_with_time, response_modes
 
 def polezero_demo2b_plot(alpha1=5, omega1=10, mode=response_modes[0]):
 
-    t = np.linspace(0, 3, 201)
+    t = np.linspace(-0.1, 3, 201)
     f = np.logspace(-1, 3, 201)    
     s = 2j * np.pi * f
 
@@ -49,7 +49,7 @@ def polezero_demo2b_plot(alpha1=5, omega1=10, mode=response_modes[0]):
         else:
             s = 'Critically damped'
 
-        axes[1].set_title('%s  zeta=%.2f  omega0=%.1f' % (s, zeta, omega0))
+        axes[1].set_title('%s  $\zeta$=%.2f  $\omega_0$=%.1f' % (s, zeta, omega0))
 
 def polezero_demo2b():
     interact(polezero_demo2b_plot,

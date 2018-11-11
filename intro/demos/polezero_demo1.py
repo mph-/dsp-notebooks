@@ -8,15 +8,15 @@ from .lib.polezero_plot import polezero_plot_with_time, response_modes
 
 def polezero_demo1_plot(alpha=5, mode=response_modes[0]):
 
-    t = np.linspace(0, 3, 201)
+    t = np.linspace(-0.1, 3, 201)
     f = np.logspace(-1, 3, 201)        
     s = 2j * np.pi * f
 
     if mode == 'Step response':
-        h = 1 - exp(-alpha * t)
+        h = 1 - exp(-alpha * t) * (t >=0)
         ylim = (-0.5, 2.1)
     elif mode == 'Impulse response':
-        h = alpha * exp(-alpha * t)
+        h = alpha * exp(-alpha * t) * (t >=0)
         ylim = (-5, 10)
     else:
         H = alpha / (s + alpha)
