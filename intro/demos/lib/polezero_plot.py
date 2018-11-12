@@ -15,8 +15,8 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
     axes[0].set_xlabel('Real')
     axes[0].set_ylabel('Imaginary')
     # Show axes
-    axes[0].plot((-30, 10), (0, 0), 'C0')
-    axes[0].plot((0, 0), (-20, 20), 'C0')    
+    axes[0].plot((-30, 10), (0, 0), 'C1')
+    axes[0].plot((0, 0), (-20, 20), 'C1')    
 
     if poles is not None:
         axes[0].plot(poles.real, poles.imag, 'C0x', ms=20)
