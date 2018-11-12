@@ -53,7 +53,7 @@ def polezero_demo2alt_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
     elif mode == 'Impulse response':
         ylim = (-5, 10)            
     else:
-        H = p1a * p1b / ((s - p1) * (s - p2))
+        H = p1a * p1b / ((s - p1a) * (s - p1b))
         h = H
         t = f
         ylim = (-40, 20)                            

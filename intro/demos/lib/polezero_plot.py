@@ -30,6 +30,7 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
         labels = [l.get_label() for l in lines]
         axes[1].legend(lines, labels)        
         ax2.set_ylim(-180, 180)
+        ax2.set_yticks((-180, -120, -60, 0, 60, 120, 180))
     else:
         axes[1].plot(t, h)        
         axes[1].set_xlabel('Time (s)')
