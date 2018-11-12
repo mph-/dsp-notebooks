@@ -10,22 +10,25 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
     fig, axes = subplots(1, 2, figsize=(12, 6))
     
     axes[0].grid(True)
-    axes[0].set_xlim(-20, 20)
+    axes[0].set_xlim(-30, 10)
     axes[0].set_ylim(-20, 20)
     axes[0].set_xlabel('Real')
-    axes[0].set_ylabel('Imaginary')    
+    axes[0].set_ylabel('Imaginary')
+    # Show axes
+    axes[0].plot((-30, 10), (0, 0), 'C0')
+    axes[0].plot((0, 0), (-20, 20), 'C0')    
 
     if poles is not None:
-        axes[0].plot(poles.real, poles.imag, 'bx', ms=20)
+        axes[0].plot(poles.real, poles.imag, 'C0x', ms=20)
     if zeros is not None:        
-        axes[0].plot(zeros.real, zeros.imag, 'bo', ms=20, fillstyle='none')
+        axes[0].plot(zeros.real, zeros.imag, 'C0o', ms=20, fillstyle='none')
 
     if 'Frequency' in mode:
         mlines = axes[1].semilogx(t, 20 * np.log10(abs(h)), label='magnitude (dB)')
         axes[1].set_xlabel('Frequency (Hz)')
         ax2 = axes[1].twinx()
         plines = ax2.semilogx(t, np.degrees(np.arctan2(h.imag, h.real)), '-.',
-                              label='phase (deg)', color='orange')
+                              label='phase (deg)', color='C1')
         lines = mlines + plines
         labels = [l.get_label() for l in lines]
         axes[1].legend(lines, labels)        
