@@ -6,7 +6,7 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.polezero_plot import polezero_plot_with_time, response_modes
 
 
-def polezero_demo2_plot(alpha1=5, omega1=10, mode=response_modes[0]):
+def polezero_demo2h_plot(alpha1=5, omega1=10, mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
     f = np.logspace(-1, 3, 201)    
@@ -17,18 +17,19 @@ def polezero_demo2_plot(alpha1=5, omega1=10, mode=response_modes[0]):
 
     if mode == 'Step response':
         if omega1 == 0:
-            h = (-alpha1 * t * exp(-alpha1 * t) + 1 - exp(-alpha1 * t)) * (t >= 0)
+            h = 2 * alpha1 * exp(-alpha1 * t) * (t >= 0)
         else:
-            h = (-(alpha1 * sin(omega1 * t) - omega1 * exp(alpha1 * t) + omega1 * cos(omega1 * t)) * exp(-alpha1 * t) / omega1) * (t >= 0)
-        ylim = (-0.5, 2.1)
+            h = 2 * alpha1 * exp(-alpha1 * t) * sin(omega1 * t) * (t >= 0) / omega1
+        ylim = (-0.5, 1.1)
     elif mode == 'Impulse response':        
         if omega1 == 0:
-            h = t * exp(-alpha1 * t) * (t >= 0)
+            h = -2 * alpha1 * (alpha1 - 1) * exp(-alpha1 * t) * (t >= 0)
         else:
-            h = ((alpha1 ** 2 + omega1 ** 2) * exp(-alpha1 * t) * sin(omega1 * t) / omega1) * (t >= 0)
-        ylim = (-5, 10)
+            h = -2 * alpha1 * (alpha1 * sin(omega1 * t) - omega1 * cos(omega1 * t)) * exp(-alpha1 * t) * (t >= 0)
+
+        ylim = (-50, 100)
     else:
-        H = p1a * p1b / ((s - p1a) * (s - p1b))
+        H = s**2 / ((s - p1a) * (s - p1b))
         h = H
         t = f
         ylim = (-40, 20)                    
@@ -50,7 +51,7 @@ def polezero_demo2_plot(alpha1=5, omega1=10, mode=response_modes[0]):
 
         axes[1].set_title('%s  $\zeta$=%.2f  $\omega_0$=%.1f' % (s, zeta, omega0))
 
-def polezero_demo2():
-    interact(polezero_demo2_plot,
+def polezero_demo2h():
+    interact(polezero_demo2h_plot,
              alpha1=(-2, 20), omega1=(0, 20),
              mode=response_modes, continuous_update=False)             

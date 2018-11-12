@@ -6,30 +6,33 @@ from ipywidgets import interact, interactive, fixed, interact
 from .lib.polezero_plot import polezero_plot_with_time, response_modes
 
 
-def polezero_demo1_plot(alpha=5, mode=response_modes[0]):
+def polezero_demo1b_plot(alpha=5, beta=10, mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
     f = np.logspace(-1, 3, 201)        
     s = 2j * np.pi * f
 
     if mode == 'Step response':
-        h = (1 - exp(-alpha * t)) * (t >=0)
+        h = (alpha + beta * exp(alpha * t) - beta) * exp(-alpha * t) * (t >= 0) / beta
+
         ylim = (-0.5, 2.1)
     elif mode == 'Impulse response':
-        h = alpha * exp(-alpha * t) * (t >=0)
+        raise ValueError('Cannot draw Dirac delta')
+        #h = alpha * (-(alpha - beta) * (t >= 0) + exp(alpha * t) * DiracDelta(t)) * exp(-alpha * t) / beta
         ylim = (-5, 10)
     else:
-        H = alpha / (s + alpha)
+        H = alpha * (s + beta) / (beta * (s + alpha))
         h = H
         t = f
         ylim = (-40, 20)
         
     poles = np.array((-alpha, ))
+    zeros = np.array((-beta, ))
 
-    axes = polezero_plot_with_time(t, h, poles, ylim=ylim, mode=mode)           
+    axes = polezero_plot_with_time(t, h, poles, zeros, ylim=ylim, mode=mode)           
 
 
-def polezero_demo1():
-    interact(polezero_demo1_plot,
-             alpha=(-2, 20),
+def polezero_demo1b():
+    interact(polezero_demo1b_plot,
+             alpha=(-2, 20), beta=(1, 20),
              mode=response_modes, continuous_update=False)

@@ -18,10 +18,10 @@ def polezero_demo3_plot(alpha1=5, omega1=10, alpha2=20,
     p2 = -alpha2
 
     if mode == 'Step response':
-        h = (alpha1**2 * alpha2 * exp(alpha2 * t) * sin(omega1 * t) - alpha1**2 * omega1 * exp(alpha1 * t) + alpha1**2 * omega1 * exp(t * (alpha1 + alpha2)) - alpha1 * alpha2**2 * exp(alpha2 * t) * sin(omega1 * t) + 2 * alpha1 * alpha2 * omega1 * exp(alpha2 * t) * cos(omega1 * t) - 2 * alpha1 * alpha2 * omega1 * exp(t * (alpha1 + alpha2)) - alpha2**2 * omega1 * exp(alpha2 * t) * cos(omega1 * t) + alpha2**2 * omega1 * exp(t * (alpha1 + alpha2)) - alpha2 * omega1**2 * exp(alpha2 * t) * sin(omega1 * t) - omega1 ** 3 * exp(alpha1 * t) + omega1 ** 3 * exp(t * (alpha1 + alpha2))) * exp(-t * (alpha1 + alpha2)) / (omega1 * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2)) * (t >=0)
+        h = ((alpha1**2 * alpha2 * exp(alpha2 * t) * sin(omega1 * t) - alpha1**2 * omega1 * exp(alpha1 * t) + alpha1**2 * omega1 * exp(t * (alpha1 + alpha2)) - alpha1 * alpha2**2 * exp(alpha2 * t) * sin(omega1 * t) + 2 * alpha1 * alpha2 * omega1 * exp(alpha2 * t) * cos(omega1 * t) - 2 * alpha1 * alpha2 * omega1 * exp(t * (alpha1 + alpha2)) - alpha2**2 * omega1 * exp(alpha2 * t) * cos(omega1 * t) + alpha2**2 * omega1 * exp(t * (alpha1 + alpha2)) - alpha2 * omega1**2 * exp(alpha2 * t) * sin(omega1 * t) - omega1 ** 3 * exp(alpha1 * t) + omega1 ** 3 * exp(t * (alpha1 + alpha2))) * exp(-t * (alpha1 + alpha2)) / (omega1 * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2))) * (t >=0)
         ylim = (-0.5, 2.1)
     elif mode == 'Impulse response':
-        h = alpha2 * (alpha1**2 + omega1**2) * (omega1 * (omega1**2 + (alpha1 - alpha2)**2) * exp(alpha1 * t) - (omega1 * cos(omega1 * t) + (alpha1 - alpha2) * sin(omega1 * t)) * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2) * exp(alpha2 * t)) * exp(-t * (alpha1 + alpha2)) / (omega1 * (omega1**2 + (alpha1 - alpha2)**2) * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2)) * (t >=0)
+        h = (alpha2 * (alpha1**2 + omega1**2) * (omega1 * (omega1**2 + (alpha1 - alpha2)**2) * exp(alpha1 * t) - (omega1 * cos(omega1 * t) + (alpha1 - alpha2) * sin(omega1 * t)) * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2) * exp(alpha2 * t)) * exp(-t * (alpha1 + alpha2)) / (omega1 * (omega1**2 + (alpha1 - alpha2)**2) * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2))) * (t >=0)
         ylim = (-5, 10)
     else:
         H = -p2 * -p1a * -p1b / ((s - p1a) * (s - p1b) * (s - p2))

@@ -64,7 +64,9 @@ from .beam_pattern_demo2 import *
 from .notch_filter_demo1 import *
 from .plotseq_demo1 import *
 from .polezero_demo1 import *
+from .polezero_demo1b import *
 from .polezero_demo2 import *
+from .polezero_demo2alt import *
 from .polezero_demo2b import *
 from .polezero_demo2c import *
 from .polezero_demo3 import *
