@@ -1,14 +1,13 @@
 from lcapy import s, sympify, j
 
-a1 = sympify('alpha_1')
-b1 = sympify('beta_1')
-o1 = sympify('omega_1')
+a1 = sympify('alpha')
+b1 = sympify('beta_')
 H = a1 * (s + b1) / (b1 * (s + a1))
 
 G = H / s
 
-g = G.partfrac().inverse_laplace(causal=True).simplify()
-h = H.partfrac().inverse_laplace(causal=True).simplify()
+g = G.partfrac().inverse_laplace(causal=True)
+h = H.partfrac().inverse_laplace(causal=True)
 
 def topy(expr):
 
