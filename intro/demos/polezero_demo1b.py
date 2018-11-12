@@ -9,8 +9,8 @@ from .lib.polezero_plot import polezero_plot_with_time, response_modes
 def polezero_demo1b_plot(alpha=5, beta=10, mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
-    f = np.logspace(-1, 3, 201)        
-    s = 2j * np.pi * f
+    w = np.logspace(-1, 3, 201)        
+    s = 1j * w
 
     if mode == 'Step response':
         h = (alpha + beta * exp(alpha * t) - beta) * exp(-alpha * t) * (t >= 0) / beta
@@ -23,7 +23,7 @@ def polezero_demo1b_plot(alpha=5, beta=10, mode=response_modes[0]):
     else:
         H = alpha * (s + beta) / (beta * (s + alpha))
         h = H
-        t = f
+        t = w
         ylim = (-40, 20)
         
     poles = np.array((-alpha, ))

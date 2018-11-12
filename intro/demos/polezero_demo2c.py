@@ -9,8 +9,8 @@ from .lib.polezero_plot import polezero_plot_with_time, response_modes
 def polezero_demo2c_plot(alpha1=5, omega1=10, beta1=10, mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
-    f = np.logspace(-1, 3, 201)    
-    s = 2j * np.pi * f
+    w = np.logspace(-1, 3, 201)    
+    s = 1j * w
 
     p1a = -alpha1 - 1j * omega1
     p1b = -alpha1 + 1j * omega1
@@ -24,7 +24,7 @@ def polezero_demo2c_plot(alpha1=5, omega1=10, beta1=10, mode=response_modes[0]):
     else:
         H = p1a * p1b * (s + beta1) / ((s - p1a) * (s - p1b)) / beta1
         h = H
-        t = f
+        t = w
         ylim = (-40, 20)                    
 
     poles = np.array((p1a, p1b))

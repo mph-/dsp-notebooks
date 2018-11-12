@@ -25,7 +25,7 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
 
     if 'Frequency' in mode:
         mlines = axes[1].semilogx(t, 20 * np.log10(abs(h)), label='magnitude (dB)')
-        axes[1].set_xlabel('Frequency (Hz)')
+        axes[1].set_xlabel('Angular frequency (rad/s)')
         ax2 = axes[1].twinx()
         plines = ax2.semilogx(t, np.degrees(np.arctan2(h.imag, h.real)), '-.',
                               label='phase (deg)', color='C1')

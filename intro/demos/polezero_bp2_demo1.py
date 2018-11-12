@@ -9,8 +9,8 @@ from .lib.polezero_plot import polezero_plot_with_time, response_modes
 def polezero_bp2_demo1_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
-    f = np.logspace(-1, 3, 201)    
-    s = 2j * np.pi * f
+    w = np.logspace(-1, 3, 201)    
+    s = 1j * w
 
     if zeta > 1:
         # Over damped
@@ -53,10 +53,10 @@ def polezero_bp2_demo1_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
     elif mode == 'Impulse response':
         ylim = (-5, 10)            
     else:
-        H = p1a * p1b / ((s - p1a) * (s - p1b))
+        H = s * 2 * zeta * omega0 / ((s - p1a) * (s - p1b))
         h = H
-        t = f
-        ylim = (-40, 20)                            
+        t = w
+        ylim = (-40, 20)
 
     poles = np.array((p1a, p1b))
     zeros = np.array((0, ))
