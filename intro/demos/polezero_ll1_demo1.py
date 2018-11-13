@@ -4,7 +4,7 @@ from numpy import exp, sin, cos
 from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.polezero_plot import polezero_plot_with_time, response_modes
-
+from IPython.display import display, Math, Latex
 
 def polezero_ll1_demo1_plot(alpha=5, beta=10, mode=response_modes[0]):
 
@@ -17,7 +17,7 @@ def polezero_ll1_demo1_plot(alpha=5, beta=10, mode=response_modes[0]):
 
         ylim = (-0.5, 2.1)
     elif mode == 'Impulse response':
-        return 'Cannot draw Dirac delta'
+        return Latex('Cannot draw Dirac delta')
         #h = alpha * (-(alpha - beta) * (t >= 0) + exp(alpha * t) * DiracDelta(t)) * exp(-alpha * t) / beta
         ylim = (-5, 10)
     else:
