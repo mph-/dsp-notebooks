@@ -1,7 +1,5 @@
 # M. P. Hayes UCECE
 import numpy as np
-from numpy import exp, sin, cos, sqrt
-from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.polezero_plot import polezero_plot_with_time, response_modes
 from .lib.lowpass2 import Lowpass2
@@ -28,6 +26,8 @@ def polezero_gen2_demo1_plot(zeta=0.5, omega0=10, kind=kinds[0],
         obj = Highpass2(zeta, omega0)        
     elif kind == 'Band-stop':
         obj = Bandstop2(zeta, omega0)
+    else:
+        raise ValueError('Unknown kind %s' % kind)
 
     if mode == 'Step response':
         h = obj.step_response(t)
@@ -44,10 +44,8 @@ def polezero_gen2_demo1_plot(zeta=0.5, omega0=10, kind=kinds[0],
     else:
         raise ValueError('Unknown mode=%s', mode)        
 
-    poles = np.array(obj.poles)
-    zeros = np.array(obj.zeros)    
-
-    axes = polezero_plot_with_time(t, h, poles, zeros, ylim=ylim, mode=mode)
+    axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros,
+                                   ylim=ylim, mode=mode)
 
     eps = 0.01
     if zeta > (1 + eps):

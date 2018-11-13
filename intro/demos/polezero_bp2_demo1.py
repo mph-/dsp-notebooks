@@ -1,10 +1,8 @@
 # M. P. Hayes UCECE
 import numpy as np
-from numpy import exp, sin, cos, sqrt
-from matplotlib.pyplot import subplots
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.polezero_plot import polezero_plot_with_time, response_modes
-
+from .lib.bandpass2 import Bandpass2
 
 def polezero_bp2_demo1_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
 
@@ -12,57 +10,25 @@ def polezero_bp2_demo1_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
     w = np.logspace(-1, 3, 201)    
     s = 1j * w
 
-    if zeta > 1:
-        # Over damped
-        p1a = -zeta * omega0 + omega0 * sqrt(zeta**2 - 1)
-        p1b = -zeta * omega0 - omega0 * sqrt(zeta**2 - 1)
-        alpha1 = -p1a
-        alpha2 = -p1b
+    obj = Bandpass2(zeta, omega0)
 
-        if mode == 'Step response':
-            h = ((alpha1 + alpha2) * exp(-alpha2 * t) / (alpha1 - alpha2) - (alpha1 + alpha2) * exp(-alpha1 * t) / (alpha1 - alpha2)) * (t >= 0)
-        elif mode == 'Impulse response':
-            h = ((alpha1**2 + alpha1 * alpha2) * exp(-alpha1 * t) / (alpha1 - alpha2) - (alpha1 * alpha2 + alpha2**2) * exp(-alpha2 * t) / (alpha1 - alpha2)) * (t >= 0)
-            
-    elif zeta < 1:
-        # Under damped
-        p1a = -zeta * omega0 + 1j * omega0 * sqrt(1 - zeta**2)
-        p1b = -zeta * omega0 - 1j * omega0 * sqrt(1 - zeta**2)
-
-        alpha1 = zeta * omega0
-        omega1 = omega0 * sqrt(1 - zeta**2)
-        
-        if mode == 'Step response':
-            h = 2 * alpha1 * exp(-alpha1 * t) * sin(omega1 * t) * (t >= 0) / omega1
-        elif mode == 'Impulse response':
-            h = -2 * alpha1 * (alpha1 * sin(omega1 * t) - omega1 * cos(omega1 * t)) * exp(-alpha1 * t) * (t >= 0) / omega1
-        
-    else:
-        # Critically damped
-        p1a = -omega0
-        p1b = -omega0
-        if mode == 'Step response':
-            h = 2 * omega0 * t * exp(-omega0 * t) * (t >= 0)            
-            ylim = (-0.5, 2.1)            
-        elif mode == 'Impulse response':
-            h = (-2 * omega0**2 * t * exp(-omega0 * t) + 2 * omega0 * exp(-omega0 * t)) * (t >= 0)            
-            ylim = (-5, 10)            
-
-    if mode == 'Step response':    
-        ylim = (-0.5, 2.1)
+    if mode == 'Step response':
+        h = obj.step_response(t)
+        ylim = (-0.5, 2.1)        
     elif mode == 'Impulse response':
-        ylim = (-5, 10)            
-    else:
-        H = s * 2 * zeta * omega0 / ((s - p1a) * (s - p1b))
-        h = H
-        t = w
+        h = obj.impulse_response(t)
+        if h is None:
+            return Latex('Cannot compute Dirac delta for %s' % mode)
+        ylim = (-5, 10)                    
+    elif mode == 'Frequency response':
+        h = obj.frequency_response(s)
         ylim = (-40, 20)
+        t = w
+    else:
+        raise ValueError('Unknown mode=%s', mode)        
 
-    poles = np.array((p1a, p1b))
-    zeros = np.array((0, ))
-
-    axes = polezero_plot_with_time(t, h, poles, zeros, ylim=ylim, mode=mode)
-
+    axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros,
+                                   ylim=ylim, mode=mode)
     eps = 0.01
     if zeta > (1 + eps):
         s = 'Over damped'

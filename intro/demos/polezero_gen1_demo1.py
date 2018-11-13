@@ -2,15 +2,26 @@
 import numpy as np
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.polezero_plot import polezero_plot_with_time, response_modes
-from .lib.lowpass2 import Lowpass2
+from .lib.lowpass1 import Lowpass1
+from .lib.highpass1 import Highpass1
+from IPython.display import display, Math, Latex
 
-def polezero_lp2_demo1_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
+kinds = ['Low-pass', 'High-pass']
+
+
+def polezero_gen1_demo1_plot(alpha=1, kind=kinds[0],
+                             mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
     w = np.logspace(-1, 3, 201)    
     s = 1j * w
 
-    obj = Lowpass2(zeta, omega0)
+    if kind == 'Low-pass':
+        obj = Lowpass1(alpha)
+    elif kind == 'High-pass':
+        obj = Highpass1(alpha)        
+    else:
+        raise ValueError('Unknown kind %s' % kind)
 
     if mode == 'Step response':
         h = obj.step_response(t)
@@ -29,17 +40,8 @@ def polezero_lp2_demo1_plot(zeta=0.5, omega0=10, mode=response_modes[0]):
 
     axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros,
                                    ylim=ylim, mode=mode)
-    eps = 0.01
-    if zeta > (1 + eps):
-        s = 'Over damped'
-    elif zeta < (1 - eps):
-        s = 'Under damped'
-    else:
-        s = 'Critically damped'
-        
-    axes[1].set_title('%s  $\zeta$=%.2f  $\omega_0$=%.1f' % (s, zeta, omega0))
 
-def polezero_lp2_demo1():
-    interact(polezero_lp2_demo1_plot,
-             zeta=(0.1, 10), omega0=(0, 20),
+def polezero_gen1_demo1():
+    interact(polezero_gen1_demo1_plot,
+             alpha=(0, 20), kind=kinds,
              mode=response_modes, continuous_update=False)             
