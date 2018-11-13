@@ -60,7 +60,7 @@ class Lowpass2OverDamped(Lowpass2Base):
     def __init__(self, zeta, omega0):
         if zeta <= 1.0:
             raise ValueError('System not over damped')
-        super (Lowpass2UnderDamped, self).__init__(zeta, omega0)
+        super (Lowpass2OverDamped, self).__init__(zeta, omega0)
         
         p1a = -zeta * omega0 + omega0 * sqrt(zeta**2 - 1)
         p1b = -zeta * omega0 - omega0 * sqrt(zeta**2 - 1)

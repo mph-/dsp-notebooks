@@ -19,8 +19,10 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
     axes[0].plot((0, 0), (-20, 20), 'C1')    
 
     if poles is not None:
+        poles = np.array(poles)
         axes[0].plot(poles.real, poles.imag, 'C0x', ms=20)
-    if zeros is not None:        
+    if zeros is not None:
+        zeros = np.array(zeros)
         axes[0].plot(zeros.real, zeros.imag, 'C0o', ms=20, fillstyle='none')
 
     if 'Frequency' in mode:
