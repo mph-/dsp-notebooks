@@ -65,6 +65,7 @@ from .notch_filter_demo1 import *
 from .plotseq_demo1 import *
 from .polezero_lp1_demo1 import *
 from .polezero_ll1_demo1 import *
+from .polezero_p1z1_demo1 import *
 from .polezero_demo2 import *
 from .polezero_lp2_demo1 import *
 from .polezero_bp2_demo1 import *

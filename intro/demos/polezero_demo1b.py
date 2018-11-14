@@ -29,8 +29,7 @@ def polezero_demo1b_plot(alpha=5, beta=10, mode=response_modes[0]):
     poles = np.array((-alpha, ))
     zeros = np.array((-beta, ))
 
-    axes = polezero_plot_with_time(t, h, poles, zeros, ylim=ylim, mode=mode)           
-
+    axes = polezero_plot_with_time(t, h, poles, zeros, ylim=ylim, mode=mode)
 
 def polezero_demo1b():
     interact(polezero_demo1b_plot,
