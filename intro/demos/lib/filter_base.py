@@ -1,12 +1,12 @@
-from numpy import exp, sin, cos, sqrt, pi
+from numpy import exp, sin, cos, sqrt, pi, angle
 
 class FilterBase(object):
 
     def ac_response(self, t, omega):
 
-        H = self.frequency_response(omega)
+        H = self.frequency_response(omega * 2j)
 
-        phase = np.angle(H)
+        phase = angle(H)
         mag = abs(H)
 
         return mag * cos(omega * t + phase)
@@ -18,5 +18,11 @@ class FilterBase(object):
         elif mode == 'Impulse response':
             return t, self.impulse_response(t)
         elif mode == 'Frequency response':
-            return omega, self.frequency_response(omega * 2 * pi)
+            return omega, self.frequency_response(omega * 2j * pi)
+        elif mode == 'AC response omega=1':
+            return t, self.ac_response(t, 1)
+        elif mode == 'AC response omega=10':
+            return t, self.ac_response(t, 10)        
         raise ValueError('Unknown mode=%s', mode)                
+
+    

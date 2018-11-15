@@ -7,7 +7,7 @@ from IPython.display import display, Math, Latex
 from .lib.p1z1 import P1Z1
 
 def polezero_p1z1_demo1_plot(p=-10, z=-5,
-                            mode=response_modes[0]):
+                             mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)
     w = np.logspace(-1, 3, 201)        
@@ -23,5 +23,5 @@ def polezero_p1z1_demo1_plot(p=-10, z=-5,
 
 def polezero_p1z1_demo1():
     interact(polezero_p1z1_demo1_plot,
-             p=(-20, 0), z=(-20, 0), 
+             p=(-30, 0), z=(-30, 0), 
              mode=response_modes, continuous_update=False)

@@ -30,5 +30,5 @@ def polezero_gen1_demo1_plot(alpha=1, kind=kinds[0],
 
 def polezero_gen1_demo1():
     interact(polezero_gen1_demo1_plot,
-             alpha=(0, 20), kind=kinds,
+             alpha=(0, 30), kind=kinds,
              mode=response_modes, continuous_update=False)             

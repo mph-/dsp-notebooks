@@ -2,9 +2,11 @@
 import numpy as np
 from matplotlib.pyplot import subplots, setp
 
-response_modes = ['Step response', 'Impulse response', 'Frequency response']
+response_modes = ['Step response', 'Impulse response', 'Frequency response',
+                  'AC response omega=1', 'AC response omega=10']
 ylims = {'Step response': (-0.5, 2.1), 'Impulse response' : (-5, 10),
-         'Frequency response': (-40, 20)}
+         'Frequency response': (-40, 20), 'AC response omega=1':(-2.1, 2.1),
+         'AC response omega=10':(-2.1, 2.1)}
 
 def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
                             mode=response_modes[0], **kwargs):
@@ -41,7 +43,13 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
     else:
         axes[1].plot(t, h)        
         axes[1].set_xlabel('Time (s)')
-    
+
+    if 'AC' in mode:
+        if '10' in mode:
+            axes[1].plot(t, np.cos(10 * t))
+        else:
+            axes[1].plot(t, np.cos(1 * t))            
+            
     if ylim is None:
         ylim = ylims[mode]
     axes[1].set_ylim(ylim)
