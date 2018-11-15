@@ -7,8 +7,8 @@ class P1Z1(FilterBase):
     def __init__(self, z, p):
         self.z = z
         self.p = p
-        self.poles = (z, )
-        self.zeros = (p, )
+        self.poles = (p, )
+        self.zeros = (z, )
 
         self.title = 'Lag-compensator with gain'
         if abs(z) > abs(p):
