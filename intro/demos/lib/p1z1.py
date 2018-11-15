@@ -1,6 +1,8 @@
 from numpy import exp, sin, cos, sqrt
+from .filter_base import FilterBase
 
-class P1Z1(object):
+
+class P1Z1(FilterBase):
 
     def __init__(self, z, p):
         self.z = z

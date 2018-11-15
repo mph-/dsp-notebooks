@@ -1,6 +1,7 @@
+from .filter_base import FilterBase
 from numpy import exp, sin, cos, sqrt
 
-class Highpass2Base(object):
+class Highpass2Base(FilterBase):
 
     def __init__(self, zeta, omega0):
         self.zeta = zeta

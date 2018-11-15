@@ -1,6 +1,6 @@
 from numpy import exp, sin, cos, sqrt
 
-class LeadCompensator1(object):
+class LeadCompensator1(FilterBase):
 
     def __init__(self, alpha, beta):
         self.alpha = alpha

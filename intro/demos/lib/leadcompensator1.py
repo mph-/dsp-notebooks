@@ -1,6 +1,7 @@
+from .filter_base import FilterBase
 from numpy import exp, sin, cos, sqrt
 
-class LeadCompensator1(object):
+class LeadCompensator1(FilterBase):
 
     def __init__(self, alpha, tau):
         self.alpha = alpha
