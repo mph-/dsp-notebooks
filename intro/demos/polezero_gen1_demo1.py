@@ -14,7 +14,6 @@ def polezero_gen1_demo1_plot(alpha=1, kind=kinds[0],
 
     t = np.linspace(-0.1, 3, 201)
     w = np.logspace(-1, 3, 201)    
-    s = 1j * w
 
     if kind == 'Low-pass':
         obj = Lowpass1(alpha)
@@ -23,23 +22,11 @@ def polezero_gen1_demo1_plot(alpha=1, kind=kinds[0],
     else:
         raise ValueError('Unknown kind %s' % kind)
 
-    if mode == 'Step response':
-        h = obj.step_response(t)
-        ylim = (-0.5, 2.1)        
-    elif mode == 'Impulse response':
-        h = obj.impulse_response(t)
-        if h is None:
-            return Latex('Cannot compute Dirac delta for %s' % mode)
-        ylim = (-5, 10)                    
-    elif mode == 'Frequency response':
-        h = obj.frequency_response(s)
-        ylim = (-40, 20)
-        t = w
-    else:
-        raise ValueError('Unknown mode=%s', mode)        
+    t, h = obj.response(mode, t, w)
+    if h is None:
+        return Latex('Cannot compute Dirac delta for %s' % mode)    
 
-    axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros,
-                                   ylim=ylim, mode=mode)
+    axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros, mode=mode)
 
 def polezero_gen1_demo1():
     interact(polezero_gen1_demo1_plot,

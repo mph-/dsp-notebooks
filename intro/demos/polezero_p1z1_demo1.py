@@ -11,27 +11,13 @@ def polezero_p1z1_demo1_plot(p=-10, z=-5,
 
     t = np.linspace(-0.1, 3, 201)
     w = np.logspace(-1, 3, 201)        
-    s = 1j * w
 
     obj = P1Z1(p, z)
+    t, h = obj.response(mode, t, w)
+    if h is None:
+        return Latex('Cannot compute Dirac delta for %s' % mode)    
 
-    if mode == 'Step response':
-        h = obj.step_response(t)
-        ylim = (-0.5, 2.1)        
-    elif mode == 'Impulse response':
-        h = obj.impulse_response(t)
-        if h is None:
-            return Latex('Cannot compute Dirac delta for %s' % mode)
-        ylim = (-5, 10)                    
-    elif mode == 'Frequency response':
-        h = obj.frequency_response(s)
-        ylim = (-40, 20)
-        t = w
-    else:
-        raise ValueError('Unknown mode=%s', mode)        
-
-    axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros,
-                                   ylim=ylim, mode=mode)
+    axes = polezero_plot_with_time(t, h, obj.poles, obj.zeros, mode=mode)
     axes[1].set_title(obj.title)
 
 
