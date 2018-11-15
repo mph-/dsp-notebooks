@@ -9,7 +9,7 @@ from IPython.display import display, Math, Latex
 kinds = ['Low-pass', 'High-pass']
 
 
-def polezero_gen1_demo1_plot(alpha=1, kind=kinds[0],
+def polezero_gen1_demo1_plot(alpha=5, kind=kinds[0],
                              mode=response_modes[0]):
 
     t = np.linspace(-0.1, 3, 201)

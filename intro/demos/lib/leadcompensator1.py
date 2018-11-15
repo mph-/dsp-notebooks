@@ -18,7 +18,7 @@ class LeadCompensator1(FilterBase):
         return ((alpha - 1) * exp(-t / tau) / alpha + 1 / alpha) * (t >= 0)
 
     def impulse_response(self, t):
-        return False
+        return None
         # DiracDelta(t) + (-alpha + 1) * exp(-t / tau) * (t >= 0) / (alpha * tau)
 
 

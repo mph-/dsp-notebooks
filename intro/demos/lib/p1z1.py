@@ -26,6 +26,6 @@ class P1Z1(FilterBase):
         return (p / z - (p - z) * exp(z * t) / z) * (t >= 0)
 
     def impulse_response(self, t):
-        return False
+        return None
         # (z - p) * exp(z * t) * (t >= 0) + DiracDelta(t)
         

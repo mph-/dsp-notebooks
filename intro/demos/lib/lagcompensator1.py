@@ -18,7 +18,7 @@ class LagCompensator1(FilterBase):
         return (1 - (alpha - 1) * exp(-t / (alpha * tau)) / alpha) * (t >= 0)
 
     def impulse_response(self, t):
-        return False
+        return None
         # DiracDelta(t) / alpha + (alpha - 1) * exp(-t / (alpha * tau)) * (t >= 0) / (alpha**2 * tau)
 
 

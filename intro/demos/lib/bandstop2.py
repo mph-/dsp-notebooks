@@ -78,7 +78,7 @@ class Bandstop2OverDamped(Bandstop2Base):
 
     def impulse_response(self, t):
         alpha1, alpha2 = self.alpha1, self.alpha2
-        return False
+        return None
         #return (-(alpha1**2 + alpha1 * alpha2) * exp(-alpha1 * t) / (alpha1 - alpha2) + (alpha1 * alpha2 + alpha2**2) * exp(-alpha2 * t) / (alpha1 - alpha2)) * (t >= 0) + DiracDelta(t)
 
     

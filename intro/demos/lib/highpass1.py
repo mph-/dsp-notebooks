@@ -17,6 +17,6 @@ class Highpass1(FilterBase):
         return exp(-alpha * t) * (t >= 0)
 
     def impulse_response(self, t):
-        return False
+        return None
         #return -alpha * exp(-alpha * t) * (t >= 0) + DiracDelta(t)
         

@@ -26,6 +26,6 @@ class P3Z1(FilterBase):
     def impulse_response(self, t):
         alpha1, alpha2, omega1, beta1 = self.params                
         return alpha2 * (-omega1 * (omega1**2 + (alpha1 - alpha2)**2)**2 * (alpha1**2 * alpha2 - alpha1**2 * beta1 + alpha2 * omega1**2 - beta1 * omega1**2) * exp(2 * alpha1 * t) - omega1 * (omega1**2 + (alpha1 - alpha2)**2) * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2) * (-alpha1**3 + alpha1**2 * beta1 - alpha1 * omega1**2 + beta1 * omega1**2 + (alpha1 - alpha2) * (alpha1**2 + omega1**2)) * exp(t * (alpha1 + alpha2)) * cos(omega1 * t) + (omega1**2 + (alpha1 - alpha2)**2) * (omega1**2 * (alpha1**2 + omega1**2) + (alpha1 - alpha2) * (alpha1**3 - alpha1**2 * beta1 + alpha1 * omega1**2 - beta1 * omega1**2)) * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2) * exp(t * (alpha1 + alpha2)) * sin(omega1 * t)) * exp(-t * (2 * alpha1 + alpha2)) * (t >= 0) / (beta1 * omega1 * (omega1**2 + (alpha1 - alpha2)**2)**2 * (alpha1**2 - 2 * alpha1 * alpha2 + alpha2**2 + omega1**2)) * (t >= 0)        
-        return False
+        return None
         # (z - p) * exp(z * t) * (t >= 0) + DiracDelta(t)
         

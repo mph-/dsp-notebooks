@@ -22,5 +22,5 @@ class LeadCompensator1(FilterBase):
         alpha = self.alpha
         return (alpha / beta + exp(alpha * t) - 1) * exp(-alpha * t) * (t >= 0)
     def impulse_response(self, t):
-        return False
+        return None
         
