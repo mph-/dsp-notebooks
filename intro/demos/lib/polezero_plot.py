@@ -32,14 +32,14 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
         axes[0].plot(zeros.real, zeros.imag, 'C0o', ms=20, fillstyle='none')
 
     if 'DC' in mode:
-        axes[1].plot(t, t * 0 + 1, color='C1')        
+        axes[1].plot(t, t * 0 + 1, color='C1', label='input')        
     elif 'AC' in mode:
         if '10' in mode:
-            axes[1].plot(t, np.cos(10 * t), color='C1')
+            axes[1].plot(t, np.cos(10 * t), color='C1', label='input')
         else:
-            axes[1].plot(t, np.cos(1 * t), color='C1')
+            axes[1].plot(t, np.cos(1 * t), color='C1', label='input')
     elif mode == 'Step response':
-        axes[1].plot(t, (t >= 0) * 1, color='C1')        
+        axes[1].plot(t, (t >= 0) * 1, color='C1', label='input')
         
     if 'Frequency' in mode:
         mlines = axes[1].semilogx(t, 20 * np.log10(abs(h)), label='magnitude (dB)')
@@ -53,8 +53,9 @@ def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
         ax2.set_ylim(-180, 180)
         ax2.set_yticks((-180, -120, -60, 0, 60, 120, 180))
     else:
-        axes[1].plot(t, h, color='C0')
+        axes[1].plot(t, h, color='C0', label='output')
         axes[1].set_xlabel('Time (s)')
+        axes[1].legend()                
 
     if ylim is None:
         ylim = ylims[mode]
