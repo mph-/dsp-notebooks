@@ -10,26 +10,46 @@ ylims = {'Step response': (-0.5, 2.1), 'Impulse response' : (-5, 10),
          'Frequency response': (-40, 20), 'AC response omega=1':(-2.1, 2.1),
          'AC response omega=10':(-2.1, 2.1), 'DC response':(-2.1, 2.1)}
 
+
+def polezero_plot(axes, poles, zeros):
+
+    axes.grid(True)
+    axes.set_xlim(-30, 10)
+    axes.set_ylim(-20, 20)
+    axes.set_xlabel('Real')
+    axes.set_ylabel('Imaginary')
+    # Show axes
+    axes.plot((-30, 10), (0, 0), 'k')
+    axes.plot((0, 0), (-20, 20), 'k')    
+
+    def annotate(axes, poles, offset=None):
+        if offset is None:
+            xmin, xmax = axes.get_xlim()
+            offset = (xmax - xmin) / 27
+        
+        plist = list(poles)
+        for pole in set(poles):
+            num = plist.count(pole)
+            if num > 1:
+                axes.text(pole.real + offset, pole.imag + offset, '%d' % num)
+    
+    if poles is not None:
+        poles = np.array(poles)
+        axes.plot(poles.real, poles.imag, 'C0x', ms=20)
+        annotate(axes, poles)
+
+    if zeros is not None:
+        zeros = np.array(zeros)
+        axes.plot(zeros.real, zeros.imag, 'C0o', ms=20, fillstyle='none')
+        annotate(axes, zeros)        
+    
+
 def polezero_plot_with_time(t, h, poles=None, zeros=None, ylim=None,
                             mode=response_modes[0], **kwargs):
 
     fig, axes = subplots(1, 2, figsize=(12, 6))
-    
-    axes[0].grid(True)
-    axes[0].set_xlim(-30, 10)
-    axes[0].set_ylim(-20, 20)
-    axes[0].set_xlabel('Real')
-    axes[0].set_ylabel('Imaginary')
-    # Show axes
-    axes[0].plot((-30, 10), (0, 0), 'k')
-    axes[0].plot((0, 0), (-20, 20), 'k')    
 
-    if poles is not None:
-        poles = np.array(poles)
-        axes[0].plot(poles.real, poles.imag, 'C0x', ms=20)
-    if zeros is not None:
-        zeros = np.array(zeros)
-        axes[0].plot(zeros.real, zeros.imag, 'C0o', ms=20, fillstyle='none')
+    polezero_plot(axes[0], poles, zeros)
 
     if 'DC' in mode:
         axes[1].plot(t, t * 0 + 1, color='C1', label='input')        
