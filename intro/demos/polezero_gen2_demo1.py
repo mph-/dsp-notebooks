@@ -42,7 +42,7 @@ def polezero_gen2_demo1_plot(zeta=0.5, omega0=10, kind=kinds[0],
     else:
         s = 'Critically damped'
         
-    axes[1].set_title('%s  $\zeta$=%.2f  $\omega_0$=%.1f' % (s, zeta, omega0))
+    axes[1].set_title(s)
 
 def polezero_gen2_demo1():
     interact(polezero_gen2_demo1_plot,
