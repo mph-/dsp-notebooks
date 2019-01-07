@@ -1,0 +1,6 @@
+# python packages to install for binder
+numpy
+scipy
+matplotlib
+ipywidgets
+
