@@ -78,3 +78,5 @@ from .polezero_demo4 import *
 from .polezero_gen1_demo1 import *
 from .polezero_gen2_demo1 import *
 from .polezero_gen4_demo1 import *
+from .mystery_audio_demo1 import *
+from .mystery_audio_demo2 import *
