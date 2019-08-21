@@ -13,7 +13,7 @@ class LeadCompensator1(FilterBase):
         else:
             self.name = 'Lag compensator'            
 
-    def frequency_response(self, s):
+    def transfer_function(self, s):
         alpha = self.alpha
         beta = self.beta        
         return (s + beta) / (s + alpha) * (alpha / beta)

@@ -16,7 +16,7 @@ class P1Z1(FilterBase):
         elif abs(z) == abs(p):
             self.title = 'All-pass'
 
-    def frequency_response(self, s):
+    def transfer_function(self, s):
         z, p = self.z, self.p
         
         return (s - p) / (s - z)

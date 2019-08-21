@@ -7,7 +7,7 @@ class Lowpass2Base(FilterBase):
         self.zeta = zeta
         self.omega0 = omega0
 
-    def frequency_response(self, s):
+    def transfer_function(self, s):
 
         zeta, omega0 = self.zeta, self.omega0
         return omega0**2 / (s**2 + 2 * zeta * omega0 * s + omega0**2)

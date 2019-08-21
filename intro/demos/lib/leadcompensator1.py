@@ -9,7 +9,7 @@ class LeadCompensator1(FilterBase):
         self.poles = (-1 / tau, )
         self.zeros = (-1 / (alpha * tau), )
 
-    def frequency_response(self, s):
+    def transfer_function(self, s):
         alpha, tau = self.alpha, self.tau
         return (s + 1 / (alpha * tau)) / (s + 1 / tau)
 

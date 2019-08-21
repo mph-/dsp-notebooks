@@ -13,7 +13,7 @@ class P3Z1(FilterBase):
         self.poles = (p1a, p1b, p2)
         self.zeros = (z1, )
 
-    def frequency_response(self, s):
+    def transfer_function(self, s):
         alpha1, alpha2, omega1, beta1 = self.params
         p1a, p1b, p2 = self.poles
         z1, = self.zeros

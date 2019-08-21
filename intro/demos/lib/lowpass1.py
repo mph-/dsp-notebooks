@@ -8,7 +8,7 @@ class Lowpass1(FilterBase):
         self.poles = (-alpha, )
         self.zeros = ()
 
-    def frequency_response(self, s):
+    def transfer_function(self, s):
         alpha = self.alpha
         return alpha / (s + alpha)
 

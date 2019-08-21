@@ -9,13 +9,16 @@ class FilterBase(object):
 
     def ac_response(self, t, omega):
 
-        H = self.frequency_response(omega * 2j)
+        H = self.frequency_response(omega)
 
         phase = angle(H)
         mag = abs(H)
 
         return mag * cos(omega * t + phase)    
 
+    def frequency_response(self, omega):
+        return self.transfer_function(1j * omega)
+    
     def response(self, mode, t, omega):
 
         if mode == 'Step response':
@@ -23,7 +26,7 @@ class FilterBase(object):
         elif mode == 'Impulse response':
             return t, self.impulse_response(t)
         elif mode == 'Frequency response':
-            return omega, self.frequency_response(omega * 2j * pi)
+            return omega, self.frequency_response(omega)
         elif mode == 'DC response':
             return t, self.dc_response(t)
         elif mode == 'AC response omega=1':
