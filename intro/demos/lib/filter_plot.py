@@ -8,6 +8,10 @@ def filter_plot(b, a, fs, f=None, bode=True, N=400, **kwargs):
 
     if f is None:
         f = np.arange(N) / N * fs / 2
+
+    # Quietly ignore DC bin where can have problems
+    mf = f != 0
+    f = f[mf]
         
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
 

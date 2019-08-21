@@ -15,6 +15,7 @@ from .convolution_demo2 import *
 from .convolution_demo3 import *
 from .discrete_convolution_demo1 import *
 from .convolution_audio_demo1 import *
+from .dalek_filter_demo1 import *
 from .ma_lpf_dtft_demo1 import *
 from .dft_demo1 import *
 from .dft_phase_demo1 import *
