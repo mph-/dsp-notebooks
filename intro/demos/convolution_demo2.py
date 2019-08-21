@@ -1,15 +1,13 @@
 # M. P. Hayes UCECE
 import numpy as np
-from matplotlib.pyplot import show
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
 from .lib.signal import Signal, signals
 
-def convolution_demo2_plot(x=signals[7], h=signals[9]):
+def convolution_demo2_plot(x='gauss(t/0.1)', h='exp(-t) u(t)'):
 
     N = 800
     tmax = 5
-    fmax = 5    
     t1 = np.linspace(-tmax, tmax, N)    
 
     dt = t1[1] - t1[0]    

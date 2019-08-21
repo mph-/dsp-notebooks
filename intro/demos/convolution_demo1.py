@@ -1,6 +1,5 @@
 # M. P. Hayes UCECE
 import numpy as np
-from matplotlib.pyplot import show
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
 from .lib.signal import Signal, signals
@@ -9,7 +8,6 @@ def convolution_demo1_plot(x='fang(t)', h='exp(-t) u(t)', t=0.5):
 
     N = 500
     tmax = 5
-    fmax = 5    
     t1 = np.linspace(-tmax, tmax, N)    
 
     dt = t1[1] - t1[0]    
