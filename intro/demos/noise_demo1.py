@@ -14,8 +14,11 @@ def noise_demo1_plot(sigma=1, mu=0, N=100, seed=1, lollipop=True):
 
     fig = signal_plot_with_hist(t, x, range=(-5, 5), lollipop=lollipop,
                                 density=True, ylim2=(0, 0.6))
+
+    vx = np.linspace(-5, 5, 201)    
+    fX = gauss(vx, mu, sigma)
     
-    fig.axes[1].plot(fX, z)
+    fig.axes[1].plot(fX, vx)
 
 def noise_demo1():
     interact(noise_demo1_plot, sigma=(1, 10), mu=(-10, 10),
