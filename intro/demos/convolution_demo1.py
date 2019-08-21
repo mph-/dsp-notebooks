@@ -3,33 +3,9 @@ import numpy as np
 from matplotlib.pyplot import show
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot3
-from .lib.utils import rect, sinc, gauss, tri
+from .lib.signal import Signal, signals
 
-signals = ['rect(t)', 'rect(t/2)', 'tri(t)', 'tri(t/2)',
-           'gauss(t)', 'fang(t)', 'gauss(t/0.01)']
-
-
-def make_signal(t, name):
-
-    if name == 'gauss(t)':
-        return gauss(t, 0, 1)
-    elif name == 'gauss(t/0.01)':
-        x = gauss(t / 0.01)    
-        return x / max(x)
-    elif name == 'rect(t)':
-        return rect(t)
-    elif name == 'tri(t)':
-        return tri(t)
-    elif name == 'tri(t/2)':
-        return tri(t / 2)        
-    elif name == 'rect(t/2)':
-        return rect(t / 2)
-    elif name == 'fang(t)':
-        return t * rect(t - 0.5)
-    raise ValueError('Unknown signal ' + name)
-    
-
-def convolution_demo1_plot(x=signals[5], h=signals[5], t=0.5):
+def convolution_demo1_plot(x='fang(t)', h='exp(-t) u(t)', t=0.5):
 
     N = 500
     tmax = 5
@@ -39,11 +15,11 @@ def convolution_demo1_plot(x=signals[5], h=signals[5], t=0.5):
     dt = t1[1] - t1[0]    
     offset = int(-t1[0] / dt)
     
-    x1 = make_signal(t - t1, x)
-    x2 = make_signal(t1, h)
-    y1 = make_signal(t1, x)    
+    x1 = Signal(x)(t - t1)
+    x2 = Signal(h)(t1)
+    y1 = Signal(x)(t1)    
 
-    bar = [max(x2 * make_signal(tau - t1, x)) for tau in t1]
+    bar = [max(x2 * Signal(x)(tau - t1)) for tau in t1]
     
     z1 = x1 * x2
     z = np.convolve(y1, x2)[offset:offset + len(t1)] * dt
