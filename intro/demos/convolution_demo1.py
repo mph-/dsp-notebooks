@@ -29,7 +29,7 @@ def make_signal(t, name):
     raise ValueError('Unknown signal ' + name)
     
 
-def convolution_demo1_plot(x=signals[0], h=signals[0], t=0.5):
+def convolution_demo1_plot(x=signals[5], h=signals[5], t=0.5):
 
     N = 500
     tmax = 5
@@ -54,14 +54,19 @@ def convolution_demo1_plot(x=signals[0], h=signals[0], t=0.5):
     axes = fig.axes
     axes[0].plot(t1, x2)
     axes[0].legend((r'$x(%s-\tau)$' % t, r'$h(\tau)$'))
+    axes[0].set_xlabel(r'$\tau$')
     axes[1].fill_between(t1, 0, z1, facecolor='none', edgecolor='b', hatch='///')
     axes[1].legend((r'$x(%s-\tau) h(\tau)$' % t, ))    
     axes[1].set_ylim(0, max(bar))
+    axes[1].set_xlabel(r'$\tau$')    
     axes[2].plot((t, t), (0, foo), 'r')
     axes[2].plot(t, foo, 'ro')    
-    axes[2].legend((r'$y(t)$', ))        
+    axes[2].legend((r'$y(t)$', ))
+    axes[2].set_xlabel('$t$')    
+
+    fig.tight_layout()
 
 def convolution_demo1():
     interact(convolution_demo1_plot, x=signals, h=signals,
-             t=(-5, 5, 0.1),  continuous_update=False)
+             t=(-5, 5, 0.1), continuous_update=False)
     
