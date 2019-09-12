@@ -20,3 +20,12 @@ bank account as convolution problem (compound interest)
 predicting the share market (econometrics is glorified signal
 processing)
 
+
+ This can be written as a convolution
+
+$$y[n] = \sum_{m=0}^{M-1} h[m] x[n - m],$$
+
+where the impulse response is a sequence of $M$ values each of amplitude $1/M$, i.e.,
+
+$$h[m] = \left\{\frac{1}{M}, \frac{1}{M}, \cdots \frac{1}{M}\right\}.$$
+
