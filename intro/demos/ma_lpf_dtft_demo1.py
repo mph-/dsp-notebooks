@@ -2,10 +2,9 @@
 import numpy as np
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
-from .lib.signal_plot import signal_plot, signal_plot_with_dtft, spectrum_modes
+from .lib.signal_plot import signal_plot, dtft_plot, spectrum_modes
 
-def ma_lpf_dtft_plot(M=10, fs=100, fmax=50, lollipop=True,
-                     mode='magnitude'):
+def ma_lpf_dtft_plot(M=10, fs=100, fmax=50, mode='magnitude'):
 
     N = 100
     t = np.arange(N) / fs
@@ -20,7 +19,7 @@ def ma_lpf_dtft_plot(M=10, fs=100, fmax=50, lollipop=True,
     f = np.arange(200) / 200 * fmax
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
     
-    signal_plot_with_dtft(t, x, f, X, lollipop=lollipop, mode=mode)
+    dtft_plot(f, X, mode=mode)
 
 def ma_lpf_dtft_demo1():
     interact(ma_lpf_dtft_plot, M=(10, 100),
