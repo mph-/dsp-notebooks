@@ -153,7 +153,9 @@ def dtft_plot_func(f, X, mode='real-imag', **kwargs):
 
     axes, kwargs = create_axes(1, **kwargs)
 
-    Plotter(axes, mode, lollipop=False).plot(f, X)
+    lollipop = kwargs.pop('lollipop', False)
+    log_frequency = kwargs.pop('log_frequecny', False)        
+    Plotter(axes, mode, lollipop=lollipop, log_frequency=log_frequency).plot(f, X, **kwargs)
     return axes
 
 def fourier_series_plot_func(n, X, mode='real-imag', **kwargs):

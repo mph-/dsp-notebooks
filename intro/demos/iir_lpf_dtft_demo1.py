@@ -5,7 +5,8 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from .lib.signal_plot import signal_plot, dtft_plot, spectrum_modes
 
-def iir_lpf_dtft_plot(alpha=0.5, fs=100, fmax=50, mode='magnitude'):
+def iir_lpf_dtft_plot(alpha=0.5, fs=100, fmax=50, mode='magnitude',
+                      log_frequency=False):
 
     N = 100
     t = np.arange(N) / fs
@@ -19,8 +20,8 @@ def iir_lpf_dtft_plot(alpha=0.5, fs=100, fmax=50, mode='magnitude'):
     
     f = np.arange(200) / 200 * fmax
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
-    
-    dtft_plot(f, X, mode=mode)
+
+    dtft_plot(f, X, mode=mode, log_frequency=log_frequency)    
 
 def iir_lpf_dtft_demo1():
     interact(iir_lpf_dtft_plot, alpha=(0.0, 1.0, 0.01),
