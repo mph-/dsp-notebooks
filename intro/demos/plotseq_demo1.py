@@ -49,8 +49,13 @@ def plotseq_demo1_plot(sequence='{1, _2, 3, 4, 5}'):
     s = sequence.strip()
     if s == '':
         return
-    if s[0] == '{' and s[-1] == '}':
-        s = s[1:-1]
+
+    # Be generous with the sequence formatting.
+    if s.startswith('{'):
+        s = s[1:]
+    if s.endswith('}'):
+        s = s[:-1]
+
     parts = s.split(',')
 
     count = s.count('_')
