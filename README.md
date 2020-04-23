@@ -1,7 +1,7 @@
 dsp-notebooks
 =============
 
-These are a collection of Jupyter notebooks for demonstrating signal processing to 300-level students.
+These are a collection of interactive Jupyter notebooks for demonstrating signal processing to 300-level students.
 
 
 Installation
@@ -20,7 +20,7 @@ $ cd dsp-notebooks
 $ jupyter notebook intro.py
 ```
 
-Then select a topic and click on (intro.ipynb) and then click `Run All` under the `Cell` menu.
+Then select a topic and then `Run All` under the `Cell` menu.
 
 
 Issues
