@@ -16,7 +16,28 @@ def whitenoise_plot(T=300, R=1e3, N=1000, B=100, seed=42, lollipop=True):
     t = np.arange(N) / fs
     x = np.random.standard_normal(N) * sigma
 
-    signal_plot(t, x, lollipop=lollipop)    
+    if ASD:
+        f = np.arange(N // 2) / (N * fs)
+        m = f != 0
+        X = f * 0
+        X[m] = 4 * k * T * R
+
+        axes, tmp = create_axes(2)
+        
+        axes[0].loglog(f[m], X[m])
+        axes[0].set_ylabel('Voltage ASD (V/rtHz)')
+        axes[0].set_xlabel('Frequency (Hz)')
+
+        ax = axes[1]
+        signal_plot(t, x * 1e6, lollipop=lollipop, axes=ax)
+
+        
+    else:
+        fig = signal_plot(t, x * 1e6, lollipop=lollipop)
+        ax = fig.axes[0]
+
+    ax.set_ylim(-1, 1)
+    ax.set_ylabel('Voltage (uV)')        
 
 def whitenoise_demo1():
     interact(whitenoise_plot, T=(0, 300, 10),

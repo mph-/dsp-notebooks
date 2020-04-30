@@ -154,7 +154,7 @@ def dtft_plot_func(f, X, mode='real-imag', **kwargs):
     axes, kwargs = create_axes(1, **kwargs)
 
     lollipop = kwargs.pop('lollipop', False)
-    log_frequency = kwargs.pop('log_frequecny', False)        
+    log_frequency = kwargs.pop('log_frequency', False)        
     Plotter(axes, mode, lollipop=lollipop, log_frequency=log_frequency).plot(f, X, **kwargs)
     return axes
 
