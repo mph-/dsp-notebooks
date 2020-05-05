@@ -24,7 +24,7 @@ def ma_lpf_dtft_plot(M=10, fs=100, fmax=50, mode='magnitude',
 
 def ma_lpf_dtft_demo1():
     interact(ma_lpf_dtft_plot, M=(2, 100),
-             fs=(10, 200, 10), fmax=(10, 200, 10),
+             fs=(10, 200, 10), fmax=(50, 200, 10),
              mode=spectrum_modes, continuous_update=False)
     
     
