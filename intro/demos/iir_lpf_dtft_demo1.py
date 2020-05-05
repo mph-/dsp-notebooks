@@ -21,10 +21,14 @@ def iir_lpf_dtft_plot(alpha=0.5, fs=100, fmax=50, mode='magnitude',
     f = np.arange(200) / 200 * fmax
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
 
-    dtft_plot(f, X, mode=mode, log_frequency=log_frequency)    
+    ylim = None
+    if 'dB' in mode:
+        ylim = (-50, 5)
+    
+    dtft_plot(f, X, mode=mode, log_frequency=log_frequency, ylim=ylim)    
 
 def iir_lpf_dtft_demo1():
-    interact(iir_lpf_dtft_plot, alpha=(0.0, 1.0, 0.01),
+    interact(iir_lpf_dtft_plot, alpha=(0.0, 0.999, 0.01),
              fs=(10, 200, 10), fmax=(10, 200, 10),
              mode=spectrum_modes, continuous_update=False)
     

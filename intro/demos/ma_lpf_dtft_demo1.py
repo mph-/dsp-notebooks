@@ -19,8 +19,12 @@ def ma_lpf_dtft_plot(M=10, fs=100, fmax=50, mode='magnitude',
     
     f = np.arange(200) / 200 * fmax
     w, X = signal.freqz(b, a, 2 * np.pi * f / fs)
+
+    ylim = None
+    if 'dB' in mode:
+        ylim = (-50, 5)
     
-    dtft_plot(f, X, mode=mode, log_frequency=log_frequency)
+    dtft_plot(f, X, mode=mode, log_frequency=log_frequency, ylim=ylim)
 
 def ma_lpf_dtft_demo1():
     interact(ma_lpf_dtft_plot, M=(2, 100),
