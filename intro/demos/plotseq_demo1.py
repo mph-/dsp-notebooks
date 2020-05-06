@@ -4,6 +4,7 @@ import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import display, Math
 from .lib.signal_plot import signal_plot
+from .lib.sequence import Sequence
 
 def foo(join, val, index):
 
@@ -45,41 +46,14 @@ def sumimpulses(seq, offset=0):
     return string
 
 def plotseq_demo1_plot(sequence='{1, _2, 3, 4, 5}'):
+    
+    seq = Sequence(sequence)
 
-    s = sequence.strip()
-    if s == '':
-        return
-
-    # Be generous with the sequence formatting.
-    if s.startswith('{'):
-        s = s[1:]
-    if s.endswith('}'):
-        s = s[:-1]
-
-    parts = s.split(',')
-
-    count = s.count('_')
-    if count > 1:
-        raise ValueError('More than one _ in %s' % sequence)
-
-    vals = []
-    underscore = 0
-    for m, elt in enumerate(parts):
-        elt = elt.strip()
-        if elt == '':
-            vals.append(0)
-        else:
-            if elt[0] == '_':
-                underscore = m
-                elt = elt[1:]
-            vals.append(float(elt))
-            
-    seq = np.array(vals)
     t = np.arange(len(seq))
 
-    display(Math(sumimpulses(seq, underscore)))    
+    display(Math(sumimpulses(seq, seq.origin)))    
     
-    fig = signal_plot(t - underscore, seq, lollipop=True)
+    fig = signal_plot(t - seq.origin, seq, lollipop=True)
     fig.axes[0].grid(True)
     
 def plotseq_demo1():

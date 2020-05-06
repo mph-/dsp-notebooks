@@ -87,3 +87,4 @@ from .mystery_audio_demo1 import *
 from .mystery_audio_demo2 import *
 from .flickernoise_demo1 import *
 from .thermalnoise_demo1 import *
+from .dt_convolution_demo1 import *
