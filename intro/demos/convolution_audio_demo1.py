@@ -48,5 +48,5 @@ def convolution_audio_demo1_play(signal_name='dalek-exterminate',
 def convolution_audio_demo1():
     interact(convolution_audio_demo1_play,
              signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan', 'york-minster'],
-             impulse_name=[None, 'york-minster', 'living-room', 'stairwell'],             
+             impulse_name=[None, 'york-minster', 'living-room', 'stairwell', 'bunker'],             
              continuous_update=False)

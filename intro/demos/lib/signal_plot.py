@@ -231,7 +231,7 @@ def signal_overplot(t1, x1, labels, **kwargs):
     # Fix colors for lollipop
     
     signal_plot_func(t1, x1, axes=axes, label=labels[0], color='C0', **kwargs)
-    axes.legend()
+    axes.legend(loc='upper right')
     return axes.figure    
 
 def signal_overplot2(t1, x1, t2, x2, labels, **kwargs):    
@@ -242,7 +242,7 @@ def signal_overplot2(t1, x1, t2, x2, labels, **kwargs):
     
     signal_plot_func(t1, x1, axes=axes, label=labels[0], color='C0', **kwargs)
     signal_plot_func(t2, x2, axes=axes, label=labels[1], color='C1', **kwargs)
-    axes.legend()
+    axes.legend(loc='upper right')    
     return axes.figure    
 
 def signal_overplot3(t1, x1, t2, x2, t3, x3, labels, **kwargs):    
@@ -254,7 +254,7 @@ def signal_overplot3(t1, x1, t2, x2, t3, x3, labels, **kwargs):
     signal_plot_func(t1, x1, axes=axes, label=labels[0], color='C0', **kwargs)
     signal_plot_func(t2, x2, axes=axes, label=labels[1], color='C1', **kwargs)
     signal_plot_func(t3, x3, axes=axes, label=labels[2], color='C2', **kwargs)
-    axes.legend()
+    axes.legend(loc='upper right')
     return axes.figure
 
 

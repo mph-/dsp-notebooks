@@ -16,7 +16,7 @@ def foo(join, val, index):
     if val < 0:
         sign = '-'
         val = -val
-    if val.is_integer:
+    if isinstance(val, int) or val.is_integer():
         if val == 1:
             num = ''
         else:
