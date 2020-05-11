@@ -14,7 +14,7 @@ def lollipop_plot(x, y, axes=None, markersize=4, **kwargs):
     if len(x) > 1:
         x = np.round(x / (x[1] - x[0]))
     
-    markerline, stemlines, baseline = axes.stem(x, y, **kwargs)
+    markerline, stemlines, baseline = axes.stem(x, y, use_line_collection=True, **kwargs)
     setp(baseline, 'linewidth', 0, 'color', color)
     setp(markerline, 'markersize', markersize, 'color', color)
     setp(stemlines, 'color', color)

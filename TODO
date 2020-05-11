@@ -29,3 +29,24 @@ where the impulse response is a sequence of $M$ values each of amplitude $1/M$, 
 
 $$h[m] = \left\{\frac{1}{M}, \frac{1}{M}, \cdots \frac{1}{M}\right\}.$$
 
+Interactive real-time
+https://github.com/mwickert/scikit-dsp-comm
+
+vokoscreen record microphone and speaker monitor
+May beed to use headphones to prevent feedback
+
+
+echo cancellation, noise reduction and automatic gain control.
+
+
+Echo cancellation  -- uses adaptive filter
+
+You speak, it gets sent to your friend, they hear it via a speaker but
+so does their microphone.  So it gets send back to you.  Thus you
+would hear a delayed echo of youself.  Signal processing is used to
+reduce this delayed echo otherwise is it continuously re-echoed.
+Sometimes this leads to a howl, depending on the gains.  This is an
+example of an unstable system.
+
+You have probably heard feedback problems at a concert.
+
