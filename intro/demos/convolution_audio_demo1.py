@@ -4,12 +4,15 @@ import scipy.io.wavfile
 import scipy.signal as signal
 from ipywidgets import interact, interactive, fixed, interact
 from IPython.display import Audio, display
-from .lib.filter_plot import filter_plot
+from .lib.signal_plot import signal_plot
 
 def convolution_audio_demo1_play(signal_name='dalek-exterminate',
-                                 impulse_name='york-minster'):
+                                 impulse_name='york-minster',
+                                 show_impulse=True, show_log=False):
 
     if impulse_name is None:
+        if signal_name is None:
+            raise ValueError('Need to have a signal and/or an impulse response')
         h = np.ones(1)
     else:
         fs, h = scipy.io.wavfile.read('data/%s.wav' % impulse_name)
@@ -18,17 +21,25 @@ def convolution_audio_demo1_play(signal_name='dalek-exterminate',
         except:
             pass
         h = np.asarray(h, float)
-    
-    fs, x = scipy.io.wavfile.read('data/%s.wav' % signal_name)
-    try:
-        x = x[:, 0]
-    except:
-        pass
+
+    if signal_name is None:
+        x = np.array([1])
+    else:
+        fs, x = scipy.io.wavfile.read('data/%s.wav' % signal_name)
+        try:
+            x = x[:, 0]
+        except:
+            pass
 
     b = h
     a = (1, )
-    
-    #filter_plot(b, a, fs, bode=bode)
+
+    if show_impulse:
+        h = h / 32767
+        if show_log:
+            h = np.log10(abs(h) + 1e-12)
+            h[h < -4] = -4
+        signal_plot(np.arange(len(h)) / fs, h)
 
     if False:
         # Too slow
@@ -47,6 +58,6 @@ def convolution_audio_demo1_play(signal_name='dalek-exterminate',
 
 def convolution_audio_demo1():
     interact(convolution_audio_demo1_play,
-             signal_name=['dalek-exterminate', 'dalek-gun', 'dalek-groan', 'york-minster'],
+             signal_name=[None, 'dalek-exterminate', 'dalek-gun', 'dalek-groan', 'york-minster'],
              impulse_name=[None, 'york-minster', 'living-room', 'stairwell', 'bunker'],             
              continuous_update=False)

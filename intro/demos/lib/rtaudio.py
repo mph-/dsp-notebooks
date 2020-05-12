@@ -71,3 +71,12 @@ class RTAudio(object):
 
         #self.p.terminate()
         
+    def devices(self):
+
+        devices = []
+        for m in range(self.p.get_device_count()):
+            dev = self.p.get_device_info_by_index(m)
+            
+            devices.append({'name': dev['name'], 'inputs': dev['maxInputChannels'], 'outputs': dev['maxOutputChannels']})
+        return devices
+    
