@@ -9,7 +9,9 @@ ftypes = ['Butterworth', 'Bessel', 'Chebyshev I', 'Chebyshev II', 'Elliptical']
 class DTAnalogFilter(DTFilterBase):
 
     def __init__(self, fs=1, fb=None, ftype='Butterworth',
-                 btype='low', order=1):
+                 btype='low', order=1, rp=3, rs=40):
+        """Passband ripple rp and stopband ripple rs in dB.
+        These parameters are not used for all filters."""
 
         dt = 1 / fs
 
@@ -28,14 +30,11 @@ class DTAnalogFilter(DTFilterBase):
         elif ftype == 'Bessel':
             self.b, self.a = bessel(order, 2 * fb * dt, btype)
         elif ftype == 'Chebyshev I':
-            # 3 dB passband ripple
-            self.b, self.a = cheby1(order, 3, 2 * fb * dt, btype)
+            self.b, self.a = cheby1(order, rp, 2 * fb * dt, btype)
         elif ftype == 'Chebyshev II':
-            # 40 dB stopband ripple
-            self.b, self.a = cheby2(order, 40, 2 * fb * dt, btype)
+            self.b, self.a = cheby2(order, rs, 2 * fb * dt, btype)
         elif ftype == 'Elliptical':
-            # 3 dB passband ripple, 40 dB stopband ripple
-            self.b, self.a = ellip(order, 3, 40, 2 * fb * dt, btype)
+            self.b, self.a = ellip(order, rp, rs, 2 * fb * dt, btype)
         else:
             raise ValueError('Unknown filter ' + ftype)
         
