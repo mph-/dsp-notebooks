@@ -52,7 +52,9 @@ class Plotter(object):
         axes.set_xlabel(self.xlabel)
 
     def plot_lollipop(self, x, y, **kwargs):
-        axes = kwargs.pop('axes', self.axes)        
+        axes = kwargs.pop('axes', self.axes)
+        log_frequency = kwargs.pop('log_frequency', False)
+        # TODO, handle log_frequency
         lollipop_plot(x, y, axes=axes, **kwargs)
         axes.set_xlabel(self.xlabel)        
 
