@@ -26,7 +26,8 @@ def sampling_demo1_plot(fs=5, lollipop=True):
     #xz = np.fft.irfft(Xz) * (Q * N)
     tz = np.arange(len(xz)) / (Q * fs)
     
-    signal_plot_with_interpolated(t, x, tz, xz, lollipop=lollipop, ylim=(-1.1, 1.1))
+    signal_plot_with_interpolated(t, x, tz, xz, lollipop=lollipop,
+                                  ylim=(-1.1, 1.1))
 
 def sampling_demo1():
     interact(sampling_demo1_plot, fs=(0.2, 10, 0.2),
