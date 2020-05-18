@@ -11,7 +11,7 @@ def dft_demo1_plot(N=100, cycles=2, mode='real-imag', lollipop=True):
     
     t = np.arange(N) / fs
     x = np.cos(2 * np.pi * f0 * t)
-    X = np.fft.rfft(x) / N
+    X = np.fft.rfft(x)
 
     f = np.arange(len(X)) / N * fs
 
