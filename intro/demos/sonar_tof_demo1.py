@@ -7,7 +7,7 @@ from .lib.utils import rect
 rmin = 0.05
 rmax = 0.5
 
-def sonar_tof_plot(r=0.1, spreading_loss=False, noise=False):
+def sonar_tof_demo1_plot(r=0.1, spreading_loss=False, noise=False):
 
     f0 = 40e3
     fs = f0 * 10
@@ -36,7 +36,7 @@ def sonar_tof_plot(r=0.1, spreading_loss=False, noise=False):
     
 
 def sonar_tof_demo1():
-    interact(sonar_tof_plot, Tp_ms=(0.1, 0.5, 0.1), r = (rmin, rmax, 0.025),
+    interact(sonar_tof_demo1_plot, r = (rmin, rmax, 0.025),
              continuous_update=False)
     
     

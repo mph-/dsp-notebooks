@@ -1,6 +1,6 @@
 # M. P. Hayes UCECE
 import numpy as np
-from scipy.signal import butter, lfilter, freqz
+from scipy.signal import lfilter, freqz
 from scipy.io import wavfile
 from matplotlib.pyplot import figure
 from ipywidgets import interact, interactive, fixed, interact
