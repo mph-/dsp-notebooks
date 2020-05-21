@@ -92,7 +92,7 @@ def sonar_demo1_plot(X=10, alpha=20, beamwidth=20, steps=10,
     
     draw_target(axes, (X, 0), alpha=alpha, W=30, block=not virtual_source)
     
-    draw_reflected_wave(axes, (0, 0), step=2, N=steps, raylen=X + 2, X=10,
+    draw_reflected_wave(axes, (0, 0), step=2, N=steps, raylen=X + 2, X=X,
                         alpha=alpha, theta=beamwidth)
     
     draw_sonar(axes, (0, 0))
@@ -104,5 +104,5 @@ def sonar_demo1_plot(X=10, alpha=20, beamwidth=20, steps=10,
 
 
 def sonar_demo1():
-    interact(sonar_demo1_plot, X = (4, 12, 2),  alpha=(-30, 30, 5),
+    interact(sonar_demo1_plot, X = (4, 20, 2),  alpha=(-30, 30, 5),
              beamwidth=(5, 30, 5), continuous_update=False)
