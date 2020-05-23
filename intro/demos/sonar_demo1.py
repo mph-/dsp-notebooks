@@ -24,12 +24,12 @@ def draw_target(axes, origin, W=30, L=40, H=20, alpha=0,
     axes.add_patch(p1)    
 
 
-def sonar_demo1_plot(X=10, alpha=20, beamwidth=20, steps=10,
+def sonar_demo1_plot(X=16, alpha=20, beamwidth=20, steps=10,
                      virtual_source=False):
 
     origin = (0, 0)
     
-    fig, axes = subplots(1)
+    fig, axes = subplots(1, figsize=(8, 4))
     
     sonar = Sonar(origin=origin)
     sonar.draw(axes)
@@ -37,8 +37,8 @@ def sonar_demo1_plot(X=10, alpha=20, beamwidth=20, steps=10,
     wave = Wave(origin=origin, step=2, N=steps, raylen=X, theta=beamwidth)
     wave.draw(axes)
 
-    xv = X * 2 * np.cos(np.radians(-alpha))**2
-    yv = X * 2 * np.cos(np.radians(-alpha)) * np.sin(np.radians(-alpha))
+    xv = origin[0] + X * 2 * np.cos(np.radians(-alpha))**2
+    yv = origin[1] + X * 2 * np.cos(np.radians(-alpha)) * np.sin(np.radians(-alpha))
     vorigin = (xv, yv)
 
     draw_target(axes, (X, 0), alpha=alpha, W=30)
@@ -55,5 +55,5 @@ def sonar_demo1_plot(X=10, alpha=20, beamwidth=20, steps=10,
     #axes.set_xlim(-5, 15)    
 
 def sonar_demo1():
-    interact(sonar_demo1_plot, X = (4, 20, 2),  alpha=(-30, 30, 5),
+    interact(sonar_demo1_plot, X=(4, 20, 2), alpha=(-30, 30, 5),
              beamwidth=(5, 30, 5), continuous_update=False)
