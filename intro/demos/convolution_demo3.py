@@ -58,7 +58,7 @@ def convolution_demo3_plot(h='exp(-t) u(t)', T=0.2, steps=4):
     #fig.tight_layout()
 
 def convolution_demo3():
-    interact(convolution_demo3_plot, x=signals, h=signals,
+    interact(convolution_demo3_plot, h=signals,
              T=(0.05, 0.8, 0.05),             
              steps=(1, 10, 1),
              continuous_update=False)
