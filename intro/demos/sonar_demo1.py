@@ -1,7 +1,7 @@
 import numpy as np
 from ipywidgets import interact, interactive, fixed
 from matplotlib.pyplot import subplots, show
-from matplotlib.patches import Arc, Rectangle, Polygon
+from matplotlib.patches import Polygon
 from .lib.sonar import Sonar
 from .lib.wave import Wave
 import numpy as np
@@ -56,4 +56,4 @@ def sonar_demo1_plot(X=16, alpha=20, beamwidth=20, steps=10,
 
 def sonar_demo1():
     interact(sonar_demo1_plot, X=(4, 20, 2), alpha=(-30, 30, 5),
-             beamwidth=(5, 30, 5), continuous_update=False)
+             steps=(0, 20, 1), beamwidth=(5, 30, 5), continuous_update=False)
