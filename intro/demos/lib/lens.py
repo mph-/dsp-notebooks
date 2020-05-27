@@ -3,7 +3,7 @@ from matplotlib.patches import Arc
 
 class Lens(object):
 
-    def __init__(self, origin=(0, 0), H=30, f1=40, f2=40):
+    def __init__(self, origin=(0, 0), H=30, f1=30, f2=30):
 
         self.origin = origin
         self.H = H
