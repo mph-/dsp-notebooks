@@ -13,13 +13,20 @@ You can download the files from https://github.com/mph-/dsp-notebooks or better 
 $ git clone https://github.com/mph-/dsp-notebooks.git
 ```
 
-You will also need to install jupyter.  If you are not experience with Python packages, it is easiest to install Anaconda, https://www.anaconda.com/distribution/
+You will also need to install the Python package Jupyter or Microsoft vs code.  Jupyter is provided as part of Anaconda, https://www.anaconda.com/distribution/
+
+Other required Python packages are:
+1. numpy
+2. scipy
+3. matplotlib
+4. pyaudio
+5. ipywidgets
 
 
 Running
 -------
 
-You can then run the notebooks either through an IDE or from the command line:
+You can then run the notebooks either through an IDE (such as Microsoft vs code with Python extensions) or from the command line:
 
 ```console
 $ cd dsp-notebooks
