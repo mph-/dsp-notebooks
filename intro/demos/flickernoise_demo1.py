@@ -19,7 +19,7 @@ def flickernoise_plot(alpha=3, B=100, N=1000, seed=42, ASD=True,
     x = noise.realisation()
 
     if ASD:
-        f = np.arange(N // 2) / (N * fs)
+        f = np.arange(N // 2) / N * fs
         m = f != 0
         X = f * 0
         X[m] = alpha * 1e-8 * f[m]**-0.5
