@@ -24,9 +24,11 @@ def rect_demo1_plot(T=1, mode='real-imag'):
     signal_plot_with_dft(t, x, f, X, mode=mode, ylim2=ylim2)
     show()
 
+    
 def rect_demo1():
     interact(rect_demo1_plot, T=(0.1, 5, 0.1), mode=spectrum_modes,
              continuous_update=False)
+
     
 def sinc_demo1_plot(T=1, mode='real-imag'):
 
@@ -46,9 +48,11 @@ def sinc_demo1_plot(T=1, mode='real-imag'):
     
     signal_plot_with_dft(t, x, f, X, mode=mode, ylim2=ylim2)
 
+    
 def sinc_demo1():
     interact(sinc_demo1_plot, T=(0.1, 5, 0.1), mode=spectrum_modes,
              continuous_update=False)
+
     
 def toneburst_fourier_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
 
@@ -64,7 +68,8 @@ def toneburst_fourier_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
     X = 0.5 * T * sinc((f - f0) * T) * np.exp(1j * np.radians(phase)) + 0.5 * T * sinc((f + f0) * T) * np.exp(-1j * np.radians(phase))
     
     signal_plot_with_dft(t, x, f, X, mode=mode)
-
+3
+    
 def toneburst_fourier_demo1():
     interact(toneburst_fourier_demo1_plot, T=(0.1, 8, 0.1),
              f0=(0, 10),
@@ -72,6 +77,16 @@ def toneburst_fourier_demo1():
              mode=spectrum_modes,
              continuous_update=False)
 
+def fourier_hermitian_symmetry_demo1_plot(phase=0):
+    return toneburst_fourier_demo1_plot(T=1, f0=5, phase=phase, mode='real-imag')
+
+    
+def fourier_hermitian_symmetry_demo1():
+    interact(fourier_hermitian_symmetry_demo1_plot,
+             phase=(-180, 180, 15),
+             continuous_update=False)    
+
+    
 def dirac_delta_demo1_plot(alpha=0.05, mode='real-imag'):
 
     tmax = 20
@@ -89,6 +104,7 @@ def dirac_delta_demo1_plot(alpha=0.05, mode='real-imag'):
     ylim = axes[0].get_ylim()
     axes[0].set_ylim(0, ylim[1])
 
+    
 def dirac_delta_demo1():
     interact(dirac_delta_demo1_plot, alpha=(0.01, 0.1, 0.01),
              mode=spectrum_modes,
