@@ -12,6 +12,7 @@ class Bandpass2Base(FilterBase):
         zeta, omega0 = self.zeta, self.omega0
         return 2 * zeta * omega0 * s / (s**2 + 2 * zeta * omega0 * s + omega0**2)
 
+    
 class Bandpass2UnderDamped(Bandpass2Base):
 
     def __init__(self, zeta, omega0):

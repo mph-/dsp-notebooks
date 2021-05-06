@@ -19,4 +19,3 @@ class Lowpass1(FilterBase):
     def impulse_response(self, t):
         alpha = self.alpha                
         return alpha * exp(-alpha * t) * (t >= 0)
-        
