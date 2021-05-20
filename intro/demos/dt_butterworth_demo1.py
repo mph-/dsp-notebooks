@@ -9,7 +9,7 @@ from IPython.display import display, Math, Latex
 btypes = ['Low-pass', 'High-pass']
 
 def dt_butterworth_demo1_plot(order=1, btype=btypes[0], fb=20, fs=100,
-                              mode=response_modes[0], show_vectors=True):
+                              mode=response_modes[0]):
 
     if fb == 0:
         fb = 0.01
@@ -20,7 +20,7 @@ def dt_butterworth_demo1_plot(order=1, btype=btypes[0], fb=20, fs=100,
 
     dtfilter.polezero_plot_with_response(50, mode=mode)
 
-    if show_vectors:
+    if True:
         a = dtfilter.a
         b = dtfilter.b
 

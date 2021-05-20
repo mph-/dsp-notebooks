@@ -53,8 +53,8 @@ def filtered_noise_demo1_plot(filter_name=filter_names[0], alpha=5, seed=1):
 
     y = filter_noise(x, H, f)
 
-    f_e, S_Ye = sig.welch(y, fs)
-    A_Ye = np.sqrt(S_Ye)
+    # f_e, S_Ye = sig.welch(y, fs)
+    # A_Ye = np.sqrt(S_Ye)
 
     A_X = A0
     A_Y = A_X * abs(H)
