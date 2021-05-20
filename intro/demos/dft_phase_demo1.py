@@ -18,7 +18,9 @@ def dft_phase_demo1_plot(N=100, cycles=2, phase=0, mode='real-imag',
 
     f = np.arange(len(X)) / N * fs
 
-    signal_plot_with_dft(t, x, f, X, lollipop=lollipop, mode=mode)
+    fig = signal_plot_with_dft(t, x, f, X, lollipop=lollipop, mode=mode)
+    fig.axes[1].set_ylim(-0.6, 0.6)
+    
     show()
 
 def dft_phase_demo1():
@@ -26,11 +28,6 @@ def dft_phase_demo1():
              phase=(-180, 180, 15),
              mode=spectrum_modes,
              continuous_update=False)
-    
-    
-
-    
-
 
 
 
