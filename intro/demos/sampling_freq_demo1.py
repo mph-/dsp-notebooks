@@ -6,7 +6,7 @@ import scipy.signal as signal
 from .lib.utils import butterworth_lowpass
 
 
-def sampling_freq_demo1_plot(fb=2, fs=5, order=2, bode=False):
+def sampling_freq_demo1_plot(fb=2, fs=5, order=2, Nimages=0, bode=False):
 
     mode = 'magnitude'
     log_frequency = False
@@ -20,7 +20,7 @@ def sampling_freq_demo1_plot(fb=2, fs=5, order=2, bode=False):
         fs1 = 50        
         f = np.arange(0, N) * fs1 / N        
     else:
-        fs1 = 16
+        fs1 = fs * 4
         f = np.arange(-N//2, N//2) * fs1 / N        
         
     S = butterworth_lowpass(f, fb, order)
@@ -31,12 +31,10 @@ def sampling_freq_demo1_plot(fb=2, fs=5, order=2, bode=False):
     if log_frequency:
         plot = axes.semilogx
         axes.set_ylim(-60, 2)
-        M = 20
     else:
         plot = axes.plot
-        M = 4
 
-    for m in range(0, M):
+    for m in range(0, Nimages):
 
         k = m // 2 + 1
         s = (m % 2) * 2 - 1
@@ -51,7 +49,7 @@ def sampling_freq_demo1_plot(fb=2, fs=5, order=2, bode=False):
 
     if log_frequency:
         axes.set_xticks((0.01 * fs, 0.1 * fs, fs, 2 * fs, 3 * fs, 4 * fs))
-        axes.set_xticklabels(('0.001 fs', '0.1 fs', 'fs', '2fs', '3fs'))
+        axes.set_xticklabels(('0.001 fs', '0.1 fs', 'fs', '2fs', '3fs', '4fs'))
     else:
         axes.set_xticks((-2 * fs, -fs, 0, fs, 2 * fs))
         axes.set_xticklabels(('-2 fs', '-fs', '0', 'fs', '2fs'))
@@ -59,7 +57,5 @@ def sampling_freq_demo1_plot(fb=2, fs=5, order=2, bode=False):
         
 def sampling_freq_demo1():
     interact(sampling_freq_demo1_plot, fb=(1, 5, 0.5),
-             fs=(4, 20, 0.5),             
-             order=(1, 10, 1),
+             fs=(4, 20, 0.5), Nimages=(0, 10, 1), order=(1, 10, 1),
              continuous_update=False)
-    
