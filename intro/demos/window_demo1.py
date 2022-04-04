@@ -13,7 +13,7 @@ def window_plot(N=100, window='hamming', lollipop=False):
 
     x = signal.get_window(window, N)
     
-    signal_plot(t, x, lollipop=lollipop)    
+    signal_plot(t, x, lollipop=lollipop, ylim=(0, 1.1))    
 
 def window_demo1():
     interact(window_plot, N=(20, 200, 20),
