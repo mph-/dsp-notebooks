@@ -1,8 +1,9 @@
 import numpy as np
 
+
 def noise_asd(An, f):
     """Calculate Gaussian noise with a one-sided amplitude spectral
-    density described by An at the evenly spaced frequencies given by f."""    
+    density described by An at the evenly spaced frequencies given by f."""
 
     fmax = f[-1]
     N = (len(An) - 1) * 2
@@ -57,7 +58,7 @@ class FlickerNoise(object):
             raise ValueError('Must specify N0 or gamma')
         if gamma is None:
             gamma = np.sqrt(N0)
-        
+
         if eta is None and beta is None:
             raise ValueError('Must specify eta or beta')
         if beta is None:
@@ -69,29 +70,34 @@ class FlickerNoise(object):
         if alpha is None:
             alpha = gamma * fc ** eta
         else:
-            fc = (alpha / gamma) ** (1.0 / eta)
+            if eta == 0:
+                fc = 1e15
+            else:
+                fc = (alpha / gamma) ** (1.0 / eta)
 
         N0 = gamma**2
         self.N0 = N0
-            
+
         if verbose:
-            print('beta=%.2f, N_0=%.2f nV^2/Hz, f_c=%.1f Hz' % (beta, N0 * 1e18, fc))
-            print('eta=%.2f, gamma=%.2f nV/rtHz, alpha=%.2e' % (eta, gamma * 1e9, alpha))            
-        
+            print('beta=%.2f, N_0=%.2f nV^2/Hz, f_c=%.1f Hz' %
+                  (beta, N0 * 1e18, fc))
+            print('eta=%.2f, gamma=%.2f nV/rtHz, alpha=%.2e' %
+                  (eta, gamma * 1e9, alpha))
+
         self.N = N
         self.fs = fs
         self.f = np.arange(N // 2 + 1) / N * fs
-        self._f = np.arange(N * over // 2 + 1) / (N * over) * fs        
+        self._f = np.arange(N * over // 2 + 1) / (N * over) * fs
         self.alpha = alpha
         self.eta = eta
-        self.beta = beta        
+        self.beta = beta
         self.gamma = gamma
         self.fc = fc
 
         self.Sn = alpha**2 * (abs(self.f) + 1e-20)**(-beta) + gamma**2
-        self.Sn[0] = self.Sn[1]        
+        self.Sn[0] = self.Sn[1]
         # This needs to be infinite..., let the user beware when plotting.
-        #self.Sn[0] = self.Sn[1] * 10
+        # self.Sn[0] = self.Sn[1] * 10
 
         self._Sn = alpha**2 * (abs(self._f) + 1e-20)**(-beta) + gamma**2
         # This needs to be infinite so zero is good enough!  Moreover,

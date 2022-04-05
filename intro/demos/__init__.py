@@ -87,6 +87,7 @@ from .polezero_gen4_demo1 import *
 from .mystery_audio_demo1 import *
 from .mystery_audio_demo2 import *
 from .flickernoise_demo1 import *
+from .noise_colour_audio_demo1 import *
 from .thermalnoise_demo1 import *
 from .dt_convolution_demo1 import *
 from .dt_butterworth_demo1 import *
@@ -100,4 +101,3 @@ from .impulse_response_demo1 import *
 from .ir_range_sensor_demo1 import *
 from .filtered_noise_demo1 import *
 from .aliasing_demo1 import *
-
