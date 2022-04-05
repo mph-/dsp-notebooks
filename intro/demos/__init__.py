@@ -101,3 +101,4 @@ from .impulse_response_demo1 import *
 from .ir_range_sensor_demo1 import *
 from .filtered_noise_demo1 import *
 from .aliasing_demo1 import *
+from .filter_demo1 import *

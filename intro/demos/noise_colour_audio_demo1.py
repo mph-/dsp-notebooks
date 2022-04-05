@@ -44,7 +44,7 @@ def noise_colour_audio_plot(colour='white'):
         signal_plot(t, x * 1e6, lollipop=lollipop, axes=ax)
 
     else:
-        m = range(0, 201)
+        m = range(0, 51)
         fig = signal_plot(t[m], x[m] * 1e6, lollipop=lollipop)
         ax = fig.axes[0]
 
