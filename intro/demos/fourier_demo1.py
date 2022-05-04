@@ -22,6 +22,7 @@ def rect_demo1_plot(T=1, mode='real-imag'):
     if mode in ('real-imag', 'magnitude'):
         ylim2 = (-1, 5)
 
+    print('a = %s' % round(1 / T, 2))
     signal_plot_with_dft(t, x, f, X, mode=mode, ylim2=ylim2)
     show()
 
@@ -69,7 +70,7 @@ def toneburst_fourier_demo1_plot(T=1, f0=5, phase=0, mode='real-imag'):
     X = 0.5 * T * sinc((f - f0) * T) * np.exp(1j * np.radians(phase)) + \
         0.5 * T * sinc((f + f0) * T) * np.exp(-1j * np.radians(phase))
 
-    ylim2 = (-0.5, 0.5)
+    ylim2 = (-1, 1)
     signal_plot_with_dft(t, x, f, X, mode=mode, ylim2=ylim2)
 
 
