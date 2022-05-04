@@ -11,8 +11,8 @@ all:
 	jupyter nbconvert --to=pdf --execute $< --output=$*
 
 push:
-	git push github master
-	git push origin master
+	git push github HEAD:master
+	git push origin HEAD:master
 
 # jupyter nbconvert --to notebook --execute noise_demo1.ipynb --output=new.ipynb
 
