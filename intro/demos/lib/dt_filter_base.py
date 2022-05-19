@@ -8,16 +8,17 @@ response_modes = ['Step response', 'Impulse response', 'Frequency response',
                   'AC response f0=1', 'AC response f0=10',
                   'DC response']
 
-ylims = {'Step response': (-0.5, 2.1), 'Impulse response' : (-0.5, 2.1),
-         'Frequency response': (-40, 20), 'AC response f0=1':(-2.1, 2.1),
-         'AC response f0=10':(-2.1, 2.1), 'DC response':(-2.1, 2.1)}
+ylims = {'Step response': (-0.5, 2.1), 'Impulse response': (-0.5, 2.1),
+         'Frequency response': (-40, 20), 'AC response f0=1': (-2.1, 2.1),
+         'AC response f0=10': (-2.1, 2.1), 'DC response': (-2.1, 2.1)}
+
 
 class DTFilterBase(object):
 
     @property
     def fs(self):
         return 1 / self.dt
-    
+
     @property
     def poles(self):
         return self.tf.poles
@@ -38,21 +39,21 @@ class DTFilterBase(object):
         phase = angle(H)
         mag = abs(H)
 
-        return mag * cos(2 * np.pi * f0 * n * self.dt + phase)    
+        return mag * cos(2 * np.pi * f0 * n * self.dt + phase)
 
     def frequency_response(self, f):
-        
+
         w, H = freqz(self.b, self.a, 2 * f * self.dt)
         return H
 
-    def impulse_response(self, n):    
+    def impulse_response(self, n):
 
         x = n * 0
-        x[n==0] = 1
+        x[n == 0] = 1
         h = lfilter(self.b, self.a, x)
         return h
 
-    def step_response(self, n):    
+    def step_response(self, n):
 
         x = n >= 0
         h = lfilter(self.b, self.a, x)
@@ -69,11 +70,11 @@ class DTFilterBase(object):
         elif mode == 'DC response':
             return np.ones_like(n)
         elif mode == 'AC response f0=1':
-            return cos(2 * np.pi * 1 * n * self.dt)    
+            return cos(2 * np.pi * 1 * n * self.dt)
         elif mode == 'AC response f0=10':
-            return cos(2 * np.pi * 10 * n * self.dt)           
+            return cos(2 * np.pi * 10 * n * self.dt)
         raise ValueError('Unknown mode=%s', mode)
-        
+
     def time_response(self, mode, n):
 
         if mode == 'Step response':
@@ -85,7 +86,7 @@ class DTFilterBase(object):
         elif mode == 'AC response f0=1':
             return self.ac_response(n, 1)
         elif mode == 'AC response f0=10':
-            return self.ac_response(n, 10)        
+            return self.ac_response(n, 10)
         raise ValueError('Unknown mode=%s', mode)
 
     def response(self, mode, n):
@@ -96,21 +97,22 @@ class DTFilterBase(object):
             return f, self.frequency_response(f)
         else:
             return n, self.time_response(mode, n)
-    
+
     def polezero_plot(self, axes=None, **kwargs):
 
         from matplotlib.pyplot import Circle
-        
+
         def annotate(axes, roots, offset=None):
             if offset is None:
                 xmin, xmax = axes.get_xlim()
                 offset = (xmax - xmin) / 27
-        
+
             plist = list(roots)
             for root in set(roots):
                 num = plist.count(root)
                 if num > 1:
-                    axes.text(root.real + offset, root.imag + offset, '%d' % num)
+                    axes.text(root.real + offset,
+                              root.imag + offset, '%d' % num)
 
         if axes is None:
             fig, axes = subplots(1)
@@ -125,54 +127,56 @@ class DTFilterBase(object):
 
         zeros = self.zeros
         axes.plot(zeros.real, zeros.imag, 'C0o', ms=20, fillstyle='none')
-        annotate(axes, zeros)        
+        annotate(axes, zeros)
 
-        axes.add_artist(Circle((0, 0), 1, color='blue', linestyle='--', fill=False))
+        axes.add_artist(Circle((0, 0), 1, color='blue',
+                        linestyle='--', fill=False))
         a = np.hstack((poles, zeros))
 
         bbox = axes.get_window_extent()
         aspect = bbox.width / bbox.height
         axes.set_xlim(-1.2, 1.2)
-        axes.set_ylim(-1.2, 1.2)        
+        axes.set_ylim(-1.2, 1.2)
 
-        #axes.axis('equal')
-        
-    def response_plot(self, n=100, mode=response_modes[0], 
+        # axes.axis('equal')
+
+    def response_plot(self, n=100, mode=response_modes[0],
                       axes=None, ylim=None, **kwargs):
 
         if axes is None:
             fig, axes = subplots(1)
-        
+
         nn, y = self.response(mode, n)
 
         if 'Frequency' in mode:
             f = nn
-            
-            mlines = axes.semilogx(f, 20 * np.log10(abs(y)), label='magnitude (dB)')
-            axes.set_xlabel('Frequency (Hz)')
+
+            mlines = axes.semilogx(
+                f / self.fs, 20 * np.log10(abs(y)), label='magnitude (dB)')
+            axes.set_xlabel('Normalized Frequency')
             ax2 = axes.twinx()
-            plines = ax2.semilogx(f, np.degrees(np.arctan2(y.imag, y.real)), '-.',
-                                  label='phase (deg)', color='C1')
+            plines = ax2.semilogx(f / self.fs,
+                                  np.degrees(np.arctan2(y.imag, y.real)),
+                                  '-.', label='phase (deg)', color='C1')
             lines = mlines + plines
             labels = [l.get_label() for l in lines]
-            axes.legend(lines, labels)        
+            axes.legend(lines, labels)
             ax2.set_ylim(-180, 180)
             ax2.set_yticks((-180, -120, -60, 0, 60, 120, 180))
         else:
             # TODO lollipop
-            x = self.time_input(mode, n)        
+            x = self.time_input(mode, n)
 
             lollipop_plot(nn, x, color='C1', label='input', axes=axes)
             lollipop_plot(nn, y, color='C0', label='output', axes=axes)
             axes.set_xlabel('Sample')
-            axes.legend()                
+            axes.legend()
 
         if ylim is None:
             ylim = ylims[mode]
         axes.set_ylim(ylim)
         axes.grid(True)
 
-        
     def polezero_plot_with_response(self, n=20,
                                     mode=response_modes[0], axes=None,
                                     ylim=None, **kwargs):
@@ -182,10 +186,9 @@ class DTFilterBase(object):
 
         if isinstance(n, int):
             n = np.arange(-5, -5 + n)
-            
+
         self.polezero_plot(axes[0], **kwargs)
 
         self.response_plot(n, mode=mode, axes=axes[1], ylim=ylim, **kwargs)
 
         return axes
-        
