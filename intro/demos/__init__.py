@@ -92,6 +92,7 @@ from .flickernoise_demo1 import *
 from .noise_colour_audio_demo1 import *
 from .thermalnoise_demo1 import *
 from .dt_convolution_demo1 import *
+from .dt_filter_demo1 import *
 from .dt_butterworth_demo1 import *
 from .dt_analog_filter_demo1 import *
 from .dft_numerical_demo1 import *
