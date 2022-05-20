@@ -6,6 +6,7 @@ import scipy.signal as signal
 
 waveforms = ['1 Hz', '3 Hz', '1 Hz + 3 Hz']
 
+
 def reconstruction_demo2_plot(fs=5, lollipop=True, waveform='1 Hz + 3 Hz'):
 
     f0 = 1
@@ -13,7 +14,7 @@ def reconstruction_demo2_plot(fs=5, lollipop=True, waveform='1 Hz + 3 Hz'):
     T = cycles / f0
 
     N = int(fs * T)
-    
+
     t = np.arange(N) / fs
     x = np.zeros(N)
     if '1 Hz' in waveform:
@@ -25,14 +26,11 @@ def reconstruction_demo2_plot(fs=5, lollipop=True, waveform='1 Hz + 3 Hz'):
 
     xz = signal.resample(x, N * Q)
     tz = np.arange(len(xz)) / (Q * fs)
-    
-    signal_plot_with_interpolated(t, x, tz, xz, lollipop=lollipop, ylim=(-2.1, 2.1))
+
+    signal_plot_with_interpolated(
+        t, x, tz, xz, lollipop=lollipop, ylim=(-2.1, 2.1))
+
 
 def reconstruction_demo2():
-    interact(reconstruction_demo2_plot, M=(0.2, 10, 0.2), waveform=waveforms,
-             continuous_update=False)
-    
-    
-
-    
-
+    interact(reconstruction_demo2_plot, fs=(1, 20, 1), M=(0.2, 10, 0.2),
+             waveform=waveforms, continuous_update=False)

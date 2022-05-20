@@ -94,6 +94,7 @@ from .thermalnoise_demo1 import *
 from .dt_convolution_demo1 import *
 from .dt_filter_demo1 import *
 from .dt_filter_demo2 import *
+from .dt_filter_demo3 import *
 from .dt_butterworth_demo1 import *
 from .dt_analog_filter_demo1 import *
 from .dft_numerical_demo1 import *
