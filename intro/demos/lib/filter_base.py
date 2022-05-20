@@ -1,5 +1,6 @@
 from numpy import exp, sin, cos, sqrt, pi, angle
 
+
 class FilterBase(object):
 
     def dc_response(self, t):
@@ -14,11 +15,11 @@ class FilterBase(object):
         phase = angle(H)
         mag = abs(H)
 
-        return mag * cos(omega * t + phase)    
+        return mag * cos(omega * t + phase)
 
     def frequency_response(self, omega):
         return self.transfer_function(1j * omega)
-    
+
     def response(self, mode, t, omega):
 
         if mode == 'Step response':
@@ -32,7 +33,5 @@ class FilterBase(object):
         elif mode == 'AC response omega=1':
             return t, self.ac_response(t, 1)
         elif mode == 'AC response omega=10':
-            return t, self.ac_response(t, 10)        
-        raise ValueError('Unknown mode=%s', mode)                
-
-    
+            return t, self.ac_response(t, 10)
+        raise ValueError('Unknown mode=%s', mode)

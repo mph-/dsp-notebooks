@@ -1,16 +1,19 @@
 from matplotlib.pyplot import subplots
 from scipy.signal import freqz, lfilter
-from numpy import exp, sin, cos, sqrt, pi, angle
+from numpy import exp, sin, cos, sqrt, pi, angle, unwrap
 import numpy as np
 from .signal_plot import lollipop_plot
 
-response_modes = ['Step response', 'Impulse response', 'Frequency response',
+response_modes = ['Step response', 'Impulse response',
+                  'Frequency response', 'Frequency response (Bode)',
                   'AC response f0=1', 'AC response f0=10',
                   'DC response']
 
 ylims = {'Step response': (-0.5, 2.1), 'Impulse response': (-0.5, 2.1),
-         'Frequency response': (-40, 20), 'AC response f0=1': (-2.1, 2.1),
-         'AC response f0=10': (-2.1, 2.1), 'DC response': (-2.1, 2.1)}
+         'Frequency response (Bode)': (-40, 20),
+         'Frequency response': (0, 2),
+         'AC response f0=1': (-2.1, 2.1), 'AC response f0=10': (-2.1, 2.1),
+         'DC response': (-2.1, 2.1)}
 
 
 class DTFilterBase(object):
@@ -43,7 +46,7 @@ class DTFilterBase(object):
 
     def frequency_response(self, f):
 
-        w, H = freqz(self.b, self.a, 2 * f * self.dt)
+        w, H = freqz(self.b, self.a, f, fs=self.fs)
         return H
 
     def impulse_response(self, n):
@@ -91,7 +94,7 @@ class DTFilterBase(object):
 
     def response(self, mode, n):
 
-        if mode == 'Frequency response':
+        if mode in ('Frequency response', 'Frequency response (Bode)'):
             N = len(n)
             f = 0.5 * np.arange(N) / (N * self.dt)
             return f, self.frequency_response(f)
@@ -148,21 +151,41 @@ class DTFilterBase(object):
 
         nn, y = self.response(mode, n)
 
-        if 'Frequency' in mode:
+        if mode == 'Frequency response (Bode)':
             f = nn
 
             mlines = axes.semilogx(
-                f / self.fs, 20 * np.log10(abs(y)), label='magnitude (dB)')
-            axes.set_xlabel('Normalized Frequency')
+                f, 20 * np.log10(abs(y)), label='magnitude (dB)')
+            axes.set_xlabel('Frequency (Hz)')
             ax2 = axes.twinx()
-            plines = ax2.semilogx(f / self.fs,
-                                  np.degrees(np.arctan2(y.imag, y.real)),
+            phase = np.arctan2(y.imag, y.real)
+            phase_unwrapped = unwrap(phase)
+
+            plines = ax2.semilogx(f, np.degrees(phase_unwrapped),
                                   '-.', label='phase (deg)', color='C1')
             lines = mlines + plines
             labels = [l.get_label() for l in lines]
             axes.legend(lines, labels)
-            ax2.set_ylim(-180, 180)
-            ax2.set_yticks((-180, -120, -60, 0, 60, 120, 180))
+            # ax2.set_ylim(-180, 180)
+            # ax2.set_yticks((-180, -120, -60, 0, 60, 120, 180))
+
+        elif mode == 'Frequency response':
+            f = nn
+
+            mlines = axes.plot(f, abs(y), label='magnitude')
+            axes.set_xlabel('Frequency (Hz)')
+            ax2 = axes.twinx()
+            phase = np.arctan2(y.imag, y.real)
+            phase_unwrapped = unwrap(phase)
+
+            plines = ax2.plot(f, np.degrees(phase_unwrapped),
+                              '-.', label='phase (deg)', color='C1')
+            lines = mlines + plines
+            labels = [l.get_label() for l in lines]
+            axes.legend(lines, labels)
+            # ax2.set_ylim(-180, 180)
+            # ax2.set_yticks((-180, -120, -60, 0, 60, 120, 180))
+
         else:
             # TODO lollipop
             x = self.time_input(mode, n)
